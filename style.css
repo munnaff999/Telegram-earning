@@ -217,3 +217,65 @@ body {
   text-align: center;
   margin-top: 6px;
 }
+/* =========================
+   AUTH PAGE BACKGROUND
+========================= */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  padding: 20px;
+}
+
+/* =========================
+   AUTH BOX UPGRADE
+========================= */
+.auth-box {
+  width: 100%;
+  max-width: 360px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.auth-box h3 {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #4f46e5;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.auth-box input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79,70,229,0.15);
+}
+
+/* =========================
+   AUTH BUTTON
+========================= */
+.auth-box .btn {
+  margin-top: 6px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+}
+
+.auth-note {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 10px;
+  color: #666;
+}
