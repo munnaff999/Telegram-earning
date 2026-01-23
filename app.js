@@ -1,65 +1,29 @@
-async function initUser() {
-  await supabase.from("tg_users").upsert({
-    telegram_user_id: TELEGRAM_USER_ID,
-    username: TELEGRAM_USERNAME
-  });
+// INSTALL OFFER – EZmob / QualiClicks
+function openInstall() {
+  window.open(
+    "https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR&url=https://munnaff999.github.io/Telegram-earning/&subid=install_user",
+    "_blank"
+  );
 }
 
-async function loadBalance() {
-  const { data } = await supabase
-    .from("tg_users")
-    .select("balance")
-    .eq("telegram_user_id", TELEGRAM_USER_ID)
-    .single();
-
-  document.getElementById("balance").innerText = data.balance;
+// SURVEY – CPAgrip
+function openSurvey() {
+  window.open(
+    "https://playabledownloads.com/1869976/XDEVILEARNING",
+    "_blank"
+  );
 }
 
-async function loadOffers() {
-  const { data } = await supabase
-    .from("offers")
-    .select("*")
-    .eq("status", "active");
+// EXTRA ADS – Monetag (random rotation)
+function openMonetag() {
+  const links = [
+    "https://otieu.com/4/10508140",
+    "https://otieu.com/4/10508130",
+    "https://otieu.com/4/10507919",
+    "https://otieu.com/4/10508135",
+    "https://otieu.com/4/10508127"
+  ];
 
-  const box = document.getElementById("offers");
-  box.innerHTML = "";
-
-  data.forEach(o => {
-    box.innerHTML += `
-      <div class="offer">
-        <h4>${o.title}</h4>
-        <p>Reward: ₹${o.reward}</p>
-        <button onclick="doOffer('${o.id}','${o.external_link}')">Install</button>
-      </div>`;
-  });
-}
-
-async function doOffer(offerId, link) {
-  await supabase.from("offer_completions").insert({
-    telegram_user_id: TELEGRAM_USER_ID,
-    offer_id: offerId
-  });
-  window.open(link, "_blank");
-}
-
-initUser();
-loadBalance();
-loadOffers();
-function openOffer() {
-  window.open("https://otieu.com/4/10507919", "_blank");
-}
-let rewardTimer;
-
-function startOffer() {
-  window.open("https://otieu.com/4/10507919", "_blank");
-
-  document.getElementById("status").innerText =
-    "⏳ Offer in progress... please wait 30 seconds";
-
-  rewardTimer = setTimeout(() => {
-    document.getElementById("status").innerText =
-      "✅ Offer completed! ₹10 added to your balance";
-
-    // yaha baad me Supabase balance update karenge
-  }, 30000);
+  const randomLink = links[Math.floor(Math.random() * links.length)];
+  window.open(randomLink, "_blank");
 }
