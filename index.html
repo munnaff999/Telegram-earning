@@ -1,30 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+
+  <!-- Monetag Verification -->
   <meta name="monetag" content="5ff40977331d2ae61acd69241c8049a1">
+
   <title>Earn Rewards</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- ===== HEADER ===== -->
 <div class="header">
-  <h2>Earn Rewards</h2>
+  <h2>💰 Earn Rewards</h2>
   <p>Balance: ₹<span id="balance">0</span></p>
 </div>
 
-<div id="offers" class="offers"></div>
-  <button class="offer-btn" onclick="window.open('https://otieu.com/4/10507919','_blank')">
-  🎁 Complete Offer & Earn ₹10
-  </button>
+<!-- ===== MAIN CONTENT ===== -->
+<div class="container">
 
-<div class="nav">
-  <button onclick="location.href='index.html'">Offers</button>
-  <button onclick="location.href='admin.html'">Admin</button>
+  <!-- SURVEYS -->
+  <h3 class="section-title">📝 Surveys</h3>
+
+  <div class="offer-card">
+    <div>
+      <h4>Quick Survey</h4>
+      <p>1–3 minutes</p>
+      <span class="reward">Earn ₹3</span>
+    </div>
+    <button onclick="openSurvey()">Start</button>
+  </div>
+
+  <div class="offer-card">
+    <div>
+      <h4>Standard Survey</h4>
+      <p>5–10 minutes</p>
+      <span class="reward">Earn ₹7</span>
+    </div>
+    <button onclick="openSurvey()">Start</button>
+  </div>
+
+  <div class="offer-card">
+    <div>
+      <h4>Premium Survey</h4>
+      <p>15–20 minutes</p>
+      <span class="reward">Earn ₹15</span>
+    </div>
+    <button onclick="openSurvey()">Start</button>
+  </div>
+
+  <!-- APPS -->
+  <h3 class="section-title">📲 App Offers</h3>
+
+  <div class="offer-card">
+    <div>
+      <h4>Install & Signup</h4>
+      <p>Install app and complete signup</p>
+      <span class="reward">Earn ₹10</span>
+    </div>
+    <button onclick="openOffer()">Install</button>
+  </div>
+
+  <div class="offer-card">
+    <div>
+      <h4>Install + Signup + KYC</h4>
+      <p>Complete full verification</p>
+      <span class="reward">Earn ₹20</span>
+    </div>
+    <button onclick="openOffer()">Install</button>
+  </div>
+
 </div>
 
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
-<script src="app.js"></script>
+<!-- ===== STATUS ===== -->
+<div id="status" class="status"></div>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  function openSurvey() {
+    document.getElementById("status").innerText =
+      "⏳ Survey started. Complete it honestly. Reward will be added after approval.";
+    
+    window.open("https://your-survey-link-here", "_blank");
+  }
+
+  function openOffer() {
+    document.getElementById("status").innerText =
+      "⏳ Offer in progress. Please complete all steps.";
+    
+    window.open("https://otieu.com/4/10507919", "_blank");
+  }
+</script>
+
 </body>
 </html>
