@@ -2,94 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Earn App</title>
+  <title>Earn Money App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ================= LOGIN / SIGNUP ================= -->
-<div class="auth-wrapper" id="authSection">
+<!-- ============ AUTH ============ -->
+<div id="authSection" class="auth-wrapper">
   <div class="auth-box">
-    <h3>Login / Signup</h3>
+    <h2>Earn Money</h2>
 
-    <input type="email" id="email" placeholder="Enter Email">
-    <input type="password" id="password" placeholder="Enter Password">
+    <input type="email" id="email" placeholder="Email address">
+    <input type="password" id="password" placeholder="Password">
 
-    <button class="btn" onclick="login()">Login</button>
-    <button class="btn btn-primary" onclick="signup()">Signup</button>
+    <button onclick="login()">Login</button>
+    <button class="primary" onclick="signup()">Sign Up</button>
 
-    <p class="auth-note">100% secure • Fast withdrawal</p>
+    <p class="small">Secure login • Real rewards</p>
   </div>
 </div>
 
-<!-- ================= DASHBOARD ================= -->
+<!-- ============ DASHBOARD ============ -->
 <div id="dashboard" style="display:none;">
 
-  <!-- HEADER -->
-  <div class="header">
+  <header>
     <div>
       <strong id="userEmail"></strong><br>
       Balance: <span id="balance">₹0</span>
     </div>
-    <button class="btn small" onclick="logout()">Logout</button>
-  </div>
+    <button onclick="logout()">Logout</button>
+  </header>
 
-  <!-- STATUS -->
-  <p id="status" class="status-text"></p>
+  <p id="status" class="status"></p>
 
-  <!-- TASKS -->
-  <div class="card">
-    <h4>🔥 Earn Money</h4>
-
-    <button class="btn btn-install"
-      onclick="startOffer(10,'https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR&url=https://munnaff999.github.io/Telegram-earning/')">
-      Install App + Signup – ₹10
+  <section class="card">
+    <h3>📲 App Install</h3>
+    <button onclick="startOffer(10,'https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR&url=https://munnaff999.github.io/Telegram-earning/&subid=&query=')">
+      Install App & Earn ₹10
     </button>
+  </section>
 
-    <button class="btn btn-survey"
-      onclick="startOffer(15,'https://playabledownloads.com/1869976/XDEVILEARNING')">
-      Complete Survey – ₹15
+  <section class="card">
+    <h3>📝 Surveys (₹1)</h3>
+
+    <button onclick="startOffer(1,'https://otieu.com/4/10508140')">Survey 1</button>
+    <button onclick="startOffer(1,'https://otieu.com/4/10508130')">Survey 2</button>
+    <button onclick="startOffer(1,'https://otieu.com/4/10507919')">Survey 3</button>
+    <button onclick="startOffer(1,'https://otieu.com/4/10508135')">Survey 4</button>
+    <button onclick="startOffer(1,'https://otieu.com/4/10508127')">Survey 5</button>
+  </section>
+
+  <section class="card">
+    <h3>⏱️ Quick Survey</h3>
+    <button onclick="startOffer(0.5,'https://playabledownloads.com/1869976/XDEVILEARNING')">
+      2-Min Survey – ₹0.50
     </button>
+  </section>
 
-    <button class="btn btn-ads"
-      onclick="startOffer(3,'https://otieu.com/4/10507919')">
-      Watch Ads – ₹3
-    </button>
-  </div>
-
-  <!-- PROFILE -->
-  <div class="card">
-    <h4>👤 Profile</h4>
+  <section class="card">
+    <h3>👤 Profile</h3>
     <p>Total Earned: <strong id="totalEarned">₹0</strong></p>
-  </div>
+  </section>
 
-  <!-- WITHDRAW -->
-  <div class="card">
-    <h4>💸 Withdraw</h4>
-    <input type="number" id="withdrawAmount" placeholder="Minimum ₹200">
-    <button class="btn btn-withdraw" onclick="requestWithdraw()">
-      Request Withdraw
-    </button>
-  </div>
-
-  <!-- REDEEM -->
-  <div class="card">
-    <h4>🎁 Redeem Code</h4>
-    <input type="text" placeholder="Enter Redeem Code">
-    <button class="btn">Redeem</button>
-  </div>
+  <section class="card">
+    <h3>💸 Withdraw</h3>
+    <p>Minimum ₹200</p>
+    <input type="number" id="withdrawAmount" placeholder="Amount">
+    <button onclick="requestWithdraw()">Request Withdraw</button>
+  </section>
 
 </div>
 
-<!-- ================= FIREBASE ================= -->
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<!-- CONFIG & APP -->
 <script src="config.js"></script>
 <script src="app.js"></script>
 
