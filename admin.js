@@ -1,41 +1,71 @@
-if (TELEGRAM_USER_ID !== ADMIN_TELEGRAM_ID) {
-  document.body.innerHTML = "Access Denied";
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
 
-async function loadPending() {
-  const { data } = await supabase
-    .from("offer_completions")
-    .select("*, offers(reward)")
-    .eq("status", "pending");
+<header class="topbar">
+  <h2>Admin Dashboard</h2>
+  <button onclick="logout()">Logout</button>
+</header>
 
-  const box = document.getElementById("pendingOffers");
-  box.innerHTML = "";
+<div class="container">
 
-  data.forEach(o => {
-    box.innerHTML += `
-      <div>
-        User ${o.telegram_user_id} - ₹${o.offers.reward}
-        <button onclick="approve('${o.id}',${o.telegram_user_id},${o.offers.reward})">Approve</button>
-      </div>`;
-  });
-}
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-box">
+      <h3 id="totalUsers">0</h3>
+      <p>Total Users</p>
+    </div>
+    <div class="stat-box">
+      <h3 id="pendingWithdraws">0</h3>
+      <p>Pending Withdrawals</p>
+    </div>
+  </div>
 
-async function approve(id, uid, reward) {
-  await supabase.from("offer_completions")
-    .update({ status: "approved" })
-    .eq("id", id);
+  <!-- USERS -->
+  <div class="card">
+    <h3>👤 Users</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Balance</th>
+          <th>Total Earned</th>
+          <th>Add Balance</th>
+        </tr>
+      </thead>
+      <tbody id="usersTable"></tbody>
+    </table>
+  </div>
 
-  const { data } = await supabase
-    .from("tg_users")
-    .select("balance")
-    .eq("telegram_user_id", uid)
-    .single();
+  <!-- WITHDRAWALS -->
+  <div class="card">
+    <h3>💸 Withdraw Requests</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="withdrawTable"></tbody>
+    </table>
+  </div>
 
-  await supabase.from("tg_users")
-    .update({ balance: data.balance + reward })
-    .eq("telegram_user_id", uid);
+</div>
 
-  loadPending();
-}
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-loadPending();
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
