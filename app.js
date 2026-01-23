@@ -45,3 +45,6 @@ async function doOffer(offerId, link) {
 initUser();
 loadBalance();
 loadOffers();
+function openOffer() {
+  window.open("https://otieu.com/4/10507919", "_blank");
+}
