@@ -2,98 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <!-- Monetag Verification -->
-  <meta name="monetag" content="5ff40977331d2ae61acd69241c8049a1">
-
-  <title>Earn Rewards</title>
+  <title>Earn Money</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Monetag verification (safe to keep) -->
+  <meta name="monetag" content="5ff40977331d2ae61acd69241c8049a1">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
-<div class="header">
-  <h2>💰 Earn Rewards</h2>
-  <p>Balance: ₹<span id="balance">0</span></p>
-</div>
-
-<!-- ===== MAIN CONTENT ===== -->
-<div class="container">
-
-  <!-- SURVEYS -->
-  <h3 class="section-title">📝 Surveys</h3>
-
-  <div class="offer-card">
-    <div>
-      <h4>Quick Survey</h4>
-      <p>1–3 minutes</p>
-      <span class="reward">Earn ₹3</span>
-    </div>
-    <button onclick="openSurvey()">Start</button>
+  <div class="app-header">
+    <h2>💰 Earn Money</h2>
+    <p>Complete offers and earn rewards</p>
   </div>
 
-  <div class="offer-card">
-    <div>
-      <h4>Standard Survey</h4>
-      <p>5–10 minutes</p>
-      <span class="reward">Earn ₹7</span>
+  <div class="container">
+
+    <!-- INSTALL OFFER -->
+    <div class="card">
+      <h3>📲 Install App & Earn</h3>
+      <p>Install app, sign up or complete KYC to earn more</p>
+      <span class="badge green">₹10 – ₹20</span>
+      <button class="btn install" onclick="openInstall()">
+        Install & Earn
+      </button>
     </div>
-    <button onclick="openSurvey()">Start</button>
+
+    <!-- SURVEY OFFER -->
+    <div class="card">
+      <h3>📝 Complete Survey</h3>
+      <p>Answer simple questions and earn rewards</p>
+      <span class="badge blue">₹3 – ₹15</span>
+      <button class="btn survey" onclick="openSurvey()">
+        Start Survey
+      </button>
+    </div>
+
+    <!-- EXTRA OFFERS -->
+    <div class="card">
+      <h3>🎁 Special Offers</h3>
+      <p>Click and explore offers</p>
+      <span class="badge orange">Bonus</span>
+      <button class="btn ads" onclick="openMonetag()">
+        View Offers
+      </button>
+    </div>
+
   </div>
 
-  <div class="offer-card">
-    <div>
-      <h4>Premium Survey</h4>
-      <p>15–20 minutes</p>
-      <span class="reward">Earn ₹15</span>
-    </div>
-    <button onclick="openSurvey()">Start</button>
+  <div class="footer">
+    <p>Rewards are credited after verification</p>
   </div>
 
-  <!-- APPS -->
-  <h3 class="section-title">📲 App Offers</h3>
-
-  <div class="offer-card">
-    <div>
-      <h4>Install & Signup</h4>
-      <p>Install app and complete signup</p>
-      <span class="reward">Earn ₹10</span>
-    </div>
-    <button onclick="openOffer()">Install</button>
-  </div>
-
-  <div class="offer-card">
-    <div>
-      <h4>Install + Signup + KYC</h4>
-      <p>Complete full verification</p>
-      <span class="reward">Earn ₹20</span>
-    </div>
-    <button onclick="openOffer()">Install</button>
-  </div>
-
-</div>
-
-<!-- ===== STATUS ===== -->
-<div id="status" class="status"></div>
-
-<!-- ===== SCRIPTS ===== -->
-<script>
-  function openSurvey() {
-    document.getElementById("status").innerText =
-      "⏳ Survey started. Complete it honestly. Reward will be added after approval.";
-    
-    window.open("https://your-survey-link-here", "_blank");
-  }
-
-  function openOffer() {
-    document.getElementById("status").innerText =
-      "⏳ Offer in progress. Please complete all steps.";
-    
-    window.open("https://otieu.com/4/10507919", "_blank");
-  }
-</script>
-
+  <script src="app.js"></script>
 </body>
 </html>
