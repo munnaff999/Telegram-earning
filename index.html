@@ -1,82 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Earn Rewards</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Earn App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Monetag verify -->
-  <meta name="monetag" content="5ff40977331d2ae61acd69241c8049a1">
-
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
-
 <body>
 
-<div class="container">
+<!-- ================= LOGIN / SIGNUP ================= -->
+<div class="auth-wrapper" id="authSection">
+  <div class="auth-box">
+    <h3>Login / Signup</h3>
 
-  <!-- LOGIN -->
-  <div id="authBox">
-    <h2>Login / Signup</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <button onclick="signup()">Signup</button>
+    <input type="email" id="email" placeholder="Enter Email">
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <button class="btn" onclick="login()">Login</button>
+    <button class="btn btn-primary" onclick="signup()">Signup</button>
+
+    <p class="auth-note">100% secure • Fast withdrawal</p>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" style="display:none;">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <strong id="userEmail"></strong><br>
+      Balance: <span id="balance">₹0</span>
+    </div>
+    <button class="btn small" onclick="logout()">Logout</button>
   </div>
 
-  <!-- APP -->
-  <div id="app" style="display:none;">
-    <div class="header">
-      <h2>Earn Rewards</h2>
-      <p>Balance: ₹<span id="balance">0</span></p>
-    </div>
+  <!-- STATUS -->
+  <p id="status" class="status-text"></p>
 
-    <!-- OFFERS -->
-    <div class="offers">
-      <button class="offer-btn" onclick="startOffer('https://otieu.com/4/10507919', 3)">
-        🎁 1–3 Min Task – ₹3
-      </button>
+  <!-- TASKS -->
+  <div class="card">
+    <h4>🔥 Earn Money</h4>
 
-      <button class="offer-btn" onclick="startOffer('https://otieu.com/4/10508140', 7)">
-        🎯 5–10 Min Task – ₹7
-      </button>
+    <button class="btn btn-install"
+      onclick="startOffer(10,'https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR&url=https://munnaff999.github.io/Telegram-earning/')">
+      Install App + Signup – ₹10
+    </button>
 
-      <button class="offer-btn" onclick="startOffer('https://playabledownloads.com/1869976/XDEVILEARNING', 10)">
-        📲 Install + Signup – ₹10
-      </button>
+    <button class="btn btn-survey"
+      onclick="startOffer(15,'https://playabledownloads.com/1869976/XDEVILEARNING')">
+      Complete Survey – ₹15
+    </button>
 
-      <button class="offer-btn" onclick="startOffer('https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR', 20)">
-        🧾 Install + KYC – ₹20
-      </button>
-    </div>
+    <button class="btn btn-ads"
+      onclick="startOffer(3,'https://otieu.com/4/10507919')">
+      Watch Ads – ₹3
+    </button>
+  </div>
 
-    <p id="status"></p>
+  <!-- PROFILE -->
+  <div class="card">
+    <h4>👤 Profile</h4>
+    <p>Total Earned: <strong id="totalEarned">₹0</strong></p>
+  </div>
 
-    <!-- PROFILE -->
-    <div class="profile">
-      <h3>Profile</h3>
-      <p>Total Earned: ₹<span id="totalEarned">0</span></p>
+  <!-- WITHDRAW -->
+  <div class="card">
+    <h4>💸 Withdraw</h4>
+    <input type="number" id="withdrawAmount" placeholder="Minimum ₹200">
+    <button class="btn btn-withdraw" onclick="requestWithdraw()">
+      Request Withdraw
+    </button>
+  </div>
 
-      <h4>Withdraw (Min ₹200)</h4>
-      <input type="text" id="upi" placeholder="UPI ID">
-      <button onclick="withdraw()">Request Withdraw</button>
-
-      <h4>Redeem Code</h4>
-      <input type="text" id="redeemCode" placeholder="Enter Code">
-      <button onclick="redeem()">Redeem</button>
-
-      <button class="logout" onclick="logout()">Logout</button>
-    </div>
+  <!-- REDEEM -->
+  <div class="card">
+    <h4>🎁 Redeem Code</h4>
+    <input type="text" placeholder="Enter Redeem Code">
+    <button class="btn">Redeem</button>
   </div>
 
 </div>
 
+<!-- ================= FIREBASE ================= -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<!-- CONFIG & APP -->
 <script src="config.js"></script>
 <script src="app.js"></script>
+
 </body>
 </html>
