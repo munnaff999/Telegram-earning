@@ -1,63 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Earn Money App</title>
+  <title>Earn Rewards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Monetag verification (agar chahiye) -->
-  <meta name="monetag" content="YOUR_MONETAG_CODE">
+  <!-- Monetag verify -->
+  <meta name="monetag" content="5ff40977331d2ae61acd69241c8049a1">
 
-  <!-- CSS file link -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
 
-  <!-- HEADER -->
-  <header class="top-bar">
-    <h1>💰 Earn Rewards</h1>
-  </header>
+<div class="container">
 
-  <!-- BALANCE -->
-  <section class="balance-box">
-    <p>Total Balance</p>
-    <h2>₹<span id="balance">0</span></h2>
-  </section>
+  <!-- LOGIN -->
+  <div id="authBox">
+    <h2>Login / Signup</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <button onclick="signup()">Signup</button>
+  </div>
 
-  <!-- TASKS -->
-  <section class="tasks">
-
-    <div class="task-card">
-      <h3>📲 Install + Signup</h3>
-      <p>Earn ₹10</p>
-      <button onclick="installTask()">Start</button>
+  <!-- APP -->
+  <div id="app" style="display:none;">
+    <div class="header">
+      <h2>Earn Rewards</h2>
+      <p>Balance: ₹<span id="balance">0</span></p>
     </div>
 
-    <div class="task-card">
-      <h3>📝 Survey</h3>
-      <p>Earn ₹3 – ₹15</p>
-      <button onclick="surveyTask()">Start</button>
+    <!-- OFFERS -->
+    <div class="offers">
+      <button class="offer-btn" onclick="startOffer('https://otieu.com/4/10507919', 3)">
+        🎁 1–3 Min Task – ₹3
+      </button>
+
+      <button class="offer-btn" onclick="startOffer('https://otieu.com/4/10508140', 7)">
+        🎯 5–10 Min Task – ₹7
+      </button>
+
+      <button class="offer-btn" onclick="startOffer('https://playabledownloads.com/1869976/XDEVILEARNING', 10)">
+        📲 Install + Signup – ₹10
+      </button>
+
+      <button class="offer-btn" onclick="startOffer('https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR', 20)">
+        🧾 Install + KYC – ₹20
+      </button>
     </div>
 
-    <div class="task-card">
-      <h3>📄 KYC App</h3>
-      <p>Earn ₹20</p>
-      <button onclick="kycTask()">Start</button>
+    <p id="status"></p>
+
+    <!-- PROFILE -->
+    <div class="profile">
+      <h3>Profile</h3>
+      <p>Total Earned: ₹<span id="totalEarned">0</span></p>
+
+      <h4>Withdraw (Min ₹200)</h4>
+      <input type="text" id="upi" placeholder="UPI ID">
+      <button onclick="withdraw()">Request Withdraw</button>
+
+      <h4>Redeem Code</h4>
+      <input type="text" id="redeemCode" placeholder="Enter Code">
+      <button onclick="redeem()">Redeem</button>
+
+      <button class="logout" onclick="logout()">Logout</button>
     </div>
+  </div>
 
-  </section>
+</div>
 
-  <!-- PROFILE -->
-  <section class="profile">
-    <h3>👤 Profile</h3>
-    <p>Completed Tasks: <span id="completed">0</span></p>
-    <p>Minimum Withdraw: ₹200</p>
-    <button onclick="redeem()">Redeem Code</button>
-  </section>
-
-  <!-- STATUS -->
-  <p id="status" class="status"></p>
-
-  <!-- JS file link -->
-  <script src="script.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
