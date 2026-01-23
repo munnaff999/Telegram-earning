@@ -1,93 +1,87 @@
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
 
 body {
-  background: #f4f6f8;
-  color: #333;
+  margin: 0;
+  background: #f2f4f7;
 }
 
-/* HEADER */
-.header {
-  background: linear-gradient(135deg, #4caf50, #2e7d32);
+.app-header {
+  background: #111827;
   color: #fff;
-  padding: 16px;
   text-align: center;
+  padding: 15px;
 }
 
-.header h2 {
-  font-size: 22px;
+.app-header h2 {
+  margin: 0;
 }
 
-.header p {
-  margin-top: 6px;
-  font-size: 16px;
+.app-header p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
-/* CONTAINER */
 .container {
   padding: 15px;
 }
 
-/* SECTION TITLE */
-.section-title {
-  margin: 15px 0 10px;
-  font-size: 18px;
-  color: #222;
-}
-
-/* OFFER CARD */
-.offer-card {
+.card {
   background: #fff;
-  border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.offer-card h4 {
-  font-size: 16px;
-  margin-bottom: 4px;
+.card h3 {
+  margin: 0 0 5px;
 }
 
-.offer-card p {
-  font-size: 13px;
-  color: #666;
+.card p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
 }
 
-.reward {
+.badge {
   display: inline-block;
-  margin-top: 4px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #2e7d32;
+  margin-top: 8px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #fff;
 }
 
-/* BUTTON */
-.offer-card button {
-  background: #4caf50;
+.green { background: #28a745; }
+.blue { background: #007bff; }
+.orange { background: #ff9800; }
+
+.btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  font-size: 15px;
   border: none;
+  border-radius: 8px;
   color: #fff;
-  padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 14px;
   cursor: pointer;
 }
 
-.offer-card button:hover {
-  background: #43a047;
+.btn.install { background: #28a745; }
+.btn.survey { background: #007bff; }
+.btn.ads { background: #ff9800; }
+
+.btn:active {
+  opacity: 0.9;
 }
 
-/* STATUS */
-.status {
+.footer {
   text-align: center;
-  padding: 12px;
-  font-size: 14px;
-  color: #444;
+  padding: 10px;
+  font-size: 12px;
+  color: #777;
 }
