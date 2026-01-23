@@ -1,71 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Admin Panel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="admin.css">
-</head>
-<body>
+auth.onAuthStateChanged(user => {
+  if (!user || user.email !== xdevilearning@gmail.com) {
+    alert("Access denied");
+    location.href = "index.html";
+    return;
+  }
 
-<header class="topbar">
-  <h2>Admin Dashboard</h2>
-  <button onclick="logout()">Logout</button>
-</header>
+  loadUsers();
+  loadWithdrawals();
+});
 
-<div class="container">
+// ================= USERS =================
+function loadUsers() {
+  db.collection("users").onSnapshot(snap => {
+    let html = "";
+    document.getElementById("totalUsers").innerText = snap.size;
 
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat-box">
-      <h3 id="totalUsers">0</h3>
-      <p>Total Users</p>
-    </div>
-    <div class="stat-box">
-      <h3 id="pendingWithdraws">0</h3>
-      <p>Pending Withdrawals</p>
-    </div>
-  </div>
-
-  <!-- USERS -->
-  <div class="card">
-    <h3>👤 Users</h3>
-    <table>
-      <thead>
+    snap.forEach(doc => {
+      const d = doc.data();
+      html += `
         <tr>
-          <th>Email</th>
-          <th>Balance</th>
-          <th>Total Earned</th>
-          <th>Add Balance</th>
+          <td>${d.email}</td>
+          <td>₹${d.balance}</td>
+          <td>₹${d.totalEarned}</td>
+          <td>
+            <input type="number" id="add_${doc.id}">
+            <button onclick="addBalance('${doc.id}')">Add</button>
+          </td>
         </tr>
-      </thead>
-      <tbody id="usersTable"></tbody>
-    </table>
-  </div>
+      `;
+    });
 
-  <!-- WITHDRAWALS -->
-  <div class="card">
-    <h3>💸 Withdraw Requests</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Amount</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="withdrawTable"></tbody>
-    </table>
-  </div>
+    document.getElementById("usersTable").innerHTML = html;
+  });
+}
 
-</div>
+function addBalance(uid) {
+  const amt = Number(document.getElementById("add_" + uid).value);
+  if (amt <= 0) return;
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  db.collection("users").doc(uid).update({
+    balance: firebase.firestore.FieldValue.increment(amt),
+    totalEarned: firebase.firestore.FieldValue.increment(amt)
+  });
+}
 
-<script src="config.js"></script>
-<script src="admin.js"></script>
-</body>
-</html>
+// ================= WITHDRAWALS =================
+function loadWithdrawals() {
+  db.collection("withdrawals").where("status", "==", "pending")
+    .onSnapshot(snap => {
+      let html = "";
+      document.getElementById("pendingWithdraws").innerText = snap.size;
+
+      snap.forEach(doc => {
+        const d = doc.data();
+        html += `
+          <tr>
+            <td>${d.uid}</td>
+            <td>₹${d.amount}</td>
+            <td>${d.status}</td>
+            <td>
+              <button onclick="approve('${doc.id}','${d.uid}',${d.amount})">Approve</button>
+              <button onclick="reject('${doc.id}')">Reject</button>
+            </td>
+          </tr>
+        `;
+      });
+
+      document.getElementById("withdrawTable").innerHTML = html;
+    });
+}
+
+function approve(id, uid, amt) {
+  const uRef = db.collection("users").doc(uid);
+  const wRef = db.collection("withdrawals").doc(id);
+
+  db.runTransaction(async t => {
+    const u = await t.get(uRef);
+    if (!u.exists || u.data().balance < amt) return;
+
+    t.update(uRef, { balance: u.data().balance - amt });
+    t.update(wRef, { status: "approved" });
+  });
+}
+
+function reject(id) {
+  db.collection("withdrawals").doc(id).update({ status: "rejected" });
+}
+
+function logout() {
+  auth.signOut();
+}
