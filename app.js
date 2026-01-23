@@ -1,169 +1,58 @@
-/***********************
-  FIREBASE REFERENCES
-************************/
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-/***********************
-  GLOBAL STATE
-************************/
-let currentUser = null;
-let cooldown = false;
-
-/***********************
-  AUTH – SIGNUP
-************************/
-function signup() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(res => {
-      currentUser = res.user;
-      return db.collection("users").doc(currentUser.uid).set({
-        email: email,
-        balance: 0,
-        totalEarned: 0,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    })
-    .then(() => {
-      alert("Signup successful");
-      showDashboard();
-    })
-    .catch(err => alert(err.message));
-}
-
-/***********************
-  AUTH – LOGIN
-************************/
-function login() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  auth.signInWithEmailAndPassword(email, password)
-    .then(res => {
-      currentUser = res.user;
-      showDashboard();
-    })
-    .catch(err => alert(err.message));
-}
-
-/***********************
-  AUTH STATE
-************************/
 auth.onAuthStateChanged(user => {
   if (user) {
-    currentUser = user;
-    showDashboard();
+    document.getElementById("authSection").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    document.getElementById("userEmail").innerText = user.email;
+    loadUser(user.uid);
   }
 });
 
-/***********************
-  SHOW DASHBOARD
-************************/
-function showDashboard() {
-  document.getElementById("authSection").style.display = "none";
-  document.getElementById("dashboard").style.display = "block";
-  loadProfile();
+function signup() {
+  const e = email.value.trim();
+  const p = password.value.trim();
+  auth.createUserWithEmailAndPassword(e,p).then(res=>{
+    return db.collection("users").doc(res.user.uid).set({
+      email:e,balance:0,totalEarned:0
+    });
+  }).catch(err=>alert(err.message));
 }
 
-/***********************
-  LOAD PROFILE
-************************/
-function loadProfile() {
-  db.collection("users").doc(currentUser.uid)
-    .onSnapshot(doc => {
-      if (doc.exists) {
-        const data = doc.data();
-        document.getElementById("balance").innerText = "₹" + data.balance;
-        document.getElementById("totalEarned").innerText = "₹" + data.totalEarned;
-        document.getElementById("userEmail").innerText = data.email;
-      }
-    });
+function login() {
+  auth.signInWithEmailAndPassword(
+    email.value.trim(),
+    password.value.trim()
+  ).catch(err=>alert(err.message));
 }
 
-/***********************
-  OPEN AD / OFFER
-************************/
-function startOffer(amount, url) {
-  if (cooldown) {
-    alert("⏳ Please wait before next task");
-    return;
-  }
-
-  cooldown = true;
-  window.open(url, "_blank");
-
-  document.getElementById("status").innerText =
-    "⏳ Offer started... please wait 30 seconds";
-
-  setTimeout(() => {
-    rewardUser(amount);
-    cooldown = false;
-  }, 30000); // 30 seconds gap
-}
-
-/***********************
-  REWARD USER
-************************/
-function rewardUser(amount) {
-  const userRef = db.collection("users").doc(currentUser.uid);
-
-  db.runTransaction(transaction => {
-    return transaction.get(userRef).then(doc => {
-      const newBalance = (doc.data().balance || 0) + amount;
-      const totalEarned = (doc.data().totalEarned || 0) + amount;
-
-      transaction.update(userRef, {
-        balance: newBalance,
-        totalEarned: totalEarned
-      });
-    });
-  });
-
-  document.getElementById("status").innerText =
-    `✅ Task completed! ₹${amount} added`;
-}
-
-/***********************
-  WITHDRAW REQUEST
-************************/
-function requestWithdraw() {
-  const amount = parseInt(document.getElementById("withdrawAmount").value);
-
-  if (amount < 200) {
-    alert("❌ Minimum withdraw ₹200");
-    return;
-  }
-
-  const userRef = db.collection("users").doc(currentUser.uid);
-
-  userRef.get().then(doc => {
-    if (doc.data().balance < amount) {
-      alert("❌ Insufficient balance");
-      return;
-    }
-
-    db.collection("withdrawals").add({
-      userId: currentUser.uid,
-      amount: amount,
-      status: "pending",
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    userRef.update({
-      balance: doc.data().balance - amount
-    });
-
-    alert("✅ Withdraw request submitted");
+function loadUser(uid){
+  db.collection("users").doc(uid).onSnapshot(d=>{
+    balance.innerText="₹"+d.data().balance;
+    totalEarned.innerText="₹"+d.data().totalEarned;
   });
 }
 
-/***********************
-  LOGOUT
-************************/
-function logout() {
-  auth.signOut();
-  location.reload();
+function logout(){ auth.signOut(); }
+
+function startOffer(amount,url){
+  window.open(url,"_blank");
+  status.innerText="⏳ Please wait 30 seconds...";
+  setTimeout(()=>{
+    const u=auth.currentUser.uid;
+    db.collection("users").doc(u).update({
+      balance:firebase.firestore.FieldValue.increment(amount),
+      totalEarned:firebase.firestore.FieldValue.increment(amount)
+    });
+    status.innerText="✅ ₹"+amount+" added!";
+  },30000);
+}
+
+function requestWithdraw(){
+  const amt=+withdrawAmount.value;
+  if(amt<200){alert("Minimum ₹200");return;}
+  db.collection("withdrawals").add({
+    uid:auth.currentUser.uid,
+    amount:amt,
+    status:"pending"
+  });
+  alert("Withdraw request sent");
 }
