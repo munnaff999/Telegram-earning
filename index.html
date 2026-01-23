@@ -2,80 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Earn Money</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Earn Money App</title>
 
-  <!-- Monetag verification (safe to keep) -->
-  <meta name="monetag" content="5ff40977331d2ae61acd69241c8049a1">
+  <!-- Monetag verification (agar chahiye) -->
+  <meta name="monetag" content="YOUR_MONETAG_CODE">
 
+  <!-- CSS file link -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="app-header">
-    <h2>💰 Earn Money</h2>
-    <p>Complete offers and earn rewards</p>
-  </div>
+  <!-- HEADER -->
+  <header class="top-bar">
+    <h1>💰 Earn Rewards</h1>
+  </header>
 
-  <div class="container">
-    <div class="container">
+  <!-- BALANCE -->
+  <section class="balance-box">
+    <p>Total Balance</p>
+    <h2>₹<span id="balance">0</span></h2>
+  </section>
 
-  <!-- EMAIL BOX (YAHI PASTE KARNA HAI) -->
-  <div class="email-box">
-    <h3>📧 Enter Your Email</h3>
-    <p>Rewards will be tracked on this email</p>
-    <input type="email" id="userEmail" placeholder="Enter your email" />
-    <button onclick="saveEmail()">Continue</button>
-  </div>
+  <!-- TASKS -->
+  <section class="tasks">
 
-  <!-- INSTALL OFFER -->
-  <div class="card">
-    ...
-  </div>
-
-  <!-- SURVEY OFFER -->
-  <div class="card">
-    ...
-  </div>
-
+    <div class="task-card">
+      <h3>📲 Install + Signup</h3>
+      <p>Earn ₹10</p>
+      <button onclick="installTask()">Start</button>
     </div>
 
-    <!-- INSTALL OFFER -->
-    <div class="card">
-      <h3>📲 Install App & Earn</h3>
-      <p>Install app, sign up or complete KYC to earn more</p>
-      <span class="badge green">₹10 – ₹20</span>
-      <button class="btn install" onclick="openInstall()">
-        Install & Earn
-      </button>
+    <div class="task-card">
+      <h3>📝 Survey</h3>
+      <p>Earn ₹3 – ₹15</p>
+      <button onclick="surveyTask()">Start</button>
     </div>
 
-    <!-- SURVEY OFFER -->
-    <div class="card">
-      <h3>📝 Complete Survey</h3>
-      <p>Answer simple questions and earn rewards</p>
-      <span class="badge blue">₹3 – ₹15</span>
-      <button class="btn survey" onclick="openSurvey()">
-        Start Survey
-      </button>
+    <div class="task-card">
+      <h3>📄 KYC App</h3>
+      <p>Earn ₹20</p>
+      <button onclick="kycTask()">Start</button>
     </div>
 
-    <!-- EXTRA OFFERS -->
-    <div class="card">
-      <h3>🎁 Special Offers</h3>
-      <p>Click and explore offers</p>
-      <span class="badge orange">Bonus</span>
-      <button class="btn ads" onclick="openMonetag()">
-        View Offers
-      </button>
-    </div>
+  </section>
 
-  </div>
+  <!-- PROFILE -->
+  <section class="profile">
+    <h3>👤 Profile</h3>
+    <p>Completed Tasks: <span id="completed">0</span></p>
+    <p>Minimum Withdraw: ₹200</p>
+    <button onclick="redeem()">Redeem Code</button>
+  </section>
 
-  <div class="footer">
-    <p>Rewards are credited after verification</p>
-  </div>
+  <!-- STATUS -->
+  <p id="status" class="status"></p>
 
-  <script src="app.js"></script>
+  <!-- JS file link -->
+  <script src="script.js"></script>
 </body>
 </html>
