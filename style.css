@@ -1,91 +1,219 @@
+/* =========================
+   GLOBAL RESET
+========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 body {
-  background: #f5f7fb;
-  padding-bottom: 50px;
+  background: #f4f6fb;
+  color: #222;
+  min-height: 100vh;
 }
 
-.top-bar {
-  background: #4f46e5;
-  color: white;
-  padding: 15px;
+/* =========================
+   HEADER
+========================= */
+.header {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: #fff;
+  padding: 18px 16px;
   text-align: center;
+  border-radius: 0 0 20px 20px;
 }
 
-.balance-box {
-  background: white;
-  margin: 15px;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+.header h2 {
+  font-size: 22px;
+  font-weight: 600;
 }
 
-.balance-box h2 {
-  color: #16a34a;
-  font-size: 28px;
+.header p {
+  margin-top: 6px;
+  font-size: 15px;
+  opacity: 0.95;
 }
 
-.tasks {
-  margin: 15px;
+/* =========================
+   MAIN CONTAINER
+========================= */
+.container {
+  padding: 16px;
+  max-width: 420px;
+  margin: auto;
 }
 
-.task-card {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+/* =========================
+   CARD
+========================= */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
 }
 
-.task-card h3 {
-  margin-bottom: 5px;
-}
-
-.task-card p {
-  color: #555;
-  margin-bottom: 10px;
-}
-
-.task-card button {
+/* =========================
+   BUTTONS
+========================= */
+.btn {
   width: 100%;
-  padding: 10px;
-  background: #22c55e;
-  color: white;
+  padding: 14px;
+  border-radius: 12px;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-install {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+}
+
+.btn-survey {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+}
+
+/* =========================
+   OFFER BOX
+========================= */
+.offer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.offer-info h4 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.offer-info span {
+  font-size: 13px;
+  color: #666;
+}
+
+/* =========================
+   STATUS / TIMER
+========================= */
+.status {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  color: #444;
+}
+
+/* =========================
+   AUTH FORM
+========================= */
+.auth-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.auth-box h3 {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.auth-box input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+/* =========================
+   PROFILE
+========================= */
+.profile {
+  text-align: center;
+}
+
+.profile h3 {
+  margin-bottom: 6px;
+}
+
+.profile p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* =========================
+   WITHDRAW
+========================= */
+.withdraw-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+/* =========================
+   NAV BAR
+========================= */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+}
+
+.nav button {
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: #555;
   cursor: pointer;
 }
 
-.task-card button:hover {
-  background: #16a34a;
+.nav button.active {
+  color: #4f46e5;
+  font-weight: 600;
 }
 
-.profile {
-  background: white;
-  margin: 15px;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-.profile button {
-  margin-top: 10px;
-  width: 100%;
-  padding: 10px;
-  background: #f59e0b;
-  border: none;
-  color: white;
-  border-radius: 8px;
-}
-
-.status {
+/* =========================
+   SMALL TEXT
+========================= */
+.small {
+  font-size: 12px;
+  color: #777;
   text-align: center;
-  margin-top: 15px;
-  color: #555;
+  margin-top: 6px;
 }
