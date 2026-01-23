@@ -48,3 +48,18 @@ loadOffers();
 function openOffer() {
   window.open("https://otieu.com/4/10507919", "_blank");
 }
+let rewardTimer;
+
+function startOffer() {
+  window.open("https://otieu.com/4/10507919", "_blank");
+
+  document.getElementById("status").innerText =
+    "⏳ Offer in progress... please wait 30 seconds";
+
+  rewardTimer = setTimeout(() => {
+    document.getElementById("status").innerText =
+      "✅ Offer completed! ₹10 added to your balance";
+
+    // yaha baad me Supabase balance update karenge
+  }, 30000);
+}
