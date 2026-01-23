@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Earn Rewards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+  <h2>Earn Rewards</h2>
+  <p>Balance: ₹<span id="balance">0</span></p>
+</div>
+
+<div id="offers" class="offers"></div>
+
+<div class="nav">
+  <button onclick="location.href='index.html'">Offers</button>
+  <button onclick="location.href='admin.html'">Admin</button>
+</div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

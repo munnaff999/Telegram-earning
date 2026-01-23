@@ -1,0 +1,42 @@
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  margin: 0;
+}
+
+.header {
+  background: #2ecc71;
+  color: white;
+  padding: 15px;
+}
+
+.offers {
+  padding: 10px;
+}
+
+.offer {
+  background: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+button {
+  background: #2ecc71;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 4px;
+}
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+}
+
+.nav button {
+  flex: 1;
+  padding: 15px;
+}
