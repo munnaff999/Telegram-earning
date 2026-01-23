@@ -1,281 +1,72 @@
-/* =========================
-   GLOBAL RESET
-========================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-}
-
 body {
-  background: #f4f6fb;
-  color: #222;
-  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
 }
 
-/* =========================
-   HEADER
-========================= */
-.header {
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
-  color: #fff;
-  padding: 18px 16px;
-  text-align: center;
-  border-radius: 0 0 20px 20px;
+.auth-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg,#4f46e5,#9333ea);
 }
 
-.header h2 {
-  font-size: 22px;
-  font-weight: 600;
-}
-
-.header p {
-  margin-top: 6px;
-  font-size: 15px;
-  opacity: 0.95;
-}
-
-/* =========================
-   MAIN CONTAINER
-========================= */
-.container {
-  padding: 16px;
-  max-width: 420px;
-  margin: auto;
-}
-
-/* =========================
-   CARD
-========================= */
-.card {
+.auth-box {
   background: #fff;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 14px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  padding: 25px;
+  width: 300px;
+  border-radius: 10px;
+  text-align: center;
 }
 
-/* =========================
-   BUTTONS
-========================= */
-.btn {
+.auth-box input {
   width: 100%;
-  padding: 14px;
-  border-radius: 12px;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
   border: none;
-  font-size: 15px;
-  font-weight: 600;
+  background: #111827;
+  color: white;
   cursor: pointer;
-  transition: 0.25s;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: #fff;
+.auth-box .primary {
+  background: #4f46e5;
 }
 
-.btn-primary:hover {
-  opacity: 0.9;
-}
-
-.btn-install {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  color: #fff;
-}
-
-.btn-survey {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #fff;
-}
-
-.btn-danger {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  color: #fff;
-}
-
-/* =========================
-   OFFER BOX
-========================= */
-.offer {
+header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  padding: 15px;
+  background: #111827;
+  color: white;
 }
 
-.offer-info h4 {
-  font-size: 15px;
-  margin-bottom: 4px;
+.card {
+  background: white;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 8px;
 }
 
-.offer-info span {
-  font-size: 13px;
-  color: #666;
-}
-
-/* =========================
-   STATUS / TIMER
-========================= */
-.status {
-  margin-top: 10px;
-  font-size: 14px;
-  text-align: center;
-  color: #444;
-}
-
-/* =========================
-   AUTH FORM
-========================= */
-.auth-box {
-  background: #fff;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-}
-
-.auth-box h3 {
-  text-align: center;
-  margin-bottom: 14px;
-}
-
-.auth-box input {
+.card button {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-}
-
-.auth-box input:focus {
-  outline: none;
-  border-color: #6366f1;
-}
-
-/* =========================
-   PROFILE
-========================= */
-.profile {
-  text-align: center;
-}
-
-.profile h3 {
-  margin-bottom: 6px;
-}
-
-.profile p {
-  font-size: 14px;
-  color: #555;
-}
-
-/* =========================
-   WITHDRAW
-========================= */
-.withdraw-box input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
-
-/* =========================
-   NAV BAR
-========================= */
-.nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
-}
-
-.nav button {
-  background: none;
+  padding: 10px;
+  margin-top: 8px;
+  background: #4f46e5;
+  color: white;
   border: none;
-  font-size: 13px;
-  color: #555;
-  cursor: pointer;
+  border-radius: 5px;
 }
 
-.nav button.active {
-  color: #4f46e5;
-  font-weight: 600;
-}
-
-/* =========================
-   SMALL TEXT
-========================= */
-.small {
-  font-size: 12px;
-  color: #777;
+.status {
   text-align: center;
-  margin-top: 6px;
-}
-/* =========================
-   AUTH PAGE BACKGROUND
-========================= */
-.auth-wrapper {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
-  padding: 20px;
-}
-
-/* =========================
-   AUTH BOX UPGRADE
-========================= */
-.auth-box {
-  width: 100%;
-  max-width: 360px;
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 24px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-}
-
-.auth-box h3 {
-  text-align: center;
-  margin-bottom: 18px;
-  color: #4f46e5;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.auth-box input {
-  width: 100%;
-  padding: 13px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-}
-
-.auth-box input:focus {
-  outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 2px rgba(79,70,229,0.15);
-}
-
-/* =========================
-   AUTH BUTTON
-========================= */
-.auth-box .btn {
-  margin-top: 6px;
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: #fff;
-}
-
-.auth-note {
-  text-align: center;
-  font-size: 13px;
-  margin-top: 10px;
-  color: #666;
+  margin: 10px;
+  font-weight: bold;
 }
