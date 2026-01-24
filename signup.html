@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Signup</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="box">
+<h2>Signup</h2>
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+<button onclick="signup()">Create Account</button>
+<p>Already user? <a href="index.html">Login</a></p>
+</div>
+
+<script type="module">
+import { auth, db } from "./config.js";
+import { createUserWithEmailAndPassword } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { setDoc, doc } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+window.signup = async () =>{
+  const email = email.value;
+  const password = password.value;
+
+  const res = await createUserWithEmailAndPassword(auth,email,password);
+
+  await setDoc(doc(db,"users",res.user.uid),{
+    email,
+    balance:0,
+    role:"user"
+  });
+
+  location.href="dashboard.html";
+}
+</script>
+</body>
+</html>
