@@ -60,20 +60,14 @@ show_10511608({
   }
 });
 
-// 2️⃣ Rewarded Interstitial (after 60 sec)
+// Rewarded Interstitial
 setTimeout(() => {
-  show_10511608().then(() => {
-    coins += 0.10;
-    updateUI();
-  }).catch(()=>{});
+  show_10511608().catch(()=>{});
 }, 60000);
 
-// 3️⃣ Rewarded Popup (after 3 min)
+// Rewarded Popup
 setTimeout(() => {
-  show_10511608('pop').then(() => {
-    coins += 0.10;
-    updateUI();
-  }).catch(()=>{});
+  show_10511608('pop').catch(()=>{});
 }, 180000);
 
 /* USER DATA */
