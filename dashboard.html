@@ -8,117 +8,115 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div id="toast-container"></div>
-    <div id="loader" class="loader-overlay"><div class="spinner"></div></div>
 
-    <nav class="navbar">
-        <div class="nav-brand"><i class="fas fa-bolt"></i> XDEVIL</div>
-        <div class="nav-user">
-            <span id="user-email-nav">Loading...</span>
-            <button id="btn-logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i></button>
-        </div>
-    </nav>
+<div id="toast-container"></div>
 
-    <main class="container">
-        <!-- Stats Section -->
-        <section class="stats-grid">
-            <div class="stat-card main-balance">
-                <p>Available Balance</p>
-                <h1 id="stat-balance">₹0.00</h1>
-            </div>
-            <div class="stat-card">
-                <p>Today's Earning</p>
-                <h3 id="stat-today">₹0.00</h3>
-            </div>
-            <div class="stat-card">
-                <p>Total Earning</p>
-                <h3 id="stat-total">₹0.00</h3>
-            </div>
-            <div class="stat-card">
-                <p>Tasks Done</p>
-                <h3 id="stat-tasks">0</h3>
-            </div>
-        </section>
+<!-- FIXED LOADER ID -->
+<div id="page-loader" class="loader-overlay">
+    <div class="spinner"></div>
+</div>
 
-        <!-- Tasks Section -->
-        <h2 class="section-title">Earning Tasks</h2>
-        <section class="tasks-grid">
-            <!-- CPAgrip -->
-            <div class="task-card">
-                <div class="task-info">
-                    <span class="badge">Survey</span>
-                    <h3>CPAgrip Offer</h3>
-                    <p>Reward: ₹0.50</p>
-                </div>
-                <button class="task-btn" data-type="cpagrip" data-reward="0.50" data-url="https://playabledownloads.com/1869976/XDEVILEARNING">Start Task</button>
-            </div>
+<nav class="navbar">
+    <div class="nav-brand"><i class="fas fa-bolt"></i> XDEVIL</div>
+    <div class="nav-user">
+        <span id="user-email-nav">Logged In</span>
+        <button id="logout" class="btn-logout">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+</nav>
 
-            <!-- EZMOB -->
-            <div class="task-card">
-                <div class="task-info">
-                    <span class="badge">App</span>
-                    <h3>EZMOB Install</h3>
-                    <p>Reward: ₹5.00</p>
-                </div>
-                <button class="task-btn" data-type="ezmob" data-reward="5.00" data-url="https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR&url=https://munnaff999.github.io/Telegram-earning/&subid=&query=">Start Task</button>
-            </div>
+<main class="container">
 
-            <!-- Monetag Buttons -->
-            <div class="task-card" id="monetag-group">
-                <div class="task-info">
-                    <span class="badge">Monetag</span>
-                    <h3>Monetag Ads (5)</h3>
-                    <p>Reward: ₹0.50 each</p>
-                </div>
-                <div class="monetag-btns">
-                    <button class="task-btn mt-btn" data-type="monetag1" data-reward="0.50" data-url="https://otieu.com/4/10508140">Ad 1</button>
-                    <button class="task-btn mt-btn" data-type="monetag2" data-reward="0.50" data-url="https://otieu.com/4/10508130">Ad 2</button>
-                    <button class="task-btn mt-btn" data-type="monetag3" data-reward="0.50" data-url="https://otieu.com/4/10507919">Ad 3</button>
-                    <button class="task-btn mt-btn" data-type="monetag4" data-reward="0.50" data-url="https://otieu.com/4/10508135">Ad 4</button>
-                    <button class="task-btn mt-btn" data-type="monetag5" data-reward="0.50" data-url="https://otieu.com/4/10508127">Ad 5</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Action Grid -->
-        <div class="action-grid">
-            <!-- Withdraw -->
-            <section class="withdraw-section card">
-                <h3>Withdraw Funds</h3>
-                <p class="min-text">Minimum withdrawal: ₹200</p>
-                <input type="text" id="upi-id" placeholder="Enter UPI ID (e.g. user@paytm)">
-                <input type="number" id="withdraw-amount" placeholder="Amount">
-                <button id="btn-withdraw" class="btn-action">Withdraw Now</button>
-            </section>
-
-            <!-- Redeem -->
-            <section class="redeem-section card">
-                <h3>Redeem Google Play</h3>
-                <p class="min-text">Minimum redeem: ₹200</p>
-                <input type="number" id="redeem-amount" placeholder="Amount">
-                <button id="btn-redeem" class="btn-action">Redeem Now</button>
-            </section>
+    <!-- STATS -->
+    <section class="stats-grid">
+        <div class="stat-card main-balance">
+            <p>Available Balance</p>
+            <h1 id="balance">₹0.00</h1>
         </div>
 
-        <!-- History -->
-        <section class="history-section card">
-            <h3>Transaction History</h3>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="history-body"></tbody>
-                </table>
-            </div>
-        </section>
-    </main>
+        <div class="stat-card">
+            <p>Today's Earning</p>
+            <h3 id="today">₹0.00</h3>
+        </div>
 
-    <script type="module" src="dashboard.js"></script>
+        <div class="stat-card">
+            <p>Total Earning</p>
+            <h3 id="total">₹0.00</h3>
+        </div>
+
+        <div class="stat-card">
+            <p>Tasks Done</p>
+            <h3 id="tasks">0</h3>
+        </div>
+    </section>
+
+    <!-- TASKS -->
+    <h2 class="section-title">Earning Tasks</h2>
+    <section class="tasks-grid">
+
+        <!-- CPAgrip -->
+        <div class="task-card">
+            <div class="task-info">
+                <span class="badge">Survey</span>
+                <h3>CPAgrip Offer</h3>
+                <p>Reward: ₹0.50</p>
+            </div>
+            <button class="task-btn"
+                data-reward="0.50"
+                data-url="https://playabledownloads.com/1869976/XDEVILEARNING">
+                Start Task
+            </button>
+        </div>
+
+        <!-- EZMOB -->
+        <div class="task-card">
+            <div class="task-info">
+                <span class="badge">App</span>
+                <h3>EZMOB Install</h3>
+                <p>Reward: ₹5.00</p>
+            </div>
+            <button class="task-btn"
+                data-reward="5"
+                data-url="https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR&url=https://munnaff999.github.io/Telegram-earning/">
+                Start Task
+            </button>
+        </div>
+
+        <!-- MONETAG -->
+        <div class="task-card">
+            <div class="task-info">
+                <span class="badge">Monetag</span>
+                <h3>Monetag Ads</h3>
+                <p>Reward: ₹0.50</p>
+            </div>
+
+            <button class="task-btn" data-reward="0.50" data-url="https://otieu.com/4/10508140">Ad 1</button>
+            <button class="task-btn" data-reward="0.50" data-url="https://otieu.com/4/10508130">Ad 2</button>
+            <button class="task-btn" data-reward="0.50" data-url="https://otieu.com/4/10507919">Ad 3</button>
+            <button class="task-btn" data-reward="0.50" data-url="https://otieu.com/4/10508135">Ad 4</button>
+            <button class="task-btn" data-reward="0.50" data-url="https://otieu.com/4/10508127">Ad 5</button>
+        </div>
+
+    </section>
+
+    <!-- WITHDRAW -->
+    <section class="card">
+        <h3>Withdraw Funds</h3>
+        <input id="upi-id" placeholder="UPI ID">
+        <input id="withdraw-amount" type="number" placeholder="Amount">
+        <button id="btn-withdraw" class="btn-action">Withdraw</button>
+    </section>
+
+    <!-- REDEEM -->
+    <section class="card">
+        <h3>Redeem Google Play</h3>
+        <input id="redeem-amount" type="number" placeholder="Amount">
+        <button id="btn-redeem" class="btn-action">Redeem</button>
+    </section>
+
+</main>
+
+<script type="module" src="dashboard.js"></script>
 </body>
 </html>
