@@ -1,52 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="header">
-  <div>
-    <b id="userEmail"></b><br>
-    <span class="balance">₹<span id="balance">0</span></span>
-  </div>
-  <button class="btn" onclick="logout()">Logout</button>
+<div class="box">
+<h2>User Dashboard</h2>
+<div class="card">Balance: ₹<span id="bal">0</span></div>
+
+<button onclick="earn(1)">Survey ₹1</button>
+<button onclick="earn(0.5)">Ad ₹0.50</button>
+<button onclick="earn(5)">Install App ₹5</button>
 </div>
 
-<div class="card">
-  <h3>📲 App Install</h3>
-  <button class="btn" onclick="offer(10,'https://xml.qualiclicks.com/redirect?...')">
-    Install App & Earn ₹10
-  </button>
-</div>
+<script type="module">
+import { auth, db } from "./config.js";
+import { onAuthStateChanged } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, updateDoc, getDoc } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-<div class="card">
-  <h3>📝 Surveys (₹1)</h3>
-  <button class="btn" onclick="offer(1,'https://otieu.com/4/10508140')">Survey 1</button>
-  <button class="btn" onclick="offer(1,'https://otieu.com/4/10508130')">Survey 2</button>
-  <button class="btn" onclick="offer(1,'https://otieu.com/4/10507919')">Survey 3</button>
-  <button class="btn" onclick="offer(1,'https://otieu.com/4/10508135')">Survey 4</button>
-  <button class="btn" onclick="offer(1,'https://otieu.com/4/10508127')">Survey 5</button>
-</div>
+let uid;
 
-<div class="card">
-  <h3>⏱ Quick Survey</h3>
-  <button class="btn" onclick="offer(.5,'https://playabledownloads.com/1869976/XDEVILEARNING')">
-    2-Min Survey – ₹0.50
-  </button>
-</div>
+onAuthStateChanged(auth, async u=>{
+ uid=u.uid;
+ const s=await getDoc(doc(db,"users",uid));
+ bal.innerText=s.data().balance;
+});
 
-<div class="card">
-  <h3>💸 Withdraw</h3>
-  <input id="withdrawAmt" type="number" placeholder="Minimum ₹200">
-  <button class="btn" onclick="withdraw()">Request Withdraw</button>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
-<script src="app.js"></script>
+window.earn = async (amt)=>{
+ const ref=doc(db,"users",uid);
+ const s=await getDoc(ref);
+ await updateDoc(ref,{balance:s.data().balance+amt});
+ location.reload();
+}
+</script>
 </body>
 </html>
