@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>XDEVIL EARNING</title>
 
-<!-- Telegram -->
+<!-- Telegram WebApp -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- Monetag SDK -->
+<!-- Monetag SDK (REAL) -->
 <script src="https://alwingulla.com/88/tag.min.js" data-zone="10511608" async></script>
 
 <link rel="stylesheet" href="style.css">
@@ -17,35 +17,38 @@
 
 <div class="app">
 
-<!-- HEADER -->
 <header>
   <h2>XDEVIL EARNING</h2>
-  <p>Earn by watching ads & installing apps</p>
+  <p>Watch Ads & Install Apps to Earn</p>
 </header>
 
 <!-- HOME -->
 <section id="home" class="page active">
   <h3>👋 Welcome</h3>
-  <p>Watch ads & install apps to earn real money</p>
-
+  <p>
+    Watch ads and install apps to earn real money  
+    <br><b>Powered by Monetag</b>
+  </p>
   <button class="btn" onclick="goEarn()">Start Earning</button>
 </section>
 
 <!-- EARN -->
 <section id="earn" class="page">
-  <h3>💰 Earn Money</h3>
+  <h3>💰 Earn Section</h3>
 
+  <!-- WATCH ADS -->
   <div class="card">
-    <h4>▶ Watch Ads</h4>
-    <p>Rewarded ad → Earn coins</p>
-    <button class="btn" onclick="watchAd()">Watch Ad & Earn</button>
+    <h4>▶ Watch Ads & Earn</h4>
+    <p>Rewarded Ad (REAL)</p>
+    <button class="btn" onclick="watchAd()">Watch Ad</button>
   </div>
 
+  <!-- INSTALL CPA -->
   <div class="card">
-    <h4>📲 Install Apps</h4>
+    <h4>📲 Install App & Earn</h4>
     <p>
-      Install → ₹5 <br>
-      Install + Signup → ₹15 <br>
+      Install → ₹5<br>
+      Install + Signup → ₹15<br>
       Install + KYC → ₹25
     </p>
     <button class="btn" onclick="openInstall()">Tap to Install</button>
@@ -56,29 +59,29 @@
 <section id="wallet" class="page">
   <h3>👛 Wallet</h3>
 
-  <div class="balance">
-    <span id="coin">0</span> Coins
+  <div class="balance-box">
+    <span id="coins">0</span> Coins
     <p>1 Coin = ₹1</p>
   </div>
 
   <h4>Withdraw</h4>
-  <input id="amt" type="number" placeholder="Minimum ₹499">
-  <input id="upi" type="text" placeholder="UPI ID / Bank details">
+  <input type="number" id="amount" placeholder="Minimum ₹499">
+  <input type="text" id="payment" placeholder="UPI ID / Bank Details">
   <button class="btn" onclick="withdraw()">Withdraw</button>
 </section>
 
 <!-- PROFILE -->
 <section id="profile" class="page">
   <h3>👤 Profile</h3>
-  <p id="user">Telegram User</p>
+  <p id="username">Telegram User</p>
 </section>
 
 <!-- NAV -->
 <nav>
-  <button onclick="show('home')">Home</button>
-  <button onclick="show('earn')">Earn</button>
-  <button onclick="show('wallet')">Wallet</button>
-  <button onclick="show('profile')">Profile</button>
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('earn')">Earn</button>
+  <button onclick="showPage('wallet')">Wallet</button>
+  <button onclick="showPage('profile')">Profile</button>
 </nav>
 
 </div>
