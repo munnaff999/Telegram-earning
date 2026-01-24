@@ -2,189 +2,87 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>XDEVIL EARNING</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XDEVIL EARNING</title>
 
-<style>
-*{box-sizing:border-box}
-body{
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
-    background:#f4f6fb;
-    color:#222;
-}
-header{
-    background:#ffffff;
-    padding:16px;
-    text-align:center;
-    font-size:20px;
-    font-weight:700;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-.section{display:none;padding:20px;animation:fade .4s}
-.section.active{display:block}
-@keyframes fade{
-    from{opacity:0;transform:translateY(10px)}
-    to{opacity:1;transform:none}
-}
-.card{
-    background:#fff;
-    border-radius:14px;
-    padding:20px;
-    margin-bottom:16px;
-    box-shadow:0 8px 25px rgba(0,0,0,.05);
-}
-.center{text-align:center}
-.balance{
-    font-size:28px;
-    font-weight:700;
-    margin:10px 0;
-}
-button{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    font-size:15px;
-    font-weight:600;
-    cursor:pointer;
-}
-.btn-main{background:#2ecc71;color:#fff}
-.btn-alt{background:#3498db;color:#fff;margin-top:10px}
-.btn-disable{background:#bdc3c7;color:#555}
-input,select{
-    width:100%;
-    padding:12px;
-    margin-top:8px;
-    border-radius:10px;
-    border:1px solid #ddd;
-}
-nav{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    display:flex;
-    background:#fff;
-    box-shadow:0 -2px 10px rgba(0,0,0,.1);
-}
-nav div{
-    flex:1;
-    text-align:center;
-    padding:12px;
-    font-size:13px;
-    cursor:pointer;
-}
-nav .active{color:#2ecc71;font-weight:700}
-.brand{
-    margin-top:10px;
-    font-size:13px;
-    color:#777;
-}
-</style>
+<!-- Telegram -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<!-- Monetag SDK -->
+<script src="https://alwingulla.com/88/tag.min.js" data-zone="10511608" async></script>
+
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header>XDEVIL EARNING</header>
+<div class="app">
+
+<!-- HEADER -->
+<header>
+  <h2>XDEVIL EARNING</h2>
+  <p>Earn by watching ads & installing apps</p>
+</header>
 
 <!-- HOME -->
-<div id="home" class="section active">
-    <div class="card center">
-        <h2>👋 Welcome</h2>
-        <p>Watch ads & install apps<br>and earn real money</p>
-        <div class="brand">By XDEVILEARNING</div>
-    </div>
-</div>
+<section id="home" class="page active">
+  <h3>👋 Welcome</h3>
+  <p>Watch ads & install apps to earn real money</p>
+
+  <button class="btn" onclick="goEarn()">Start Earning</button>
+</section>
 
 <!-- EARN -->
-<div id="earn" class="section">
-    <div class="card center">
-        <h3>🎯 Earn Section</h3>
-        <button class="btn-disable">Watch Ads (Coming Soon)</button>
-        <button class="btn-disable" style="margin-top:10px;">Install Apps (Coming Soon)</button>
-    </div>
-</div>
+<section id="earn" class="page">
+  <h3>💰 Earn Money</h3>
+
+  <div class="card">
+    <h4>▶ Watch Ads</h4>
+    <p>Rewarded ad → Earn coins</p>
+    <button class="btn" onclick="watchAd()">Watch Ad & Earn</button>
+  </div>
+
+  <div class="card">
+    <h4>📲 Install Apps</h4>
+    <p>
+      Install → ₹5 <br>
+      Install + Signup → ₹15 <br>
+      Install + KYC → ₹25
+    </p>
+    <button class="btn" onclick="openInstall()">Tap to Install</button>
+  </div>
+</section>
 
 <!-- WALLET -->
-<div id="wallet" class="section">
+<section id="wallet" class="page">
+  <h3>👛 Wallet</h3>
 
-    <div class="card center">
-        <h3>💰 Wallet</h3>
-        <div class="balance"><span id="coin">0</span> Coins</div>
-        <div>₹ <span id="rupees">0</span></div>
-        <button class="btn-main" onclick="convertCoin()">Convert Coins to ₹</button>
-    </div>
+  <div class="balance">
+    <span id="coin">0</span> Coins
+    <p>1 Coin = ₹1</p>
+  </div>
 
-    <div class="card">
-        <h4>📤 Withdrawal</h4>
-        <p>Minimum Withdrawal: ₹499</p>
+  <h4>Withdraw</h4>
+  <input id="amt" type="number" placeholder="Minimum ₹499">
+  <input id="upi" type="text" placeholder="UPI ID / Bank details">
+  <button class="btn" onclick="withdraw()">Withdraw</button>
+</section>
 
-        <select id="method">
-            <option value="">Select Method</option>
-            <option value="bank">Bank Transfer</option>
-            <option value="upi">UPI Transfer</option>
-        </select>
+<!-- PROFILE -->
+<section id="profile" class="page">
+  <h3>👤 Profile</h3>
+  <p id="user">Telegram User</p>
+</section>
 
-        <div id="bank" style="display:none">
-            <input placeholder="Bank Name">
-            <input placeholder="Account Number">
-            <input placeholder="IFSC Code">
-            <input placeholder="Contact Number">
-            <input placeholder="Email">
-        </div>
-
-        <div id="upi" style="display:none">
-            <input placeholder="UPI ID">
-        </div>
-
-        <button class="btn-alt" onclick="withdraw()">Request Withdrawal</button>
-    </div>
+<!-- NAV -->
+<nav>
+  <button onclick="show('home')">Home</button>
+  <button onclick="show('earn')">Earn</button>
+  <button onclick="show('wallet')">Wallet</button>
+  <button onclick="show('profile')">Profile</button>
+</nav>
 
 </div>
 
-<nav>
-    <div class="active" onclick="openTab('home',this)">Home</div>
-    <div onclick="openTab('earn',this)">Earn</div>
-    <div onclick="openTab('wallet',this)">Wallet</div>
-</nav>
-
-<script>
-let coins=0;
-let rupees=0;
-
-function openTab(id,el){
-    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-    document.querySelectorAll('nav div').forEach(n=>n.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    el.classList.add('active');
-}
-
-function convertCoin(){
-    if(coins<=0){alert("No coins to convert");return}
-    rupees+=coins;
-    coins=0;
-    update();
-    alert("Converted successfully");
-}
-
-function withdraw(){
-    if(rupees<499){
-        alert("Minimum withdrawal ₹499 required");
-        return;
-    }
-    alert("Withdrawal request submitted (Demo)");
-}
-
-function update(){
-    document.getElementById("coin").innerText=coins;
-    document.getElementById("rupees").innerText=rupees;
-}
-
-document.getElementById("method").onchange=function(){
-    document.getElementById("bank").style.display=this.value=="bank"?"block":"none";
-    document.getElementById("upi").style.display=this.value=="upi"?"block":"none";
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
