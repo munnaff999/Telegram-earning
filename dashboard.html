@@ -1,57 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Dashboard</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="box">
-<h2>User Dashboard</h2>
-<div class="card">Balance: ₹<span id="bal">0</span></div>
- <div class="withdraw-box">
+  <h2>User Dashboard</h2>
 
+  <div class="card">
+    Balance: ₹<span id="bal">0</span>
+  </div>
+
+  <div class="withdraw-box">
     <h3>Withdraw / Redeem</h3>
 
     <input id="upi" placeholder="Your UPI ID">
     <input id="amt" type="number" placeholder="Withdraw Amount">
+
     <button onclick="withdraw()">Withdraw</button>
 
     <hr>
 
     <button onclick="redeem()">Redeem Google Play ₹200</button>
     <p id="msg"></p>
+  </div>
 
- </div>
-
-<button onclick="earn(1)">Survey ₹1</button>
-<button onclick="earn(0.5)">Ad ₹0.50</button>
-<button onclick="earn(5)">Install App ₹5</button>
+  <div class="earn-box">
+    <button onclick="earn(1)">Survey ₹1</button>
+    <button onclick="earn(0.5)">Ad ₹0.50</button>
+    <button onclick="earn(5)">Install App ₹5</button>
+  </div>
 </div>
 
-<script type="module">
-import { auth, db } from "./config.js";
-import { onAuthStateChanged } from
-"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { doc, updateDoc, getDoc } from
-"https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+<!-- ONLY ONE SCRIPT -->
+<script type="module" src="dashboard.js"></script>
 
-let uid;
-
-onAuthStateChanged(auth, async u=>{
- uid=u.uid;
- const s=await getDoc(doc(db,"users",uid));
- bal.innerText=s.data().balance;
-});
-
-window.earn = async (amt)=>{
- const ref=doc(db,"users",uid);
- const s=await getDoc(ref);
- await updateDoc(ref,{balance:s.data().balance+amt});
- location.reload();
-}
-</script>
 </body>
 </html>
-<script type="module" src="dashboard.js"></script>
-</body>
