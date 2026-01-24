@@ -1,113 +1,126 @@
 import { auth, db } from './config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
-import { doc, onSnapshot, updateDoc, increment, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+import { doc, onSnapshot, updateDoc, increment, addDoc, collection, serverTimestamp, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-let currentUser = null;
-const uid = localStorage.getItem('xdevil_uid');
+const balanceEl = document.getElementById('balance-val');
+const emailEl = document.getElementById('user-email');
 
-// 1. Auth Guard
-onAuthStateChanged(auth, (user) => {
+// 1. Monitor Auth State
+onAuthStateChanged(auth, async (user) => {
     if (user) {
-        currentUser = user;
-        document.getElementById('user-email').innerText = user.email;
-        loadUserData(user.uid);
+        emailEl.innerText = user.email;
+        await ensureUserDocumentExists(user);
+        startBalanceListener(user.uid);
     } else {
         window.location.href = 'index.html';
     }
 });
 
-// 2. Real-time Balance Update
-function loadUserData(uid) {
-    onSnapshot(doc(db, "users", uid), (docSnap) => {
+// 2. SAFETY: Create document if it doesn't exist (Fixes Loading Error)
+async function ensureUserDocumentExists(user) {
+    const userRef = doc(db, "users", user.uid);
+    const snap = await getDoc(userRef);
+    
+    if (!snap.exists()) {
+        console.log("Creating missing user document...");
+        await setDoc(userRef, {
+            email: user.email,
+            balance: 0,
+            createdAt: serverTimestamp()
+        });
+    }
+}
+
+// 3. Real-time Balance Sync
+function startBalanceListener(uid) {
+    const userRef = doc(db, "users", uid);
+    onSnapshot(userRef, (docSnap) => {
         if (docSnap.exists()) {
             const data = docSnap.data();
-            document.getElementById('balance-val').innerText = `₹${data.balance.toFixed(2)}`;
+            const currentBalance = data.balance || 0;
+            balanceEl.innerText = `₹${currentBalance.toFixed(2)}`;
+        } else {
+            balanceEl.innerText = "₹0.00";
         }
+    }, (error) => {
+        console.error("Firestore Error:", error);
+        balanceEl.innerText = "Error Loading";
     });
 }
 
-// 3. Task Handler Logic
+// 4. Task Logic (Remains same, but with error handling)
 async function handleTask(btn) {
     const url = btn.dataset.url;
     const time = parseInt(btn.dataset.time);
-    const rewardType = btn.dataset.reward;
+    const rewardStr = btn.dataset.reward;
     const originalText = btn.innerText;
 
-    // Open Ad in new tab
     window.open(url, '_blank');
-
-    // Start Timer
     btn.disabled = true;
+    
     let timeLeft = time;
-
-    const countdown = setInterval(() => {
+    const countdown = setInterval(async () => {
         timeLeft--;
         btn.innerText = `Wait ${timeLeft}s...`;
 
         if (timeLeft <= 0) {
             clearInterval(countdown);
-            processReward(rewardType, btn, originalText);
+            btn.innerText = "Adding Reward...";
+            
+            let rewardAmount = rewardStr === "random" 
+                ? Math.floor(Math.random() * (15 - 5 + 1)) + 5 
+                : parseFloat(rewardStr);
+
+            try {
+                const userRef = doc(db, "users", auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    balance: increment(rewardAmount)
+                });
+                alert(`Success! ₹${rewardAmount} added.`);
+            } catch (err) {
+                alert("Database Error: Could not add balance.");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = originalText;
+            }
         }
     }, 1000);
 }
 
-async function processReward(type, btn, originalText) {
-    let amount = 0;
-    
-    if (type === "random") {
-        amount = Math.floor(Math.random() * (15 - 5 + 1)) + 5; // ₹5 to ₹15
-    } else {
-        amount = parseFloat(type);
-    }
-
-    try {
-        const userRef = doc(db, "users", currentUser.uid);
-        await updateDoc(userRef, {
-            balance: increment(amount)
-        });
-        alert(`Congratulations! ₹${amount} added to your balance.`);
-    } catch (err) {
-        alert("Error adding balance. Try again.");
-    } finally {
-        btn.disabled = false;
-        btn.innerText = originalText;
-    }
-}
-
-// 4. Withdrawal System
-const modal = document.getElementById('withdraw-modal');
-document.getElementById('open-withdraw').addEventListener('click', () => modal.classList.add('active'));
-document.getElementById('close-modal').addEventListener('click', () => modal.classList.remove('active'));
-
+// 5. Withdrawal Logic (Min ₹200)
 document.getElementById('submit-withdraw').addEventListener('click', async () => {
     const amount = parseFloat(document.getElementById('w-amount').value);
     const upi = document.getElementById('w-upi').value;
+    const userRef = doc(db, "users", auth.currentUser.uid);
+    const snap = await getDoc(userRef);
+    const currentBalance = snap.data().balance;
 
     if (amount < 200) return alert("Minimum withdrawal is ₹200");
-    if (!upi.includes('@')) return alert("Enter a valid UPI ID");
+    if (amount > currentBalance) return alert("Insufficient balance!");
+    if (!upi.includes('@')) return alert("Invalid UPI ID");
 
     try {
         await addDoc(collection(db, "withdrawals"), {
-            uid: currentUser.uid,
-            email: currentUser.email,
+            uid: auth.currentUser.uid,
+            email: auth.currentUser.email,
             amount: amount,
             upi: upi,
             status: "pending",
             createdAt: serverTimestamp()
         });
-        alert("Request submitted successfully! Admin will approve within 24 hours.");
-        modal.classList.remove('active');
+        alert("Withdrawal Requested! Amount will be deducted after admin approval.");
+        document.getElementById('withdraw-modal').classList.remove('active');
     } catch (err) {
-        alert("Error submitting request.");
+        alert("Error: " + err.message);
     }
 });
 
-// 5. Event Listeners for Tasks
+// Initialize Task Buttons
 document.querySelectorAll('.task-trigger').forEach(button => {
     button.addEventListener('click', () => handleTask(button));
 });
 
-// 6. Logout
+// Logout logic
 document.getElementById('logout-btn').addEventListener('click', () => {
     signOut(auth).then(() => {
         localStorage.clear();
