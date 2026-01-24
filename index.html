@@ -5,63 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>XDEVIL EARNING</title>
 
-<!-- Telegram -->
+<!-- Telegram WebApp -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- Monetag -->
+<!-- Monetag SDK -->
 <script src="https://libtl.com/sdk.js"
         data-zone="10511608"
         data-sdk="show_10511608"></script>
 
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="app">
 
-  <!-- NAV -->
+  <!-- TOP NAV -->
   <nav class="nav">
-    <button onclick="showPage('home')">Home</button>
-    <button onclick="showPage('earn')">Earn</button>
-    <button onclick="showPage('wallet')">Wallet</button>
-    <button onclick="showPage('profile')">Profile</button>
+    <button onclick="showPage('home')">🏠 Home</button>
+    <button onclick="showPage('earn')">💰 Earn</button>
+    <button onclick="showPage('wallet')">👛 Wallet</button>
+    <button onclick="showPage('profile')">👤 Profile</button>
   </nav>
 
   <!-- HOME -->
   <section id="home" class="page active">
-    <h1>Welcome 👋</h1>
+    <h1 class="logo">XDEVIL EARNING</h1>
     <p class="intro">
-      Watch Ads Automatically & Install Apps<br>
-      Earn Real Money with XDEVIL EARNING
+      Watch Ads Automatically<br>
+      Install Apps & Earn Real Money
     </p>
 
-    <div class="card">
-      <h3>Balance</h3>
-      <div class="balance">
-        <span id="coins">0</span> Coins
-      </div>
+    <div class="card highlight">
+      <h3>💎 Balance</h3>
+      <div class="balance">₹ <span id="coins">0</span></div>
       <small>1 Coin = ₹1</small>
     </div>
+
+    <p class="note">Ads run automatically ✔️</p>
   </section>
 
   <!-- EARN -->
   <section id="earn" class="page">
     <h2>Earn Money</h2>
 
+    <!-- INSTALL OFFERS -->
     <div class="card">
       <h3>📲 Install App & Earn</h3>
-      <p>
-        Install → ₹5<br>
-        Install + Signup → ₹15<br>
-        Install + Signup + KYC → ₹25
-      </p>
-      <button class="primary" onclick="openSmartlink()">
+      <ul class="list">
+        <li>Install → ₹5</li>
+        <li>Install + Signup → ₹15</li>
+        <li>Install + KYC → ₹25</li>
+      </ul>
+
+      <button class="primary"
+        onclick="openOffer('https://otieu.com/4/10508140')">
         Tap to Install
       </button>
     </div>
 
-    <div class="info">
-      Ads run automatically in background ✔️
+    <div class="card info">
+      Monetag Ads are auto shown in background
     </div>
   </section>
 
@@ -70,23 +74,29 @@
     <h2>Wallet</h2>
 
     <div class="card">
-      <h3>Total Coins</h3>
-      <p id="walletCoins">0</p>
+      <h3>Total Balance</h3>
+      <p class="big">₹ <span id="walletCoins">0</span></p>
     </div>
 
     <div class="card">
       <h3>Withdraw (Min ₹499)</h3>
 
-      <input id="amount" type="number" placeholder="Amount ₹">
+      <input type="number" id="amount" placeholder="Amount ₹">
 
-      <input id="upi" placeholder="UPI ID (optional)">
+      <h4>UPI (Optional)</h4>
+      <input id="upi" placeholder="UPI ID">
+
+      <h4>Bank Details</h4>
       <input id="bank" placeholder="Bank Name">
       <input id="acc" placeholder="Account Number">
       <input id="ifsc" placeholder="IFSC Code">
+
       <input id="email" placeholder="Email">
       <input id="mobile" placeholder="Mobile Number">
 
-      <button class="primary" onclick="withdraw()">Request Withdraw</button>
+      <button class="primary" onclick="withdraw()">
+        Request Withdrawal
+      </button>
     </div>
   </section>
 
@@ -102,6 +112,49 @@
 
 </div>
 
-<script src="script.js"></script>
+<!-- CORE SCRIPT -->
+<script>
+/* PAGE SWITCH */
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* CPA OFFER */
+function openOffer(link){
+  window.open(link,'_blank');
+}
+
+/* AUTO MONETAG ADS */
+window.addEventListener("load",()=>{
+  if(typeof show_10511608 !== "function") return;
+
+  // Rewarded Interstitial
+  show_10511608().catch(()=>{});
+
+  // Rewarded Popup
+  setTimeout(()=>{
+    show_10511608('pop').catch(()=>{});
+  },15000);
+
+  // In-App Interstitial
+  show_10511608({
+    type:'inApp',
+    inAppSettings:{
+      frequency:2,
+      capping:0.1,
+      interval:30,
+      timeout:5,
+      everyPage:false
+    }
+  });
+});
+
+/* WITHDRAW (demo) */
+function withdraw(){
+  alert("Withdrawal request submitted ✔️");
+}
+</script>
+
 </body>
 </html>
