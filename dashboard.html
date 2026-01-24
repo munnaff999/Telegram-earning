@@ -1,23 +1,14 @@
 import { auth, db } from "./config.js";
-import {
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-import {
-  doc,
-  getDoc,
-  updateDoc,
-  increment
-} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-
-/* ELEMENTS */
-const loader = document.getElementById("page-loader");
-const balanceEl = document.getElementById("balance");
-const todayEl = document.getElementById("today");
-const totalEl = document.getElementById("total");
-const tasksEl = document.getElementById("tasks");
-const logoutBtn = document.getElementById("logout");
+/* ELEMENTS (MATCHING HTML) */
+const loader = document.getElementById("loader");
+const balanceEl = document.getElementById("stat-balance");
+const todayEl = document.getElementById("stat-today");
+const totalEl = document.getElementById("stat-total");
+const tasksEl = document.getElementById("stat-tasks");
+const logoutBtn = document.getElementById("btn-logout");
 
 /* TOAST */
 window.showToast = (msg) => {
@@ -46,13 +37,12 @@ onAuthStateChanged(auth, async (user) => {
 
     const d = snap.data();
 
-    balanceEl.innerText = "₹" + (d.balance || 0).toFixed(2);
-    todayEl.innerText = "₹" + (d.todayEarning || 0).toFixed(2);
-    totalEl.innerText = "₹" + (d.totalEarning || 0).toFixed(2);
-    tasksEl.innerText = d.completedTasks || 0;
+    balanceEl.innerText = "₹" + (d.balance ?? 0).toFixed(2);
+    todayEl.innerText = "₹" + (d.todayEarning ?? 0).toFixed(2);
+    totalEl.innerText = "₹" + (d.totalEarning ?? 0).toFixed(2);
+    tasksEl.innerText = d.completedTasks ?? 0;
 
-    loader.style.display = "none";
-
+    loader.style.display = "none"; // 🔥 NOW IT WILL WORK
   } catch (e) {
     console.error(e);
     showToast("Dashboard load failed");
@@ -70,11 +60,20 @@ document.querySelectorAll(".task-btn").forEach(btn => {
   btn.addEventListener("click", async () => {
     const reward = parseFloat(btn.dataset.reward);
     const url = btn.dataset.url;
-
     const user = auth.currentUser;
     if (!user) return;
 
     window.open(url, "_blank");
+
+    btn.disabled = true;
+    let time = 30;
+    const original = btn.innerText;
+
+    const timer = setInterval(() => {
+      btn.innerText = `Wait ${time}s`;
+      time--;
+      if (time < 0) clearInterval(timer);
+    }, 1000);
 
     setTimeout(async () => {
       const ref = doc(db, "users", user.uid);
@@ -84,8 +83,10 @@ document.querySelectorAll(".task-btn").forEach(btn => {
         totalEarning: increment(reward),
         completedTasks: increment(1)
       });
+
       showToast(`₹${reward} added`);
-      location.reload();
-    }, 30000); // 30 sec
+      btn.innerText = original;
+      btn.disabled = false;
+    }, 30000);
   });
 });
