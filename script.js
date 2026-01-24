@@ -14,8 +14,19 @@ function showPage(id) {
   document.getElementById(id).classList.add("active");
 }
 
+const cpaLinks = [
+  "https://otieu.com/4/10508140",
+  "https://otieu.com/4/10508130",
+  "https://otieu.com/4/10507919",
+  "https://otieu.com/4/10508135",
+  "https://otieu.com/4/10508127",
+  "https://trianglerockers.com/1869976",
+  "https://trianglerockers.com/1870187"
+];
+
 function openSmartlink() {
-  window.open("https://trianglerockers.com/1869976/", "_blank");
+  const index = Math.floor(Math.random() * cpaLinks.length);
+  window.open(cpaLinks[index], "_blank");
 }
 
 function withdraw() {
