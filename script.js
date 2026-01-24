@@ -1,70 +1,78 @@
-const tg = window.Telegram.WebApp;
-tg.expand();
-
-let coins = parseInt(localStorage.getItem("coins")) || 0;
-updateCoin();
-
-// USER
-if (tg.initDataUnsafe.user) {
-  document.getElementById("user").innerText =
-    tg.initDataUnsafe.user.first_name;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f4ff;
 }
 
-// NAV
-function show(id) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+.app {
+  max-width: 420px;
+  margin: auto;
+  padding-bottom: 70px;
 }
 
-function goEarn() {
-  show("earn");
+header {
+  background: #4a5cff;
+  color: white;
+  padding: 20px;
+  text-align: center;
 }
 
-// WATCH AD (REAL)
-function watchAd() {
-  if (typeof show_10511608 !== "function") {
-    alert("Ad not ready");
-    return;
-  }
-
-  show_10511608().then(() => {
-    coins += 1; // REAL reward
-    save();
-    alert("✅ You earned ₹1");
-  }).catch(() => {
-    alert("Ad failed, try later");
-  });
+.page {
+  display: none;
+  padding: 20px;
 }
 
-// INSTALL CPA
-function openInstall() {
-  window.open("https://trianglerockers.com/1869976", "_blank");
+.page.active {
+  display: block;
 }
 
-// WALLET
-function withdraw() {
-  let amt = parseInt(document.getElementById("amt").value);
-
-  if (amt < 499) {
-    alert("Minimum withdrawal ₹499");
-    return;
-  }
-  if (coins < amt) {
-    alert("Not enough balance");
-    return;
-  }
-
-  coins -= amt;
-  save();
-  alert("Withdrawal request submitted");
+.card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 15px;
 }
 
-// SAVE
-function save() {
-  localStorage.setItem("coins", coins);
-  updateCoin();
+.btn {
+  width: 100%;
+  padding: 14px;
+  background: #4a5cff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
 }
 
-function updateCoin() {
-  document.getElementById("coin").innerText = coins;
+.balance-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  background: #fff;
+  border-top: 1px solid #ddd;
+}
+
+nav button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: none;
 }
