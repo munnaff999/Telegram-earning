@@ -1,29 +1,120 @@
-let coins = localStorage.getItem("coins")
-  ? parseFloat(localStorage.getItem("coins"))
-  : 0;
-
-updateCoin();
-
-function updateCoin() {
-  document.getElementById("coin").innerText = coins.toFixed(2);
-  document.getElementById("coin2").innerText = coins.toFixed(2);
-  localStorage.setItem("coins", coins);
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-function openTab(tab) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById(tab).classList.add("active");
-  document.getElementById("pageTitle").innerText =
-    tab.charAt(0).toUpperCase() + tab.slice(1);
+body{
+    background:#f2f4f8;
+    color:#222;
 }
 
-function showAd() {
-  // 👉 YAHAN MONETAG AD CALL AAYEGA
-
-  // demo reward
-  setTimeout(() => {
-    coins += 0.10;
-    updateCoin();
-    alert("You earned 0.10 coin 🎉");
-  }, 1000);
+/* HEADER */
+header{
+    background:#ffffff;
+    padding:16px;
+    text-align:center;
+    font-size:20px;
+    font-weight:700;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
+
+/* SECTIONS */
+.section{
+    display:none;
+    padding:20px;
+    animation:fade .4s ease;
+}
+.section.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:none;}
+}
+
+/* CARD */
+.card{
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+.center{text-align:center}
+
+.balance{
+    font-size:30px;
+    font-weight:700;
+    margin:10px 0;
+}
+
+/* BUTTONS */
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn-main{
+    background:#2ecc71;
+    color:#fff;
+}
+
+.btn-alt{
+    background:#3498db;
+    color:#fff;
+    margin-top:10px;
+}
+
+.btn-disable{
+    background:#bdc3c7;
+    color:#555;
+}
+
+/* INPUTS */
+input,select{
+    width:100%;
+    padding:12px;
+    margin-top:8px;
+    border-radius:12px;
+    border:1px solid #ddd;
+    font-size:14px;
+}
+
+/* NAVBAR */
+nav{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    display:flex;
+    background:#ffffff;
+    box-shadow:0 -3px 15px rgba(0,0,0,.12);
+}
+
+nav div{
+    flex:1;
+    text-align:center;
+    padding:12px;
+    font-size:13px;
+    cursor:pointer;
+}
+
+nav .active{
+    color:#2ecc71;
+    font-weight:700;
+}
+
+/* BRAND */
+.brand{
+    margin-top:12px;
+    font-size:13px;
+    color:#777;
+      }
