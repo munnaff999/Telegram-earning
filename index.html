@@ -4,47 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XDEVIL EARNING - Login</title>
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body class="auth-page">
+
+    <!-- Toast -->
     <div id="toast-container"></div>
-    
+
     <div class="auth-container">
         <div class="brand">
             <i class="fas fa-bolt"></i>
             <h1>XDEVIL EARNING</h1>
         </div>
 
+        <!-- LOGIN -->
         <div class="auth-card" id="login-form">
             <h2>Welcome Back</h2>
+
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
                 <input type="email" id="login-email" placeholder="Email Address">
             </div>
+
             <div class="input-group">
                 <i class="fas fa-lock"></i>
                 <input type="password" id="login-password" placeholder="Password">
             </div>
-            <button id="btn-login" class="btn-primary">Login Now</button>
-            <p class="toggle-text">Don't have an account? <span id="show-signup">Sign Up</span></p>
+
+            <button type="button" id="btn-login" class="btn-primary">
+                Login Now
+            </button>
+
+            <p class="toggle-text">
+                Don't have an account?
+                <span id="show-signup">Sign Up</span>
+            </p>
         </div>
 
+        <!-- SIGNUP -->
         <div class="auth-card hidden" id="signup-form">
             <h2>Create Account</h2>
+
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
                 <input type="email" id="signup-email" placeholder="Email Address">
             </div>
+
             <div class="input-group">
                 <i class="fas fa-lock"></i>
                 <input type="password" id="signup-password" placeholder="Password (Min 6 chars)">
             </div>
-            <button id="btn-signup" class="btn-primary">Register</button>
-            <p class="toggle-text">Already have an account? <span id="show-login">Login</span></p>
+
+            <button type="button" id="btn-signup" class="btn-primary">
+                Register
+            </button>
+
+            <p class="toggle-text">
+                Already have an account?
+                <span id="show-login">Login</span>
+            </p>
         </div>
     </div>
 
+    <!-- AUTH SCRIPT (VERY IMPORTANT: module) -->
     <script type="module" src="auth.js"></script>
+
+    <!-- TOGGLE SCRIPT (small inline helper) -->
+    <script>
+        const loginForm = document.getElementById("login-form");
+        const signupForm = document.getElementById("signup-form");
+
+        document.getElementById("show-signup").onclick = () => {
+            loginForm.classList.add("hidden");
+            signupForm.classList.remove("hidden");
+        };
+
+        document.getElementById("show-login").onclick = () => {
+            signupForm.classList.add("hidden");
+            loginForm.classList.remove("hidden");
+        };
+    </script>
+
 </body>
 </html>
