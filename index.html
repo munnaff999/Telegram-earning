@@ -1,76 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>X Devil Earning</title>
-
-<!-- Telegram SDK -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<!-- Monetag SDK -->
-<script src="https://libtl.com/sdk.js"
-        data-zone="10511608"
-        data-sdk="show_10511608"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<style>
-body{margin:0;font-family:sans-serif;background:#0f172a;color:#fff}
-.loader-overlay{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:999}
-.spinner{width:40px;height:40px;border:4px solid #333;border-top:4px solid #0f0;border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{100%{transform:rotate(360deg)}}
-.main-btn{padding:12px 20px;background:#16a34a;border:none;border-radius:8px;color:#fff;font-size:16px}
-</style>
+  <meta charset="UTF-8">
+  <title>Earn App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div id="loader" class="loader-overlay">
-  <div class="spinner"></div>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h2 id="pageTitle">Home</h2>
+    <div class="balance">Coins: <span id="coin">0</span></div>
+  </div>
+
+  <!-- PAGES -->
+  <div class="pages">
+
+    <!-- HOME -->
+    <div class="page active" id="home">
+      <h3>Welcome 👋</h3>
+      <p>Earn coins by watching ads</p>
+      <button class="main-btn" onclick="showAd()">Watch Ad & Earn</button>
+    </div>
+
+    <!-- EARN -->
+    <div class="page" id="earn">
+      <h3>Earn Coins</h3>
+      <div class="card">
+        <p>Watch Rewarded Ad</p>
+        <button onclick="showAd()">+0.10 Coin</button>
+      </div>
+    </div>
+
+    <!-- WALLET -->
+    <div class="page" id="wallet">
+      <h3>Wallet</h3>
+      <div class="card">
+        <p>Total Balance</p>
+        <h2><span id="coin2">0</span> Coins</h2>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="page" id="profile">
+      <h3>Profile</h3>
+      <div class="card">
+        <p>User: Guest</p>
+        <p>Status: Active</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="nav">
+    <button onclick="openTab('home')">🏠<br>Home</button>
+    <button onclick="openTab('earn')">💰<br>Earn</button>
+    <button onclick="openTab('wallet')">👛<br>Wallet</button>
+    <button onclick="openTab('profile')">👤<br>Profile</button>
+  </div>
+
 </div>
 
-<div style="padding:20px;text-align:center">
-  <h2>Balance: <span id="bal">0</span> Coins</h2>
+<script src="script.js"></script>
 
-  <!-- Rewarded Video (USER EARNING) -->
-  <button class="main-btn" onclick="watchRewarded()">Watch Ad & Earn</button>
-</div>
-
-<script>
-let balance = 0;
-
-/* Loader off */
-window.onload = () => {
-  document.getElementById("loader").style.display = "none";
-
-  // AUTO INTERSTITIAL (user earning nahi)
-  setTimeout(showInterstitial, 5000);
-};
-
-/* 🎁 Rewarded Video */
-function watchRewarded(){
-  if (typeof show_10511608 !== "function") {
-    alert("Ad not ready, try again");
-    return;
-  }
-
-  show_10511608().then(() => {
-    balance += 0.10; // 0.10 coin
-    document.getElementById("bal").innerText = balance.toFixed(2);
-    alert("You earned 0.10 coin");
-  }).catch(() => {
-    alert("Ad closed / failed");
-  });
-}
-
-/* 🚫 Interstitial (AUTO, NO USER EARNING) */
-function showInterstitial(){
-  if (typeof show_10511608 === "function") {
-    show_10511608();
-  }
-}
-</script>
+<!-- 👉 MONETAG SCRIPT YAHAN PASTE HOGA -->
+<!-- Monetag Rewarded / Interstitial script -->
 
 </body>
 </html>
