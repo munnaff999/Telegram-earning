@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>XDEVILEARNING</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<script type="module">
+import { auth, db } from "./config.js";
+import { signInWithEmailAndPassword } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, getDoc } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-<div class="card">
-  <h2 style="text-align:center">XDEVILEARNING</h2>
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-  <button class="btn" onclick="login()">Login</button>
-  <button class="btn" onclick="signup()">Sign Up</button>
-</div>
+window.login = function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
-<script src="app.js"></script>
-</body>
-</html>
+  signInWithEmailAndPassword(auth, email, password)
+    .then(async (res) => {
+      const snap = await getDoc(doc(db, "users", res.user.uid));
+      if (snap.data().role === "admin") {
+        location.href = "admin.html";
+      } else {
+        location.href = "dashboard.html";
+      }
+    })
+    .catch(err => alert(err.message));
+}
+</script>
