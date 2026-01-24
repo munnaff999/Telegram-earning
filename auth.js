@@ -6,7 +6,17 @@ import {
     signOut 
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+window.showToast = (msg) => {
+  const container = document.getElementById("toast-container");
+  if (!container) return alert(msg);
 
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerText = msg;
+  container.appendChild(toast);
+
+  setTimeout(() => toast.remove(), 3000);
+};
 // DOM Elements
 const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
