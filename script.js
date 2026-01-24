@@ -1,139 +1,82 @@
-// Telegram WebApp Initialization
-const tg = window.Telegram.WebApp;
-tg.expand();
-
-// Balance Logic
-let balance = parseFloat(localStorage.getItem('devil_bal')) || 0;
-let adsWatched = parseInt(localStorage.getItem('devil_ads')) || 0;
-
-function updateUI() {
-    document.getElementById('bal').innerText = balance;
-    document.getElementById('stat-ads').innerText = adsWatched;
-    localStorage.setItem('devil_bal', balance);
-    localStorage.setItem('devil_ads', adsWatched);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-// User Data from Telegram
-function loadUser() {
-    const user = tg.initDataUnsafe.user;
-    if (user) {
-        document.getElementById('u-name').innerText = user.first_name;
-        document.getElementById('p-name').innerText = user.first_name + " " + (user.last_name || "");
-        document.getElementById('u-id').innerText = user.id;
-        const initial = user.first_name.charAt(0);
-        document.getElementById('u-avatar').innerText = initial;
-        document.querySelector('.p-img').innerText = initial;
-    }
+body {
+  background: #f2f2f2;
 }
 
-// Navigation
-function showPage(pageId, btn) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-    
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    
-    tg.HapticFeedback.impactOccurred('light');
+.app {
+  max-width: 420px;
+  margin: auto;
+  background: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-// Monetag Ads Logic
-function watchAd() {
-    tg.HapticFeedback.impactOccurred('medium');
-    
-    // Yaha SDK function call ho raha hai
-    if (typeof window.show_10511608 === 'function') {
-        window.show_10511608().then(() => {
-            rewardUser();
-        }).catch(() => {
-            // Agar ad fail ho jaye toh bhi demo reward (testing ke liye)
-            tg.showAlert("Ad loaded successfully!");
-            rewardUser();
-        });
-    } else {
-        // Local browser testing fallback
-        tg.showAlert("Ad loading... (Demo)");
-        setTimeout(rewardUser, 1000);
-    }
+.header {
+  padding: 15px;
+  background: #4CAF50;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-function addCoins(amount) {
-    balance += amount;
-    adsWatched += 1;
-    updateUI();
-}
-    tg.HapticFeedback.notificationOccurred('success');
+.pages {
+  flex: 1;
+  padding: 20px;
 }
 
-function openSmartlink() {
-
-    // 🔥 Monetag ads (no buttons)
-    runInAppAd();              // auto background
-    runRewardedInterstitial(); // +0.10
-    runRewardedPopup();        // +0.10
-
-    // 🔗 Smartlink
-    window.open("https://trianglerockers.com/1869976", "_blank");
-
-    tg.showAlert("Install app, open for 30 seconds to earn!");
+.page {
+  display: none;
 }
 
-// Withdraw Logic
-function submitWithdraw() {
-    const amt = document.getElementById('wd-amt').value;
-    const info = document.getElementById('wd-info').value;
-
-    if (amt < 5000) {
-        tg.showAlert("Minimum withdraw 5000 coins!");
-        return;
-    }
-
-    if (balance < amt) {
-        tg.showAlert("Not enough coins!");
-        return;
-    }
-
-    balance -= amt;
-    updateUI();
-    tg.showAlert("Withdraw request submitted for manual approval!");
+.page.active {
+  display: block;
 }
 
-// Initialization
-window.onload = () => {
-    loadUser();
-    updateUI();
-    setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-    }, 1000);
-};
-
-
-// ===== MONETAG ADS HANDLER =====
-
-// 1️⃣ In-App Interstitial (auto, background earning)
-function runInAppAd() {
-  show_10511608({
-    type: 'inApp',
-    inAppSettings: {
-      frequency: 2,
-      capping: 0.1,
-      interval: 30,
-      timeout: 5,
-      everyPage: false
-    }
-  });
+.main-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 15px;
+  background: #4CAF50;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 10px;
 }
 
-// 2️⃣ Rewarded Interstitial (safe reward)
-function runRewardedInterstitial() {
-  show_10511608().then(() => {
-    addCoins(0.10); // user ko 0.10 coin
-  }).catch(() => {});
+.card {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
 }
 
-// 3️⃣ Rewarded Popup (highest payout)
-function runRewardedPopup() {
-  show_10511608('pop').then(() => {
-    addCoins(0.10); // tumne bola 0.10 coin hi dena hai
-  }).catch(() => {});
+.card button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background: #2196F3;
+  color: #fff;
+  border-radius: 8px;
+}
+
+.nav {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+.nav button {
+  flex: 1;
+  padding: 10px;
+  background: #fff;
+  border: none;
+  font-size: 14px;
 }
