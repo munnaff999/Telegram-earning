@@ -1,3 +1,12 @@
+auth.onAuthStateChanged(async (user) => {
+  if (!user) return window.location.href = "index.html";
+
+  const snap = await getDoc(doc(db, "users", user.uid));
+  if (!snap.exists() || snap.data().isAdmin !== true) {
+    alert("Access denied");
+    window.location.href = "dashboard.html";
+  }
+});
 import { auth, db } from './config.js';
 import { collection, onSnapshot, doc, updateDoc, deleteDoc, query, where } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
