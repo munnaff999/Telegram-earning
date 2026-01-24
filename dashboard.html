@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <b id="userEmail"></b><br>
+    <span class="balance">₹<span id="balance">0</span></span>
+  </div>
+  <button class="btn" onclick="logout()">Logout</button>
+</div>
+
+<div class="card">
+  <h3>📲 App Install</h3>
+  <button class="btn" onclick="offer(10,'https://xml.qualiclicks.com/redirect?...')">
+    Install App & Earn ₹10
+  </button>
+</div>
+
+<div class="card">
+  <h3>📝 Surveys (₹1)</h3>
+  <button class="btn" onclick="offer(1,'https://otieu.com/4/10508140')">Survey 1</button>
+  <button class="btn" onclick="offer(1,'https://otieu.com/4/10508130')">Survey 2</button>
+  <button class="btn" onclick="offer(1,'https://otieu.com/4/10507919')">Survey 3</button>
+  <button class="btn" onclick="offer(1,'https://otieu.com/4/10508135')">Survey 4</button>
+  <button class="btn" onclick="offer(1,'https://otieu.com/4/10508127')">Survey 5</button>
+</div>
+
+<div class="card">
+  <h3>⏱ Quick Survey</h3>
+  <button class="btn" onclick="offer(.5,'https://playabledownloads.com/1869976/XDEVILEARNING')">
+    2-Min Survey – ₹0.50
+  </button>
+</div>
+
+<div class="card">
+  <h3>💸 Withdraw</h3>
+  <input id="withdrawAmt" type="number" placeholder="Minimum ₹200">
+  <button class="btn" onclick="withdraw()">Request Withdraw</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
