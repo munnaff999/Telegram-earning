@@ -1,86 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Earn Money App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XDEVILEARNING</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ============ AUTH ============ -->
-<div id="authSection" class="auth-wrapper">
-  <div class="auth-box">
-    <h2>Earn Money</h2>
-
-    <input type="email" id="email" placeholder="Email address">
-    <input type="password" id="password" placeholder="Password">
-
-    <button onclick="login()">Login</button>
-    <button class="primary" onclick="signup()">Sign Up</button>
-
-    <p class="small">Secure login • Real rewards</p>
-  </div>
+<div class="card">
+  <h2 style="text-align:center">XDEVILEARNING</h2>
+  <input id="email" type="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button class="btn" onclick="login()">Login</button>
+  <button class="btn" onclick="signup()">Sign Up</button>
 </div>
 
-<!-- ============ DASHBOARD ============ -->
-<div id="dashboard" style="display:none;">
-
-  <header>
-    <div>
-      <strong id="userEmail"></strong><br>
-      Balance: <span id="balance">₹0</span>
-    </div>
-    <button onclick="logout()">Logout</button>
-  </header>
-
-  <p id="status" class="status"></p>
-
-  <section class="card">
-    <h3>📲 App Install</h3>
-    <button onclick="startOffer(10,'https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR&url=https://munnaff999.github.io/Telegram-earning/&subid=&query=')">
-      Install App & Earn ₹10
-    </button>
-  </section>
-
-  <section class="card">
-    <h3>📝 Surveys (₹1)</h3>
-
-    <button onclick="startOffer(1,'https://otieu.com/4/10508140')">Survey 1</button>
-    <button onclick="startOffer(1,'https://otieu.com/4/10508130')">Survey 2</button>
-    <button onclick="startOffer(1,'https://otieu.com/4/10507919')">Survey 3</button>
-    <button onclick="startOffer(1,'https://otieu.com/4/10508135')">Survey 4</button>
-    <button onclick="startOffer(1,'https://otieu.com/4/10508127')">Survey 5</button>
-  </section>
-
-  <section class="card">
-    <h3>⏱️ Quick Survey</h3>
-    <button onclick="startOffer(0.5,'https://playabledownloads.com/1869976/XDEVILEARNING')">
-      2-Min Survey – ₹0.50
-    </button>
-  </section>
-
-  <section class="card">
-    <h3>👤 Profile</h3>
-    <p>Total Earned: <strong id="totalEarned">₹0</strong></p>
-  </section>
-
-  <section class="card">
-    <h3>💸 Withdraw</h3>
-    <p>Minimum ₹200</p>
-    <input type="number" id="withdrawAmount" placeholder="Amount">
-    <button onclick="requestWithdraw()">Request Withdraw</button>
-  </section>
-
-</div>
-
-<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-<script src="config.js"></script>
+<script src="firebase.js"></script>
 <script src="app.js"></script>
-
 </body>
 </html>
