@@ -1,41 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Dashboard</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - XDEVIL EARNING</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <nav class="nav">
+        <div class="container nav-flex">
+            <h2 class="brand">XDEVIL</h2>
+            <div class="user-meta">
+                <span id="user-email">...</span>
+                <button id="logout-btn">Logout</button>
+            </div>
+        </div>
+    </nav>
 
-<div class="box">
-  <h2>Dashboard</h2>
-  <div class="card">Balance ₹<span id="bal">0</span></div>
+    <div class="container main-content">
+        <section class="balance-section">
+            <div class="balance-card">
+                <p>Available Balance</p>
+                <h1 id="balance-val">₹0.00</h1>
+                <button id="open-withdraw" class="btn-withdraw">Redeem Rewards</button>
+            </div>
+        </section>
 
-  <h3>Earn Money</h3>
+        <h3 class="section-label">Premium Tasks</h3>
+        <div class="task-grid">
+            <!-- CPA -->
+            <div class="card">
+                <div class="badge">₹0.50</div>
+                <h4>CPAGrip Survey</h4>
+                <p>Verify you are human</p>
+                <button class="task-trigger" id="task-cpa" data-url="https://playabledownloads.com/1869976/XDEVILEARNING" data-time="30" data-reward="0.5">Start Task (30s)</button>
+            </div>
 
-  <button onclick="task(
-'https://playabledownloads.com/1869976/XDEVILEARNING',0.5,120)">
- CPAgrip Survey ₹0.50 (2 min)
-  </button>
+            <!-- EZMOB -->
+            <div class="card highlight">
+                <div class="badge">₹5-15</div>
+                <h4>EZMOB Install</h4>
+                <p>Install & Earn Bonus</p>
+                <button class="task-trigger" id="task-ez" data-url="https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR&url=https://munnaff999.github.io/Telegram-earning/&subid=&query=" data-time="60" data-reward="random">Start Task (60s)</button>
+            </div>
+        </div>
 
-  <button onclick="task(
-'https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR&url=https://munnaff999.github.io/Telegram-earning/&subid=&query=',10,240)">
- Install App ₹5-₹15
-  </button>
+        <h3 class="section-label">Monetag Surveys</h3>
+        <div class="task-grid" id="monetag-grid">
+            <div class="card">
+                <div class="badge">₹1.00</div>
+                <h4>Task Alpha</h4>
+                <button class="task-trigger mon-btn" data-url="https://otieu.com/4/10508140" data-time="30" data-reward="1">Claim ₹1</button>
+            </div>
+            <div class="card">
+                <div class="badge">₹1.00</div>
+                <h4>Task Beta</h4>
+                <button class="task-trigger mon-btn" data-url="https://otieu.com/4/10508130" data-time="30" data-reward="1">Claim ₹1</button>
+            </div>
+            <div class="card">
+                <div class="badge">₹1.00</div>
+                <h4>Task Gamma</h4>
+                <button class="task-trigger mon-btn" data-url="https://otieu.com/4/10507919" data-time="30" data-reward="1">Claim ₹1</button>
+            </div>
+            <div class="card">
+                <div class="badge">₹1.00</div>
+                <h4>Task Delta</h4>
+                <button class="task-trigger mon-btn" data-url="https://otieu.com/4/10508135" data-time="30" data-reward="1">Claim ₹1</button>
+            </div>
+            <div class="card">
+                <div class="badge">₹1.00</div>
+                <h4>Task Epsilon</h4>
+                <button class="task-trigger mon-btn" data-url="https://otieu.com/4/10508127" data-time="30" data-reward="1">Claim ₹1</button>
+            </div>
+        </div>
+    </div>
 
-  <button onclick="task('https://otieu.com/4/10508140',1,120)">
- Monetag Survey ₹1
-  </button>
+    <!-- Modal -->
+    <div id="withdraw-modal" class="modal">
+        <div class="modal-content">
+            <h3>Withdraw UPI</h3>
+            <p>Min. ₹200 required</p>
+            <input type="number" id="w-amount" placeholder="Amount">
+            <input type="text" id="w-upi" placeholder="UPI ID (e.g. user@paytm)">
+            <div class="modal-btns">
+                <button id="close-modal">Cancel</button>
+                <button id="submit-withdraw" class="btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
 
-  <hr>
-
-  <h3>Withdraw</h3>
-  <input id="upi" placeholder="UPI ID">
-  <input id="amt" type="number" placeholder="Amount">
-  <button onclick="withdraw()">Withdraw</button>
-
-  <p id="msg"></p>
-</div>
-
-<script type="module" src="dashboard.js"></script>
+    <script type="module" src="dashboard.js"></script>
 </body>
 </html>
