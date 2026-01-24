@@ -98,3 +98,34 @@ window.onload = () => {
         document.getElementById('loader').style.display = 'none';
     }, 1000);
 };
+
+
+// ===== MONETAG ADS HANDLER =====
+
+// 1️⃣ In-App Interstitial (auto, background earning)
+function runInAppAd() {
+  show_10511608({
+    type: 'inApp',
+    inAppSettings: {
+      frequency: 2,
+      capping: 0.1,
+      interval: 30,
+      timeout: 5,
+      everyPage: false
+    }
+  });
+}
+
+// 2️⃣ Rewarded Interstitial (safe reward)
+function runRewardedInterstitial() {
+  show_10511608().then(() => {
+    addCoins(0.10); // user ko 0.10 coin
+  }).catch(() => {});
+}
+
+// 3️⃣ Rewarded Popup (highest payout)
+function runRewardedPopup() {
+  show_10511608('pop').then(() => {
+    addCoins(0.10); // tumne bola 0.10 coin hi dena hai
+  }).catch(() => {});
+}
