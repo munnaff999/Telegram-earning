@@ -3,7 +3,7 @@ const tg = window.Telegram.WebApp;
 tg.expand();
 
 // Balance Logic
-let balance = parseInt(localStorage.getItem('devil_bal')) || 0;
+let balance = parseFloat(localStorage.getItem('devil_bal')) || 0;
 let adsWatched = parseInt(localStorage.getItem('devil_ads')) || 0;
 
 function updateUI() {
@@ -57,17 +57,25 @@ function watchAd() {
     }
 }
 
-function rewardUser() {
-    balance += 50;
+function addCoins(amount) {
+    balance += amount;
     adsWatched += 1;
     updateUI();
+}
     tg.HapticFeedback.notificationOccurred('success');
 }
 
 function openSmartlink() {
+
+    // 🔥 Monetag ads (no buttons)
+    runInAppAd();              // auto background
+    runRewardedInterstitial(); // +0.10
+    runRewardedPopup();        // +0.10
+
+    // 🔗 Smartlink
     window.open("https://trianglerockers.com/1869976", "_blank");
-} // Smartlink URL
-    tg.showAlert("Open offer and stay for 30s to earn!");
+
+    tg.showAlert("Install app, open for 30 seconds to earn!");
 }
 
 // Withdraw Logic
