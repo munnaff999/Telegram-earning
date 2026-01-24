@@ -9,6 +9,20 @@
 <div class="box">
 <h2>User Dashboard</h2>
 <div class="card">Balance: ₹<span id="bal">0</span></div>
+ <div class="withdraw-box">
+
+    <h3>Withdraw / Redeem</h3>
+
+    <input id="upi" placeholder="Your UPI ID">
+    <input id="amt" type="number" placeholder="Withdraw Amount">
+    <button onclick="withdraw()">Withdraw</button>
+
+    <hr>
+
+    <button onclick="redeem()">Redeem Google Play ₹200</button>
+    <p id="msg"></p>
+
+ </div>
 
 <button onclick="earn(1)">Survey ₹1</button>
 <button onclick="earn(0.5)">Ad ₹0.50</button>
@@ -39,3 +53,5 @@ window.earn = async (amt)=>{
 </script>
 </body>
 </html>
+<script type="module" src="dashboard.js"></script>
+</body>
