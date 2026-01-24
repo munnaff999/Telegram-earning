@@ -1,43 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>User Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="box">
-  <h2>User Dashboard</h2>
+  <h2>Dashboard</h2>
+  <div class="card">Balance ₹<span id="bal">0</span></div>
 
-  <div class="card">
-    Balance: ₹<span id="bal">0</span>
-  </div>
+  <h3>Earn Money</h3>
 
-  <div class="withdraw-box">
-    <h3>Withdraw / Redeem</h3>
+  <button onclick="task(
+'https://playabledownloads.com/1869976/XDEVILEARNING',0.5,120)">
+ CPAgrip Survey ₹0.50 (2 min)
+  </button>
 
-    <input id="upi" placeholder="Your UPI ID">
-    <input id="amt" type="number" placeholder="Withdraw Amount">
+  <button onclick="task(
+'https://xml.qualiclicks.com/redirect?feed=1054597&auth=jJeR&url=https://munnaff999.github.io/Telegram-earning/&subid=&query=',10,240)">
+ Install App ₹5-₹15
+  </button>
 
-    <button onclick="withdraw()">Withdraw</button>
+  <button onclick="task('https://otieu.com/4/10508140',1,120)">
+ Monetag Survey ₹1
+  </button>
 
-    <hr>
+  <hr>
 
-    <button onclick="redeem()">Redeem Google Play ₹200</button>
-    <p id="msg"></p>
-  </div>
+  <h3>Withdraw</h3>
+  <input id="upi" placeholder="UPI ID">
+  <input id="amt" type="number" placeholder="Amount">
+  <button onclick="withdraw()">Withdraw</button>
 
-  <div class="earn-box">
-    <button onclick="earn(1)">Survey ₹1</button>
-    <button onclick="earn(0.5)">Ad ₹0.50</button>
-    <button onclick="earn(5)">Install App ₹5</button>
-  </div>
+  <p id="msg"></p>
 </div>
 
-<!-- ONLY ONE SCRIPT -->
 <script type="module" src="dashboard.js"></script>
-
 </body>
 </html>
