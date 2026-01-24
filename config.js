@@ -7,8 +7,8 @@ const firebaseConfig = {
     authDomain: "xdevilearningtelegram.firebaseapp.com",
     projectId: "xdevilearningtelegram",
     storageBucket: "xdevilearningtelegram.firebasestorage.app",
-    messagingSenderId: "676347528676"
-    appId: "YOUR_APP_ID: "1:676347528676:web:ef137be8c1efabbb6e73f1",
+    messagingSenderId: "676347528676",
+    appId: "1:676347528676:web:ef137be8c1efabbb6e73f1"
 };
 
 const app = initializeApp(firebaseConfig);
