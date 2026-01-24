@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earn Money</title>
+
+<!-- ===== MONETAG SDK (ONLY ONCE) ===== -->
+<script src="https://libtl.com/sdk.js"
+        data-zone="10511608"
+        data-sdk="show_10511608"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    color: #333;
+}
+
+.header {
+    background: #ffffff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.header p {
+    font-size: 14px;
+    color: #666;
+}
+
+.container {
+    padding: 20px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.card h3 {
+    margin: 0 0 10px;
+}
+
+.install-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.install-btn:active {
+    transform: scale(0.98);
+}
+
+.note {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Earn Money</h1>
+    <p>Install Apps & View Ads to Earn Rewards</p>
+</div>
+
+<div class="container">
+
+    <div class="card">
+        <h3>Install App & Earn</h3>
+        <button class="install-btn" onclick="openOffer('https://otieu.com/4/10508140')">
+            Install App 1
+        </button>
+        <p class="note">Install & open app once</p>
+    </div>
+
+    <div class="card">
+        <button class="install-btn" onclick="openOffer('https://otieu.com/4/10508130')">
+            Install App 2
+        </button>
+    </div>
+
+    <div class="card">
+        <button class="install-btn" onclick="openOffer('https://otieu.com/4/10507919')">
+            Install App 3
+        </button>
+    </div>
+
+    <div class="card">
+        <button class="install-btn" onclick="openOffer('https://otieu.com/4/10508135')">
+            Install App 4
+        </button>
+    </div>
+
+    <div class="card">
+        <button class="install-btn" onclick="openOffer('https://otieu.com/4/10508127')">
+            Install App 5
+        </button>
+    </div>
+
+    <div class="card">
+        <button class="install-btn" onclick="openOffer('https://otieu.com/4/10508140')">
+            Install App 6
+        </button>
+    </div>
+
+</div>
+
+<script>
+function openOffer(link) {
+    window.open(link, "_blank");
+}
+
+/* ===== AUTO MONETAG ADS ===== */
+window.addEventListener("load", () => {
+    if (typeof show_10511608 !== "function") return;
+
+    // Rewarded Interstitial (safe)
+    show_10511608().catch(()=>{});
+
+    // Rewarded Popup after delay
+    setTimeout(() => {
+        show_10511608('pop').catch(()=>{});
+    }, 15000);
+
+    // In-App Interstitial Auto
+    show_10511608({
+        type: 'inApp',
+        inAppSettings: {
+            frequency: 2,
+            capping: 0.1,
+            interval: 30,
+            timeout: 5,
+            everyPage: false
+        }
+    });
+});
+</script>
+
+</body>
+</html>
