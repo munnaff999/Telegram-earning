@@ -1,3 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="box">
+<h2>Login</h2>
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<p>New? <a href="signup.html">Signup</a></p>
+</div>
+
 <script type="module">
 import { auth, db } from "./config.js";
 import { signInWithEmailAndPassword } from
@@ -5,19 +21,13 @@ import { signInWithEmailAndPassword } from
 import { doc, getDoc } from
 "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-window.login = function () {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then(async (res) => {
-      const snap = await getDoc(doc(db, "users", res.user.uid));
-      if (snap.data().role === "admin") {
-        location.href = "admin.html";
-      } else {
-        location.href = "dashboard.html";
-      }
-    })
-    .catch(err => alert(err.message));
+window.login = async () =>{
+  const res = await signInWithEmailAndPassword(auth,email.value,password.value);
+  const snap = await getDoc(doc(db,"users",res.user.uid));
+  snap.data().role=="admin"
+   ? location.href="admin.html"
+   : location.href="dashboard.html";
 }
 </script>
+</body>
+</html>
