@@ -1,55 +1,70 @@
-let coins = 0;
-let rupees = 0;
+const tg = window.Telegram.WebApp;
+tg.expand();
 
-/* TAB SWITCH */
-function openTab(id, el){
-    document.querySelectorAll('.section').forEach(s=>{
-        s.classList.remove('active');
-    });
-    document.querySelectorAll('nav div').forEach(n=>{
-        n.classList.remove('active');
-    });
-    document.getElementById(id).classList.add('active');
-    el.classList.add('active');
+let coins = parseInt(localStorage.getItem("coins")) || 0;
+updateCoin();
+
+// USER
+if (tg.initDataUnsafe.user) {
+  document.getElementById("user").innerText =
+    tg.initDataUnsafe.user.first_name;
 }
 
-/* COIN TO RUPEE */
-function convertCoin(){
-    if(coins <= 0){
-        alert("No coins available");
-        return;
-    }
-    rupees += coins;
-    coins = 0;
-    updateWallet();
-    alert("Coins converted to ₹ successfully");
+// NAV
+function show(id) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
-/* WITHDRAW */
-function withdraw(){
-    if(rupees < 499){
-        alert("Minimum withdrawal ₹499 required");
-        return;
-    }
-    alert("Withdrawal request submitted (Demo)");
+function goEarn() {
+  show("earn");
 }
 
-/* UPDATE UI */
-function updateWallet(){
-    document.getElementById("coin").innerText = coins;
-    document.getElementById("rupees").innerText = rupees;
+// WATCH AD (REAL)
+function watchAd() {
+  if (typeof show_10511608 !== "function") {
+    alert("Ad not ready");
+    return;
+  }
+
+  show_10511608().then(() => {
+    coins += 1; // REAL reward
+    save();
+    alert("✅ You earned ₹1");
+  }).catch(() => {
+    alert("Ad failed, try later");
+  });
 }
 
-/* PAYMENT METHOD */
-document.getElementById("method").addEventListener("change", function(){
-    document.getElementById("bank").style.display =
-        this.value === "bank" ? "block" : "none";
-    document.getElementById("upi").style.display =
-        this.value === "upi" ? "block" : "none";
-});
+// INSTALL CPA
+function openInstall() {
+  window.open("https://trianglerockers.com/1869976", "_blank");
+}
 
-/* DEMO AUTO COINS (REMOVE LATER) */
-setInterval(()=>{
-    coins += 1;   // demo earning
-    updateWallet();
-}, 8000);
+// WALLET
+function withdraw() {
+  let amt = parseInt(document.getElementById("amt").value);
+
+  if (amt < 499) {
+    alert("Minimum withdrawal ₹499");
+    return;
+  }
+  if (coins < amt) {
+    alert("Not enough balance");
+    return;
+  }
+
+  coins -= amt;
+  save();
+  alert("Withdrawal request submitted");
+}
+
+// SAVE
+function save() {
+  localStorage.setItem("coins", coins);
+  updateCoin();
+}
+
+function updateCoin() {
+  document.getElementById("coin").innerText = coins;
+}
