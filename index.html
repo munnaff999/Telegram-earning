@@ -6,28 +6,41 @@
 </head>
 <body>
 
-<div class="box">
-<h2>Login</h2>
-<input id="email" placeholder="Email">
-<input id="password" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-<p>New? <a href="signup.html">Signup</a></p>
+<div class="login-box">
+  <h2>Login / Signup</h2>
+
+  <input id="email" placeholder="Email">
+  <input id="pass" type="password" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+  <button onclick="signup()">Signup</button>
+
+  <p id="msg"></p>
 </div>
 
 <script type="module">
 import { auth, db } from "./config.js";
-import { signInWithEmailAndPassword } from
-"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { doc, getDoc } from
+import {
+ createUserWithEmailAndPassword,
+ signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, setDoc } from
 "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-window.login = async () =>{
-  const res = await signInWithEmailAndPassword(auth,email.value,password.value);
-  const snap = await getDoc(doc(db,"users",res.user.uid));
-  snap.data().role=="admin"
-   ? location.href="admin.html"
-   : location.href="dashboard.html";
-}
+window.signup = async ()=>{
+ const e=email.value,p=pass.value;
+ const r=await createUserWithEmailAndPassword(auth,e,p);
+ await setDoc(doc(db,"users",r.user.uid),{balance:0});
+ localStorage.setItem("uid",r.user.uid);
+ location="dashboard.html";
+};
+
+window.login = async ()=>{
+ const r=await signInWithEmailAndPassword(auth,email.value,pass.value);
+ localStorage.setItem("uid",r.user.uid);
+ location="dashboard.html";
+};
 </script>
+
 </body>
 </html>
