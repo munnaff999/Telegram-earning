@@ -1,70 +1,76 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-let coins = parseInt(localStorage.getItem("coins")) || 0;
-updateCoins();
+let coins = parseFloat(localStorage.getItem("coins")) || 0;
 
-// USER
-if (tg.initDataUnsafe.user) {
-  document.getElementById("username").innerText =
-    tg.initDataUnsafe.user.first_name;
+function updateUI() {
+  document.getElementById("coins").innerText = coins.toFixed(2);
+  document.getElementById("walletCoins").innerText = coins.toFixed(2);
+  localStorage.setItem("coins", coins);
 }
 
-// NAVIGATION
 function showPage(id) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-function goEarn() {
-  showPage("earn");
+function openSmartlink() {
+  window.open("https://trianglerockers.com/1869976/", "_blank");
 }
 
-// WATCH ADS (REAL MONETAG)
-function watchAd() {
-  if (typeof show_10511608 !== "function") {
-    alert("Ad not loaded yet, try again");
-    return;
-  }
-
-  show_10511608().then(() => {
-    coins += 1; // REAL reward
-    save();
-    alert("✅ You earned ₹1");
-  }).catch(() => {
-    alert("❌ Ad not completed");
-  });
-}
-
-// INSTALL CPA (REAL LINK)
-function openInstall() {
-  window.open("https://trianglerockers.com/1869976", "_blank");
-}
-
-// WITHDRAW
 function withdraw() {
-  const amt = parseInt(document.getElementById("amount").value);
-
+  const amt = Number(document.getElementById("amount").value);
   if (amt < 499) {
-    alert("Minimum withdrawal ₹499");
+    alert("Minimum withdraw ₹499");
     return;
   }
   if (coins < amt) {
-    alert("Not enough balance");
+    alert("Insufficient balance");
     return;
   }
-
   coins -= amt;
-  save();
-  alert("Withdrawal request submitted");
+  updateUI();
+  alert("Withdraw request submitted");
 }
 
-// SAVE
-function save() {
-  localStorage.setItem("coins", coins);
-  updateCoins();
+/* =========================
+   MONETAG AUTO ADS (SAFE)
+========================= */
+
+// 1️⃣ In-App Interstitial (NO reward)
+show_10511608({
+  type: 'inApp',
+  inAppSettings: {
+    frequency: 2,
+    capping: 0.1,
+    interval: 30,
+    timeout: 5,
+    everyPage: false
+  }
+});
+
+// 2️⃣ Rewarded Interstitial (after 60 sec)
+setTimeout(() => {
+  show_10511608().then(() => {
+    coins += 0.10;
+    updateUI();
+  }).catch(()=>{});
+}, 60000);
+
+// 3️⃣ Rewarded Popup (after 3 min)
+setTimeout(() => {
+  show_10511608('pop').then(() => {
+    coins += 0.10;
+    updateUI();
+  }).catch(()=>{});
+}, 180000);
+
+/* USER DATA */
+if (tg.initDataUnsafe.user) {
+  document.getElementById("name").innerText =
+    tg.initDataUnsafe.user.first_name;
+  document.getElementById("uid").innerText =
+    tg.initDataUnsafe.user.id;
 }
 
-function updateCoins() {
-  document.getElementById("coins").innerText = coins;
-}
+updateUI();
