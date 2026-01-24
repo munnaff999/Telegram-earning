@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-// Dhyaan dein: Isme koi extra text nahi hona chahiye
 const firebaseConfig = {
     apiKey: "AIzaSyAZ1fygNBz7wBMbMta10my7gtXg2rtF_4Y",
     authDomain: "xdevilearningtelegram.firebaseapp.com",
@@ -12,7 +11,9 @@ const firebaseConfig = {
     appId: "1:676347528676:web:ef137be8c1efabbb6e73f1"
 };
 
-// Initialize Firebase
+// Firebase initialize karein
 const app = initializeApp(firebaseConfig);
+
+// Yeh 'export' likhna bahut zaroori hai
 export const auth = getAuth(app);
 export const db = getFirestore(app);
