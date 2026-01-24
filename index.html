@@ -1,129 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>X Devil Earning</title>
-    
-    <!-- Telegram SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
-    <!-- Monetag SDK -->
-    <script src='https://libtl.com/sdk.js' data-zone='10511608' data-sdk='show_10511608'></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X Devil Earning</title>
 
-    <!-- External Assets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+<!-- Telegram SDK -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<!-- Monetag SDK -->
+<script src="https://libtl.com/sdk.js"
+        data-zone="10511608"
+        data-sdk="show_10511608"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+body{margin:0;font-family:sans-serif;background:#0f172a;color:#fff}
+.loader-overlay{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:999}
+.spinner{width:40px;height:40px;border:4px solid #333;border-top:4px solid #0f0;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{100%{transform:rotate(360deg)}}
+.main-btn{padding:12px 20px;background:#16a34a;border:none;border-radius:8px;color:#fff;font-size:16px}
+</style>
 </head>
+
 <body>
 
-    <div id="loader" class="loader-overlay">
-        <div class="spinner"></div>
-    </div>
+<div id="loader" class="loader-overlay">
+  <div class="spinner"></div>
+</div>
 
-    <div class="container">
-        <!-- Home Section -->
-        <section id="home" class="page active">
-            <div class="header">
-                <div class="user-pill">
-                    <span id="u-avatar">D</span>
-                    <span id="u-name">Loading...</span>
-                </div>
-                <div class="id-badge">ID: <span id="u-id">0000</span></div>
-            </div>
+<div style="padding:20px;text-align:center">
+  <h2>Balance: <span id="bal">0</span> Coins</h2>
 
-            <div class="balance-card">
-                <p>Available Balance</p>
-                <div class="amount">
-                    <i class="fas fa-coins"></i>
-                    <span id="bal">0</span>
-                </div>
-            </div>
+  <!-- Rewarded Video (USER EARNING) -->
+  <button class="main-btn" onclick="watchRewarded()">Watch Ad & Earn</button>
+</div>
 
-            <button class="main-btn" onclick="watchAd()">
-                <i class="fas fa-play-circle"></i> Watch Ad & Earn
-            </button>
+<script>
+let balance = 0;
 
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span id="stat-ads">0</span>
-                    <p>Ads Watched</p>
-                </div>
-                <div class="stat-item">
-                    <span id="stat-tasks">0</span>
-                    <p>Installs</p>
-                </div>
-            </div>
-        </section>
+/* Loader off */
+window.onload = () => {
+  document.getElementById("loader").style.display = "none";
 
-        <!-- Earn Section -->
-        <section id="earn" class="page">
-            <h2>Earn Money</h2>
-            <div class="offer-box" onclick="watchAd()">
-                <i class="fas fa-video"></i>
-                <div>
-                    <h4>Video Ad</h4>
-                    <p>Earn 50 Coins</p>
-                </div>
-                <button class="mini-btn">Watch</button>
-            </div>
-            <div class="offer-box" onclick="openSmartlink()">
-                <i class="fas fa-download"></i>
-                <div>
-                    <h4>Install Apps</h4>
-                    <p>High Payout Offers</p>
-                </div>
-                <button class="mini-btn">Open</button>
-            </div>
-        </section>
+  // AUTO INTERSTITIAL (user earning nahi)
+  setTimeout(showInterstitial, 5000);
+};
 
-        <!-- Withdraw Section -->
-        <section id="withdraw" class="page">
-            <h2>Withdraw</h2>
-            <div class="form-card">
-                <div class="input-box">
-                    <label>Amount</label>
-                    <input type="number" id="wd-amt" placeholder="Min 5000">
-                </div>
-                <div class="input-box">
-                    <label>Payment Details (UPI/Bank)</label>
-                    <input type="text" id="wd-info" placeholder="Enter details">
-                </div>
-                <button class="main-btn" onclick="submitWithdraw()">Submit Request</button>
-            </div>
-        </section>
+/* 🎁 Rewarded Video */
+function watchRewarded(){
+  if (typeof show_10511608 !== "function") {
+    alert("Ad not ready, try again");
+    return;
+  }
 
-        <!-- Profile Section -->
-        <section id="profile" class="page">
-            <h2>Profile</h2>
-            <div class="profile-card">
-                <div class="p-img">D</div>
-                <h3 id="p-name">Devil User</h3>
-                <p>Status: <span style="color: #00ff88;">Verified</span></p>
-            </div>
-        </section>
-    </div>
+  show_10511608().then(() => {
+    balance += 0.10; // 0.10 coin
+    document.getElementById("bal").innerText = balance.toFixed(2);
+    alert("You earned 0.10 coin");
+  }).catch(() => {
+    alert("Ad closed / failed");
+  });
+}
 
-    <!-- Bottom Navigation -->
-    <nav class="navbar">
-        <div class="nav-btn active" onclick="showPage('home', this)">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </div>
-        <div class="nav-btn" onclick="showPage('earn', this)">
-            <i class="fas fa-bolt"></i>
-            <span>Earn</span>
-        </div>
-        <div class="nav-btn" onclick="showPage('withdraw', this)">
-            <i class="fas fa-wallet"></i>
-            <span>Wallet</span>
-        </div>
-        <div class="nav-btn" onclick="showPage('profile', this)">
-            <i class="fas fa-user"></i>
-            <span>Profile</span>
-        </div>
-    </nav>
+/* 🚫 Interstitial (AUTO, NO USER EARNING) */
+function showInterstitial(){
+  if (typeof show_10511608 === "function") {
+    show_10511608();
+  }
+}
+</script>
 
-    <script src="script.js"></script>
 </body>
 </html>
