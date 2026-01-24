@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>XDEVIL EARNING</title>
 
-<!-- Telegram WebApp -->
+<!-- Telegram -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- Monetag SDK (REAL) -->
-<script src="https://alwingulla.com/88/tag.min.js" data-zone="10511608" async></script>
+<!-- Monetag -->
+<script src="https://libtl.com/sdk.js"
+        data-zone="10511608"
+        data-sdk="show_10511608"></script>
 
 <link rel="stylesheet" href="style.css">
 </head>
@@ -17,72 +19,86 @@
 
 <div class="app">
 
-<header>
-  <h2>XDEVIL EARNING</h2>
-  <p>Watch Ads & Install Apps to Earn</p>
-</header>
+  <!-- NAV -->
+  <nav class="nav">
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('earn')">Earn</button>
+    <button onclick="showPage('wallet')">Wallet</button>
+    <button onclick="showPage('profile')">Profile</button>
+  </nav>
 
-<!-- HOME -->
-<section id="home" class="page active">
-  <h3>👋 Welcome</h3>
-  <p>
-    Watch ads and install apps to earn real money  
-    <br><b>Powered by Monetag</b>
-  </p>
-  <button class="btn" onclick="goEarn()">Start Earning</button>
-</section>
-
-<!-- EARN -->
-<section id="earn" class="page">
-  <h3>💰 Earn Section</h3>
-
-  <!-- WATCH ADS -->
-  <div class="card">
-    <h4>▶ Watch Ads & Earn</h4>
-    <p>Rewarded Ad (REAL)</p>
-    <button class="btn" onclick="watchAd()">Watch Ad</button>
-  </div>
-
-  <!-- INSTALL CPA -->
-  <div class="card">
-    <h4>📲 Install App & Earn</h4>
-    <p>
-      Install → ₹5<br>
-      Install + Signup → ₹15<br>
-      Install + KYC → ₹25
+  <!-- HOME -->
+  <section id="home" class="page active">
+    <h1>Welcome 👋</h1>
+    <p class="intro">
+      Watch Ads Automatically & Install Apps<br>
+      Earn Real Money with XDEVIL EARNING
     </p>
-    <button class="btn" onclick="openInstall()">Tap to Install</button>
-  </div>
-</section>
 
-<!-- WALLET -->
-<section id="wallet" class="page">
-  <h3>👛 Wallet</h3>
+    <div class="card">
+      <h3>Balance</h3>
+      <div class="balance">
+        <span id="coins">0</span> Coins
+      </div>
+      <small>1 Coin = ₹1</small>
+    </div>
+  </section>
 
-  <div class="balance-box">
-    <span id="coins">0</span> Coins
-    <p>1 Coin = ₹1</p>
-  </div>
+  <!-- EARN -->
+  <section id="earn" class="page">
+    <h2>Earn Money</h2>
 
-  <h4>Withdraw</h4>
-  <input type="number" id="amount" placeholder="Minimum ₹499">
-  <input type="text" id="payment" placeholder="UPI ID / Bank Details">
-  <button class="btn" onclick="withdraw()">Withdraw</button>
-</section>
+    <div class="card">
+      <h3>📲 Install App & Earn</h3>
+      <p>
+        Install → ₹5<br>
+        Install + Signup → ₹15<br>
+        Install + Signup + KYC → ₹25
+      </p>
+      <button class="primary" onclick="openSmartlink()">
+        Tap to Install
+      </button>
+    </div>
 
-<!-- PROFILE -->
-<section id="profile" class="page">
-  <h3>👤 Profile</h3>
-  <p id="username">Telegram User</p>
-</section>
+    <div class="info">
+      Ads run automatically in background ✔️
+    </div>
+  </section>
 
-<!-- NAV -->
-<nav>
-  <button onclick="showPage('home')">Home</button>
-  <button onclick="showPage('earn')">Earn</button>
-  <button onclick="showPage('wallet')">Wallet</button>
-  <button onclick="showPage('profile')">Profile</button>
-</nav>
+  <!-- WALLET -->
+  <section id="wallet" class="page">
+    <h2>Wallet</h2>
+
+    <div class="card">
+      <h3>Total Coins</h3>
+      <p id="walletCoins">0</p>
+    </div>
+
+    <div class="card">
+      <h3>Withdraw (Min ₹499)</h3>
+
+      <input id="amount" type="number" placeholder="Amount ₹">
+
+      <input id="upi" placeholder="UPI ID (optional)">
+      <input id="bank" placeholder="Bank Name">
+      <input id="acc" placeholder="Account Number">
+      <input id="ifsc" placeholder="IFSC Code">
+      <input id="email" placeholder="Email">
+      <input id="mobile" placeholder="Mobile Number">
+
+      <button class="primary" onclick="withdraw()">Request Withdraw</button>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="profile" class="page">
+    <h2>Profile</h2>
+    <div class="card">
+      <p><b>Name:</b> <span id="name">User</span></p>
+      <p><b>User ID:</b> <span id="uid">---</span></p>
+      <p>Status: Verified ✅</p>
+    </div>
+  </section>
 
 </div>
 
