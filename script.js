@@ -1,82 +1,29 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+let coins = localStorage.getItem("coins")
+  ? parseFloat(localStorage.getItem("coins"))
+  : 0;
+
+updateCoin();
+
+function updateCoin() {
+  document.getElementById("coin").innerText = coins.toFixed(2);
+  document.getElementById("coin2").innerText = coins.toFixed(2);
+  localStorage.setItem("coins", coins);
 }
 
-body {
-  background: #f2f2f2;
+function openTab(tab) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(tab).classList.add("active");
+  document.getElementById("pageTitle").innerText =
+    tab.charAt(0).toUpperCase() + tab.slice(1);
 }
 
-.app {
-  max-width: 420px;
-  margin: auto;
-  background: #fff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+function showAd() {
+  // 👉 YAHAN MONETAG AD CALL AAYEGA
 
-.header {
-  padding: 15px;
-  background: #4CAF50;
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.pages {
-  flex: 1;
-  padding: 20px;
-}
-
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-.main-btn {
-  margin-top: 20px;
-  width: 100%;
-  padding: 15px;
-  background: #4CAF50;
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 10px;
-}
-
-.card {
-  background: #f9f9f9;
-  padding: 15px;
-  border-radius: 10px;
-  margin-top: 15px;
-}
-
-.card button {
-  margin-top: 10px;
-  padding: 10px;
-  width: 100%;
-  border: none;
-  background: #2196F3;
-  color: #fff;
-  border-radius: 8px;
-}
-
-.nav {
-  display: flex;
-  border-top: 1px solid #ddd;
-}
-
-.nav button {
-  flex: 1;
-  padding: 10px;
-  background: #fff;
-  border: none;
-  font-size: 14px;
+  // demo reward
+  setTimeout(() => {
+    coins += 0.10;
+    updateCoin();
+    alert("You earned 0.10 coin 🎉");
+  }, 1000);
 }
