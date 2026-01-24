@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>X Devil Earning</title>
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Monetag Rewarded Ad SDK -->
+    <script src='https://alwingulla.com/88/p.js'></script>
+    <script>
+        (function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://alwingulla.com/tag.min.js',10511608,document.body||document.documentElement)
+    </script>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0a0b10;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --accent: #00d2ff;
+            --accent-grad: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --success: #00ff88;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Loading Skeleton */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-color);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--glass-border);
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* App Container */
+        .app-container {
+            flex: 1;
+            padding: 20px;
+            padding-bottom: 90px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glass Cards */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Dashboard */
+        .welcome-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .pfp {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-grad);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .balance-card {
+            text-align: center;
+            background: var(--accent-grad);
+            color: white;
+            padding: 30px;
+        }
+
+        .balance-card h3 { font-size: 14px; opacity: 0.9; text-transform: uppercase; }
+        .balance-amount { font-size: 36px; font-weight: 700; margin: 10px 0; }
+
+        /* Buttons */
+        .btn {
+            background: var(--accent-grad);
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn:active { transform: scale(0.96); filter: brightness(1.1); }
+
+        .btn-watch {
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+            margin: 20px 0;
+        }
+
+        /* Offer Wall Grid */
+        .offers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .offer-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .offer-card i { font-size: 30px; color: var(--accent); margin-bottom: 10px; }
+        .offer-card p { font-size: 12px; color: var(--text-dim); margin-bottom: 10px; }
+
+        /* Withdrawal Form */
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 8px; font-size: 14px; color: var(--text-dim); }
+        .input-group input {
+            width: 100%;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            padding: 12px;
+            border-radius: 10px;
+            color: white;
+            outline: none;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 75px;
+            background: rgba(10, 11, 16, 0.9);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 15px;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-dim);
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        .nav-item.active { color: var(--accent); }
+        .nav-item i { font-size: 20px; margin-bottom: 4px; }
+
+        /* Ripple Effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Stats */
+        .stats-row { display: flex; justify-content: space-between; margin-top: 10px;}
+        .stat-item { text-align: center; flex: 1; }
+        .stat-val { font-weight: bold; color: var(--accent); }
+        .stat-lbl { font-size: 10px; color: var(--text-dim); }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="app-container">
+        
+        <!-- Section: Home -->
+        <section id="home" class="section active">
+            <div class="welcome-box">
+                <div class="pfp" id="user-pfp">X</div>
+                <div>
+                    <p style="color: var(--text-dim); font-size: 14px;">Welcome back,</p>
+                    <h2 id="user-name">Devil User</h2>
+                </div>
+            </div>
+
+            <div class="card balance-card">
+                <h3>Total Earnings</h3>
+                <div class="balance-amount"><i class="fas fa-coins"></i> <span id="main-balance">0.00</span></div>
+                <p style="font-size: 12px; opacity: 0.8;">≈ <span id="usd-val">0.00</span> USD</p>
+            </div>
+
+            <div class="card">
+                <h4><i class="fas fa-chart-line"></i> Daily Activity</h4>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-val" id="ads-watched">0</div>
+                        <div class="stat-lbl">Ads Watched</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-val" id="apps-installed">0</div>
+                        <div class="stat-lbl">Installs</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-val" id="daily-bonus">Claimed</div>
+                        <div class="stat-lbl">Daily Bonus</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-watch ripple" onclick="watchAd()">
+                <i class="fas fa-play-circle"></i> Watch Ad & Earn
+            </button>
+        </section>
+
+        <!-- Section: Watch Ads -->
+        <section id="ads" class="section">
+            <h2 style="margin-bottom: 20px;">Watch & Earn</h2>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-video" style="font-size: 40px; color: var(--accent); margin-bottom: 15px;"></i>
+                <h3>Premium Video Ad</h3>
+                <p style="color: var(--text-dim); font-size: 14px; margin: 10px 0 20px;">Watch a short video to earn 50 coins instantly. Ads refresh every 30 seconds.</p>
+                <button class="btn ripple" onclick="watchAd()">
+                    <span id="ad-btn-text">🎥 Start Watching</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Section: Install Apps -->
+        <section id="offers" class="section">
+            <h2 style="margin-bottom: 20px;">Install & Earn</h2>
+            <div class="offers-grid">
+                <!-- Offer Cards -->
+                <script>
+                    const offerIcons = ['gamepad', 'wallet', 'shield-halved', 'rocket', 'bolt', 'ghost'];
+                    for(let i=1; i<=6; i++) {
+                        document.write(`
+                            <div class="offer-card">
+                                <i class="fas fa-${offerIcons[i-1]}"></i>
+                                <h4 style="font-size: 14px;">Offer #${100 + i}</h4>
+                                <p>Earn 250 Coins</p>
+                                <button class="btn ripple" style="padding: 8px; font-size: 12px;" onclick="openOffer()">Install</button>
+                            </div>
+                        `);
+                    }
+                </script>
+            </div>
+        </section>
+
+        <!-- Section: Wallet -->
+        <section id="wallet" class="section">
+            <h2 style="margin-bottom: 20px;">Your Wallet</h2>
+            <div class="card balance-card">
+                <h3>Available for Withdrawal</h3>
+                <div class="balance-amount"><i class="fas fa-wallet"></i> <span id="withdraw-balance">0.00</span></div>
+            </div>
+
+            <div class="card">
+                <h4 style="margin-bottom: 15px;">Withdraw Funds</h4>
+                <div class="input-group">
+                    <label>Method</label>
+                    <select id="method" style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); padding: 12px; border-radius: 10px; color: white;">
+                        <option value="upi">UPI ID</option>
+                        <option value="bank">Bank Transfer</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Enter Details (UPI/Bank Details)</label>
+                    <input type="text" id="payout-detail" placeholder="example@upi or Account No.">
+                </div>
+                <div class="input-group">
+                    <label>Amount (Coins)</label>
+                    <input type="number" id="withdraw-amt" placeholder="Min 5000">
+                </div>
+                <button class="btn ripple" onclick="requestWithdrawal()">Submit Request</button>
+            </div>
+        </section>
+
+        <!-- Section: Profile -->
+        <section id="profile" class="section">
+            <h2 style="margin-bottom: 20px;">Account</h2>
+            <div class="card">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div class="pfp" style="width: 80px; height: 80px; margin: 0 auto 10px; font-size: 30px;" id="profile-pfp">?</div>
+                    <h3 id="profile-name">Telegram User</h3>
+                    <p id="profile-id" style="color: var(--text-dim); font-size: 12px;">ID: 00000000</p>
+                </div>
+                <hr style="border: 0; border-top: 1px solid var(--glass-border); margin-bottom: 15px;">
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Joined</span>
+                        <span id="join-date" style="color: var(--text-dim);">Oct 2023</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Status</span>
+                        <span style="color: var(--success);">Verified</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="showSection('home', this)">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="showSection('ads', this)">
+            <i class="fas fa-play"></i>
+            <span>Ads</span>
+        </div>
+        <div class="nav-item" onclick="showSection('offers', this)">
+            <i class="fas fa-tasks"></i>
+            <span>Offers</span>
+        </div>
+        <div class="nav-item" onclick="showSection('wallet', this)">
+            <i class="fas fa-wallet"></i>
+            <span>Wallet</span>
+        </div>
+        <div class="nav-item" onclick="showSection('profile', this)">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </div>
+    </nav>
+
+    <script>
+        // Telegram WebApp Integration
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.enableClosingConfirmation();
+
+        // Local Storage State
+        let balance = parseFloat(localStorage.getItem('devil_balance')) || 0;
+        let adsCount = parseInt(localStorage.getItem('devil_ads')) || 0;
+        let installsCount = parseInt(localStorage.getItem('devil_installs')) || 0;
+
+        // Initialize User Data
+        function initUser() {
+            const user = tg.initDataUnsafe?.user;
+            if (user) {
+                document.getElementById('user-name').innerText = user.first_name || 'Devil User';
+                document.getElementById('profile-name').innerText = (user.first_name + ' ' + (user.last_name || '')).trim();
+                document.getElementById('profile-id').innerText = `ID: ${user.id}`;
+                const initial = (user.first_name[0] || 'D').toUpperCase();
+                document.getElementById('user-pfp').innerText = initial;
+                document.getElementById('profile-pfp').innerText = initial;
+            }
+            updateUI();
+        }
+
+        function updateUI() {
+            // Smooth Counter Animation Effect
+            animateNumber('main-balance', balance);
+            animateNumber('withdraw-balance', balance);
+            document.getElementById('usd-val').innerText = (balance / 1000).toFixed(2);
+            document.getElementById('ads-watched').innerText = adsCount;
+            document.getElementById('apps-installed').innerText = installsCount;
+            
+            localStorage.setItem('devil_balance', balance);
+            localStorage.setItem('devil_ads', adsCount);
+            localStorage.setItem('devil_installs', installsCount);
+        }
+
+        function animateNumber(id, val) {
+            const el = document.getElementById(id);
+            const current = parseFloat(el.innerText);
+            const range = val - current;
+            if (range === 0) return;
+            
+            let start = null;
+            const duration = 1000;
+
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const progress = Math.min((timestamp - start) / duration, 1);
+                el.innerText = (current + progress * range).toFixed(2);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            }
+            window.requestAnimationFrame(step);
+        }
+
+        // Navigation Logic
+        function showSection(sectionId, el) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            el.classList.add('active');
+            tg.HapticFeedback.impactOccurred('light');
+        }
+
+        // Ad Logic
+        function watchAd() {
+            tg.HapticFeedback.impactOccurred('medium');
+            const btnText = document.getElementById('ad-btn-text');
+            btnText.innerText = "Loading Ad...";
+
+            // Calling Monetag Rewarded Tag
+            if (typeof window.show_10511608 === 'function') {
+                window.show_10511608().then(() => {
+                    // Reward user after ad completes
+                    balance += 50;
+                    adsCount += 1;
+                    updateUI();
+                    tg.MainButton.setText("EARNED 50 COINS!").show();
+                    setTimeout(() => tg.MainButton.hide(), 3000);
+                    btnText.innerText = "🎥 Start Watching";
+                }).catch(e => {
+                    tg.showAlert("Ad not ready. Try again in 5 seconds.");
+                    btnText.innerText = "🎥 Start Watching";
+                });
+            } else {
+                // Simulation for environment where SDK might be blocked
+                setTimeout(() => {
+                    balance += 50;
+                    adsCount += 1;
+                    updateUI();
+                    tg.showAlert("Reward granted (Demo Mode)!");
+                    btnText.innerText = "🎥 Start Watching";
+                }, 2000);
+            }
+        }
+
+        // Offer Logic
+        function openOffer() {
+            tg.HapticFeedback.impactOccurred('medium');
+            // Using Monetag Smartlink
+            window.open('https://alwingulla.com/88/p.js', '_blank'); 
+            
+            // In real app, you'd verify postback. Here we simulate reward.
+            setTimeout(() => {
+                balance += 250;
+                installsCount += 1;
+                updateUI();
+            }, 5000);
+        }
+
+        // Withdrawal Logic
+        function requestWithdrawal() {
+            const amount = document.getElementById('withdraw-amt').value;
+            const detail = document.getElementById('payout-detail').value;
+
+            if(amount < 5000) {
+                tg.showAlert("Minimum withdrawal is 5000 coins!");
+                return;
+            }
+            if(balance < amount) {
+                tg.showAlert("Insufficient balance!");
+                return;
+            }
+            if(!detail) {
+                tg.showAlert("Please enter payment details!");
+                return;
+            }
+
+            balance -= amount;
+            updateUI();
+            tg.showAlert("Request sent! Approval takes 24-48 hours.");
+            tg.HapticFeedback.notificationOccurred('success');
+        }
+
+        // Initialize App
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.
