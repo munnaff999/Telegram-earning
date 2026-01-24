@@ -1,4 +1,4 @@
-const ADMIN_EMAIL="youradmin@gmail.com";
+const ADMIN_EMAIL="xdevilearning@gmail.com";
 
 auth.onAuthStateChanged(u=>{
   if(!u||u.email!==ADMIN_EMAIL){location.href="index.html";return;}
