@@ -65,7 +65,8 @@ function rewardUser() {
 }
 
 function openSmartlink() {
-    window.open('https://alwingulla.com/88/p.js', '_blank'); // Smartlink URL
+    window.open("https://trianglerockers.com/1869976", "_blank");
+} // Smartlink URL
     tg.showAlert("Open offer and stay for 30s to earn!");
 }
 
