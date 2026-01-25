@@ -1,3 +1,16 @@
+// script.js
+import { auth, db } from "./firebase.js";
+
+import {
+  doc,
+  setDoc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 const tg = window.Telegram.WebApp;
 tg.expand();
 
