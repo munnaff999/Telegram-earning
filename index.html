@@ -5,8 +5,13 @@
 <title>XDEVIL EARNING</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Monetag SDK -->
+<!-- Monetag MAIN SDK -->
 <script src="https://alwingulla.com/88/tag.min.js" async></script>
+
+<!-- Monetag ZONE SDK (IMPORTANT) -->
+<script src='//libtl.com/sdk.js'
+        data-zone='10511608'
+        data-sdk='show_10511608'></script>
 
 <style>
 body{
@@ -25,25 +30,26 @@ header{
 section{padding:15px}
 .card{
   background:#fff;
-  border-radius:12px;
-  padding:16px;
-  margin-bottom:16px;
-  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 6px 20px rgba(0,0,0,.08);
 }
 .balance{
-  font-size:34px;
+  font-size:36px;
   font-weight:bold;
   color:#0a5cff;
 }
 .anim{
-  color:green;
+  margin-top:8px;
+  font-size:16px;
+  color:#1aa31a;
   font-weight:bold;
   display:none;
-  margin-top:6px;
   animation:pop .6s ease;
 }
 @keyframes pop{
-  from{transform:scale(.6);opacity:0}
+  from{transform:scale(.5);opacity:0}
   to{transform:scale(1);opacity:1}
 }
 .btn{
@@ -56,15 +62,7 @@ section{padding:15px}
   font-size:16px;
   margin-top:10px;
 }
-.btn:active{opacity:.85}
 .note{font-size:13px;color:#666}
-input,select{
-  width:100%;
-  padding:12px;
-  margin-top:8px;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
 </style>
 </head>
 
@@ -92,88 +90,73 @@ input,select{
 <button class="btn" onclick="openLink('https://trianglerockers.com/1869976/')">Install App 6</button>
 <button class="btn" onclick="openLink('https://playabledownloads.com/1869976/XDEVILEARNING')">Install App 7</button>
 
-<p class="note">Install verification advertiser ke side se hota hai</p>
-</div>
-
-<div class="card">
-<h3>Withdraw Request</h3>
-
-<input id="name" placeholder="Full Name">
-<input id="mobile" placeholder="Mobile Number">
-
-<select id="method">
-  <option>UPI</option>
-  <option>Google Pay</option>
-  <option>PhonePe</option>
-  <option>Bank Transfer</option>
-</select>
-
-<input id="details" placeholder="UPI ID / Bank Details">
-<input type="file">
-
-<button class="btn" onclick="withdraw()">Submit Withdrawal</button>
-
-<p class="note">Balance screenshot attach karna zaroori hai</p>
+<p class="note">Install verification advertiser side se hota hai</p>
 </div>
 
 </section>
 
 <script>
 let balance = 0;
+let adStep = 0;
 
 function updateBalance(){
-  document.getElementById("balance").innerText = "₹" + balance.toFixed(2);
+  document.getElementById("balance").innerText =
+    "₹" + balance.toFixed(2);
 }
 
 function showAnim(){
   let a = document.getElementById("anim");
-  a.style.display="block";
-  setTimeout(()=>a.style.display="none",1000);
+  a.style.display = "block";
+  setTimeout(()=>a.style.display="none",1200);
 }
 
-// ---------- AUTO ADS + AUTO EARNING ----------
-function autoAds(){
+// 🔁 AUTO ADS ROTATION (1 → 2 → 3)
+function showAutoAds(){
   try{
-    show_10511608({
-      type:'inApp',
-      inAppSettings:{
-        frequency:1,
-        capping:0.2,
-        interval:20,
-        timeout:5,
-        everyPage:false
-      }
-    });
+    if(adStep === 0){
+      // 1️⃣ In-App Interstitial
+      show_10511608({
+        type:'inApp',
+        inAppSettings:{
+          frequency:1,
+          capping:0.2,
+          interval:20,
+          timeout:5,
+          everyPage:false
+        }
+      });
+    }
 
+    if(adStep === 1){
+      // 2️⃣ Rewarded Interstitial
+      show_10511608().catch(()=>{});
+    }
+
+    if(adStep === 2){
+      // 3️⃣ Rewarded Popup
+      show_10511608('pop').catch(()=>{});
+    }
+
+    // 💰 Reward user
     balance += 0.05;
     updateBalance();
     showAnim();
 
+    // next ad type
+    adStep = (adStep + 1) % 3;
+
   }catch(e){}
 }
 
-// Start after 10 sec, then every 20 sec
+// ⏱ Start after 10 sec, then every 20 sec
 setTimeout(()=>{
-  autoAds();
-  setInterval(autoAds,20000);
+  showAutoAds();
+  setInterval(showAutoAds, 20000);
 },10000);
 
-// ---------- SMARTLINK ----------
+// Smartlink open
 function openLink(link){
   window.open(link,'_blank');
-}
-
-// ---------- WITHDRAW ----------
-function withdraw(){
-  let body =
-  "Name: "+name.value+
-  "%0AMobile: "+mobile.value+
-  "%0AMethod: "+method.value+
-  "%0ADetails: "+details.value+
-  "%0ABalance: ₹"+balance.toFixed(2);
-
-  window.location.href =
-  "mailto:xdevilearning@gmail.com?subject=Withdraw Request&body="+body;
 }
 </script>
 
