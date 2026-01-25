@@ -39,26 +39,56 @@
   background: #e0e7ff;
 }
 
-/* ===== OFFER CARD ===== */
+/* OFFER CARD */
 .offer-card {
   background: #ffffff;
   border-radius: 18px;
   padding: 20px;
-  margin: 15px;
+  margin: 16px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
-.offer-card h3 {
-  margin: 0 0 10px;
-  font-size: 18px;
+/* GRID FOR 7 BUTTONS */
+.offer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
 }
 
-.offer-card ul {
-  padding-left: 18px;
-  margin-bottom: 15px;
+/* COMMON BUTTON */
+.install-btn {
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.25s ease;
 }
 
-.offer-card li {
-  margin-bottom: 6px;
+/* BIG BLUE BUTTON */
+.install-btn.primary {
+  width: 100%;
+  padding: 16px;
+  font-size: 17px;
+  border-radius: 14px;
+  color: #fff;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  box-shadow: 0 10px 22px rgba(79,70,229,0.4);
+}
+
+.install-btn.primary:active {
+  transform: scale(0.97);
+}
+
+/* SMALL BUTTONS */
+.install-btn.small {
+  padding: 10px 14px;
   font-size: 14px;
+  border-radius: 10px;
+  background: #eef2ff;
+  color: #3730a3;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.install-btn.small:active {
+  transform: scale(0.95);
 }
