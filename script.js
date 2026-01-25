@@ -92,3 +92,22 @@ if (tg.initDataUnsafe.user) {
 }
 
 updateUI();
+async function openOffer(packageName, link) {
+  const user = auth.currentUser;
+  if (!user) return alert("Login error");
+
+  const q = query(
+    collection(db, "installed_apps"),
+    where("uid", "==", user.uid),
+    where("package", "==", packageName)
+  );
+
+  const snap = await getDocs(q);
+
+  if (!snap.empty) {
+    alert("❌ Already installed. No coins.");
+    return;
+  }
+
+  window.open(link, "_blank");
+}
