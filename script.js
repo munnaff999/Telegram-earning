@@ -111,3 +111,41 @@ async function openOffer(packageName, link) {
 
   window.open(link, "_blank");
 }
+
+import { db } from "./firebase.js";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp
+} from "firebase/firestore";
+
+const tg = window.Telegram.WebApp;
+tg.expand();
+
+const userId = tg.initDataUnsafe.user?.id || "guest";
+
+/* 🔹 MAIN INSTALL FUNCTION */
+async function openOffer(offerId, link) {
+
+  const docId = `${userId}_${offerId}`;
+  const ref = doc(db, "completedOffers", docId);
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+    alert("❌ Is app ka reward pehle mil chuka hai");
+    return;
+  }
+
+  // ✅ First time install
+  await setDoc(ref, {
+    userId: userId,
+    offerId: offerId,
+    completed: true,
+    time: serverTimestamp()
+  });
+
+  window.open(link, "_blank");
+
+  alert("✅ Install complete hone par reward eligible");
+}
