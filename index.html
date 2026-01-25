@@ -6,14 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Monetag SDK -->
-<script src="https://alwingulla.com/88/tag.min.js" async></script>
-
-<!-- Monetag Zone Script (REQUIRED) -->
-<script src='//libtl.com/sdk.js'
-        data-zone='10511608'
-        data-sdk='show_10511608'></script>
+<script src="//libtl.com/sdk.js"
+        data-zone="10511608"
+        data-sdk="show_10511608"></script>
 
 <style>
+*{box-sizing:border-box}
 body{
   margin:0;
   font-family:Arial, sans-serif;
@@ -22,37 +20,85 @@ body{
 header{
   background:linear-gradient(135deg,#0a5cff,#003cbf);
   color:#fff;
-  padding:18px;
+  padding:16px;
   text-align:center;
   font-size:22px;
   font-weight:bold;
 }
-section{padding:15px}
+nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#fff;
+  display:flex;
+  border-top:1px solid #ddd;
+}
+nav button{
+  flex:1;
+  padding:12px 5px;
+  border:none;
+  background:none;
+  font-size:14px;
+}
+nav button.active{color:#0a5cff;font-weight:bold}
+
+section{
+  padding:15px;
+  padding-bottom:80px;
+  display:none;
+}
+section.active{display:block}
+
 .card{
   background:#fff;
   border-radius:14px;
-  padding:18px;
-  margin-bottom:18px;
+  padding:16px;
+  margin-bottom:16px;
   box-shadow:0 6px 20px rgba(0,0,0,.08);
 }
+
 .balance{
-  font-size:36px;
+  font-size:34px;
   font-weight:bold;
   color:#0a5cff;
 }
+
 .anim{
-  margin-top:8px;
-  font-size:16px;
+  margin-top:6px;
+  font-size:15px;
   color:#1aa31a;
   font-weight:bold;
   display:none;
   animation:pop .6s ease;
 }
 @keyframes pop{
-  from{transform:scale(.5);opacity:0}
+  from{transform:scale(.6);opacity:0}
   to{transform:scale(1);opacity:1}
 }
+
+a.btn,button.btn{
+  display:block;
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  text-align:center;
+  border-radius:10px;
+  background:#0a5cff;
+  color:#fff;
+  border:none;
+  text-decoration:none;
+  font-size:15px;
+}
+
 .note{font-size:13px;color:#666}
+input,select{
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
 </style>
 </head>
 
@@ -60,81 +106,131 @@ section{padding:15px}
 
 <header>XDEVIL EARNING</header>
 
-<section>
+<!-- ================= HOME ================= -->
+<section id="home" class="active">
+  <div class="card">
+    <h3>Wallet Balance</h3>
+    <div class="balance" id="balance">₹0.00</div>
+    <div class="anim" id="anim">+₹0.05 Added</div>
+    <p class="note">Every 1 minute ads se ₹0.15 tak earn ho sakta hai</p>
+  </div>
 
-<div class="card">
-  <h3>Wallet Balance</h3>
-  <div class="balance" id="balance">₹0.00</div>
-  <div class="anim" id="anim">+₹0.05 Added</div>
-  <p class="note">Website par active rehne se earning hoti hai</p>
-</div>
-
+  <div class="card">
+    <h3>Earning Information</h3>
+    <ul class="note">
+      <li>Install + Signup = ₹10</li>
+      <li>Install + Signup + KYC = ₹20</li>
+      <li>Only ads se daily ₹20–₹40 possible</li>
+      <li>All earnings wallet me credit hoti hai</li>
+    </ul>
+  </div>
 </section>
 
-<script>
-// ================= BALANCE (SAVED) =================
+<!-- ================= EARNING ================= -->
+<section id="earning">
+  <div class="card">
+    <h3>Install & Earn</h3>
 
-// load saved balance
+    <a class="btn" href="https://otieu.com/4/10508140" target="_blank">Install App 1</a>
+    <a class="btn" href="https://otieu.com/4/10508130" target="_blank">Install App 2</a>
+    <a class="btn" href="https://otieu.com/4/10507919" target="_blank">Install App 3</a>
+    <a class="btn" href="https://otieu.com/4/10508135" target="_blank">Install App 4</a>
+    <a class="btn" href="https://otieu.com/4/10508127" target="_blank">Install App 5</a>
+    <a class="btn" href="https://trianglerockers.com/1869976/" target="_blank">Install App 6</a>
+    <a class="btn" href="https://playabledownloads.com/1869976/XDEVILEARNING" target="_blank">Install App 7</a>
+
+    <p class="note">Install verify hone ke baad wallet credit hota hai</p>
+  </div>
+
+  <div class="card">
+    <h3>Survey</h3>
+    <p class="note">Coming Soon 🚧</p>
+  </div>
+</section>
+
+<!-- ================= PROFILE ================= -->
+<section id="profile">
+  <div class="card">
+    <h3>User Profile</h3>
+    <p class="note">User ID: <b id="uid">XDEVIL12345</b></p>
+
+    <input placeholder="Name">
+    <input placeholder="Age">
+    <select>
+      <option>Boy</option>
+      <option>Girl</option>
+    </select>
+    <input type="file">
+
+    <h4 style="margin-top:15px">Referral</h4>
+    <p class="note">Refer & Earn ₹5</p>
+    <p class="note">5×1 = ₹5 | 5×10 = ₹10</p>
+  </div>
+</section>
+
+<!-- ================= WITHDRAW ================= -->
+<section id="withdraw">
+  <div class="card">
+    <h3>Withdrawal</h3>
+    <p class="note">Minimum Withdrawal: ₹399</p>
+
+    <input placeholder="UPI / Bank / GPay / PhonePe">
+    <input placeholder="Account / UPI ID">
+    <input type="file">
+    <button class="btn" onclick="withdraw()">Submit Withdrawal</button>
+
+    <p class="note">Details email par jayengi:  
+      <b>xdevilearning@gmail.com</b>
+    </p>
+  </div>
+</section>
+
+<!-- ================= NAV ================= -->
+<nav>
+  <button onclick="showTab('home')" class="active">Home</button>
+  <button onclick="showTab('earning')">Earning</button>
+  <button onclick="showTab('profile')">Profile</button>
+  <button onclick="showTab('withdraw')">Withdraw</button>
+</nav>
+
+<script>
+// ===== BALANCE (local test) =====
 let balance = parseFloat(localStorage.getItem("xdevil_balance")) || 0;
 let adStep = 0;
-
 updateBalance();
 
 function updateBalance(){
-  document.getElementById("balance").innerText =
-    "₹" + balance.toFixed(2);
+  document.getElementById("balance").innerText = "₹" + balance.toFixed(2);
   localStorage.setItem("xdevil_balance", balance.toFixed(2));
 }
-
-function showAnim(){
-  let a = document.getElementById("anim");
+function anim(){
+  let a=document.getElementById("anim");
   a.style.display="block";
   setTimeout(()=>a.style.display="none",1200);
 }
 
-// ================= AUTO ADS ROTATION =================
-function showAutoAds(){
+// ===== AUTO ADS EVERY 20s =====
+setInterval(()=>{
   try{
-    if(adStep === 0){
-      // 1️⃣ In-App Interstitial
-      show_10511608({
-        type:'inApp',
-        inAppSettings:{
-          frequency:1,
-          capping:0.2,
-          interval:20,
-          timeout:5,
-          everyPage:false
-        }
-      });
-    }
-
-    if(adStep === 1){
-      // 2️⃣ Rewarded Interstitial
-      show_10511608().catch(()=>{});
-    }
-
-    if(adStep === 2){
-      // 3️⃣ Rewarded Popup
-      show_10511608('pop').catch(()=>{});
-    }
-
-    // 💰 add earning
+    show_10511608();
     balance += 0.05;
     updateBalance();
-    showAnim();
-
-    // rotate ads
-    adStep = (adStep + 1) % 3;
-
+    anim();
   }catch(e){}
+},20000);
+
+// ===== NAV =====
+function showTab(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+  event.target.classList.add("active");
 }
 
-// ⏱ Start ads
-setTimeout(()=>{
-  showAutoAds();
-  setInterval(showAutoAds,20000); // every 20 sec
-},10000);
+// ===== WITHDRAW =====
+function withdraw(){
+  alert("Withdrawal request submitted.\nAdmin email par details jayengi.");
+}
 </script>
 
 </body>
