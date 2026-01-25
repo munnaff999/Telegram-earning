@@ -12,7 +12,7 @@
 body{
   margin:0;
   font-family: Arial, sans-serif;
-  background:#f4f8ff;
+  background:#f5f9ff;
 }
 header{
   background:#0a5cff;
@@ -25,27 +25,29 @@ section{padding:15px;}
 .card{
   background:#fff;
   border-radius:12px;
-  padding:18px;
+  padding:15px;
   margin-bottom:15px;
-  box-shadow:0 4px 10px rgba(0,0,0,.08);
-}
-#balance{
-  font-size:32px;
-  font-weight:bold;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 small{color:#666}
+
+/* ===== Wallet ===== */
+#balance{
+  font-size:28px;
+  font-weight:bold;
+}
 
 /* ===== Reward Animation ===== */
 .reward{
   position:fixed;
-  bottom:40px;
+  bottom:30px;
   left:50%;
   transform:translateX(-50%);
   background:#00c853;
   color:#fff;
-  padding:12px 20px;
+  padding:10px 18px;
   border-radius:30px;
-  font-size:16px;
+  font-size:15px;
   opacity:0;
   animation:rewardAnim 2s ease forwards;
   z-index:9999;
@@ -78,9 +80,20 @@ small{color:#666}
 </div>
 
 <div class="card">
+  <h3>Install & Earn</h3>
+  <button onclick="openOffer('https://otieu.com/4/10508140')">Install App 1</button>
+  <button onclick="openOffer('https://otieu.com/4/10508130')">Install App 2</button>
+  <button onclick="openOffer('https://otieu.com/4/10507919')">Install App 3</button>
+  <button onclick="openOffer('https://otieu.com/4/10508135')">Install App 4</button>
+  <button onclick="openOffer('https://otieu.com/4/10508127')">Install App 5</button>
+  <button onclick="openOffer('https://trianglerockers.com/1869976')">Install App 6</button>
+  <button onclick="openOffer('https://trianglerockers.com/1870187')">Install App 7</button>
+</div>
+
+<div class="card">
   <h3>Withdraw</h3>
   <p>Minimum Withdrawal: ₹499</p>
-  <small>Withdrawal manual process se hota hai</small>
+  <small>Withdrawal manual verification ke baad hota hai</small>
 </div>
 
 <div class="card">
@@ -108,7 +121,7 @@ function showReward(){
 }
 
 // ================= AUTO REWARDED AD =================
-function autoRewardedAd(){
+function autoRewardAd(){
   show_10511608().then(()=>{
     balance += 0.05;
     updateBalance();
@@ -120,24 +133,30 @@ function autoRewardedAd(){
 
 // ================= AUTO IN-APP ADS =================
 function startAds(){
-  // Background in-app ads (tumhari earning)
+  // Background in-app ads (owner earning)
   show_10511608({
     type:'inApp',
     inAppSettings:{
       frequency:999,
       capping:1,
-      interval:20,
+      interval:20,   // 🔥 20 sec
       timeout:5,
       everyPage:false
     }
   });
 
   // Rewarded ads (user earning)
-  setInterval(autoRewardedAd, 20000);
+  setInterval(autoRewardAd, 20000);
 }
 
-// Start after 5 seconds
+// Start ads after 5 sec
 setTimeout(startAds, 5000);
+
+// ================= INSTALL OFFER =================
+function openOffer(link){
+  window.open(link,'_blank');
+  alert("Install verify hone ke baad credit hota hai");
+}
 </script>
 
 </body>
