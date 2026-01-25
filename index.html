@@ -5,10 +5,10 @@
 <title>XDEVIL EARNING</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Monetag MAIN SDK -->
+<!-- Monetag SDK -->
 <script src="https://alwingulla.com/88/tag.min.js" async></script>
 
-<!-- Monetag ZONE SDK (IMPORTANT) -->
+<!-- Monetag Zone Script (REQUIRED) -->
 <script src='//libtl.com/sdk.js'
         data-zone='10511608'
         data-sdk='show_10511608'></script>
@@ -52,16 +52,6 @@ section{padding:15px}
   from{transform:scale(.5);opacity:0}
   to{transform:scale(1);opacity:1}
 }
-.btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  background:#0a5cff;
-  color:#fff;
-  font-size:16px;
-  margin-top:10px;
-}
 .note{font-size:13px;color:#666}
 </style>
 </head>
@@ -79,38 +69,30 @@ section{padding:15px}
   <p class="note">Website par active rehne se earning hoti hai</p>
 </div>
 
-<div class="card">
-<h3>Tap to Install</h3>
-
-<button class="btn" onclick="openLink('https://otieu.com/4/10508140')">Install App 1</button>
-<button class="btn" onclick="openLink('https://otieu.com/4/10508130')">Install App 2</button>
-<button class="btn" onclick="openLink('https://otieu.com/4/10507919')">Install App 3</button>
-<button class="btn" onclick="openLink('https://otieu.com/4/10508135')">Install App 4</button>
-<button class="btn" onclick="openLink('https://otieu.com/4/10508127')">Install App 5</button>
-<button class="btn" onclick="openLink('https://trianglerockers.com/1869976/')">Install App 6</button>
-<button class="btn" onclick="openLink('https://playabledownloads.com/1869976/XDEVILEARNING')">Install App 7</button>
-
-<p class="note">Install verification advertiser side se hota hai</p>
-</div>
-
 </section>
 
 <script>
-let balance = 0;
+// ================= BALANCE (SAVED) =================
+
+// load saved balance
+let balance = parseFloat(localStorage.getItem("xdevil_balance")) || 0;
 let adStep = 0;
+
+updateBalance();
 
 function updateBalance(){
   document.getElementById("balance").innerText =
     "₹" + balance.toFixed(2);
+  localStorage.setItem("xdevil_balance", balance.toFixed(2));
 }
 
 function showAnim(){
   let a = document.getElementById("anim");
-  a.style.display = "block";
+  a.style.display="block";
   setTimeout(()=>a.style.display="none",1200);
 }
 
-// 🔁 AUTO ADS ROTATION (1 → 2 → 3)
+// ================= AUTO ADS ROTATION =================
 function showAutoAds(){
   try{
     if(adStep === 0){
@@ -137,27 +119,22 @@ function showAutoAds(){
       show_10511608('pop').catch(()=>{});
     }
 
-    // 💰 Reward user
+    // 💰 add earning
     balance += 0.05;
     updateBalance();
     showAnim();
 
-    // next ad type
+    // rotate ads
     adStep = (adStep + 1) % 3;
 
   }catch(e){}
 }
 
-// ⏱ Start after 10 sec, then every 20 sec
+// ⏱ Start ads
 setTimeout(()=>{
   showAutoAds();
-  setInterval(showAutoAds, 20000);
+  setInterval(showAutoAds,20000); // every 20 sec
 },10000);
-
-// Smartlink open
-function openLink(link){
-  window.open(link,'_blank');
-}
 </script>
 
 </body>
