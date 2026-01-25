@@ -5,25 +5,44 @@
 <title>XDEVIL EARNING</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Monetag SDK (example) -->
+<script src="https://alwingulla.com/88/tag.min.js" async></script>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f4f6fb}
-header{background:#2563eb;color:#fff;padding:16px;text-align:center;font-size:20px;font-weight:bold}
-
-nav{display:flex;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-nav button{flex:1;padding:12px;border:none;background:none;font-size:14px}
-nav button.active{color:#2563eb;font-weight:bold}
-
-section{display:none;padding:15px}
-section.active{display:block}
-
-.card{background:#fff;padding:15px;border-radius:16px;margin-bottom:15px;
-box-shadow:0 6px 16px rgba(0,0,0,.12)}
-
-.btn{width:100%;padding:14px;border:none;border-radius:14px;
-background:#2563eb;color:#fff;font-size:16px;margin-top:10px}
-
-.small{font-size:13px;color:#555}
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#f5f9ff;
+}
+header{
+  background:#0a5cff;
+  color:#fff;
+  padding:15px;
+  text-align:center;
+  font-size:20px;
+}
+section{
+  padding:15px;
+}
+.card{
+  background:#fff;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:8px;
+  background:#0a5cff;
+  color:#fff;
+  font-size:16px;
+  margin-top:10px;
+}
+button:active{opacity:.8}
+small{color:#666}
 </style>
 </head>
 
@@ -31,158 +50,92 @@ background:#2563eb;color:#fff;font-size:16px;margin-top:10px}
 
 <header>XDEVIL EARNING</header>
 
-<nav>
-<button class="active" onclick="openTab('home',this)">Home</button>
-<button onclick="openTab('earn',this)">Earn</button>
-<button onclick="openTab('wallet',this)">Wallet</button>
-<button onclick="openTab('profile',this)">Profile</button>
-</nav>
+<section>
 
-<!-- HOME -->
-<section id="home" class="active">
 <div class="card">
 <h3>Wallet Balance</h3>
-<h2>₹ <span id="bal">0</span></h2>
-<p class="small">1 Coin = ₹1</p>
+<h2 id="balance">₹0</h2>
+<small>Earning sirf app install se hoti hai</small>
 </div>
 
-<div class="card">
-<h3>Auto Ads Running</h3>
-<p class="small">Ads automatically appear while using the app</p>
-</div>
-</section>
-
-<!-- EARN -->
-<section id="earn">
 <div class="card">
 <h3>Install & Earn</h3>
 
-<button class="btn" onclick="installEarn(5)">Install App 1 (+₹5)</button>
-<button class="btn" onclick="installEarn(5)">Install App 2 (+₹5)</button>
-<button class="btn" onclick="installEarn(5)">Install App 3 (+₹5)</button>
-<button class="btn" onclick="installEarn(5)">Install App 4 (+₹5)</button>
-<button class="btn" onclick="installEarn(5)">Install App 5 (+₹5)</button>
-<button class="btn" onclick="installEarn(5)">Install App 6 (+₹5)</button>
-<button class="btn" onclick="installEarn(5)">Install App 7 (+₹5)</button>
+<button onclick="openOffer('https://otieu.com/4/10508140')">Install App 1</button>
+<button onclick="openOffer('https://otieu.com/4/10508130')">Install App 2</button>
+<button onclick="openOffer('https://otieu.com/4/10507919')">Install App 3</button>
+<button onclick="openOffer('https://otieu.com/4/10508135')">Install App 4</button>
+<button onclick="openOffer('https://otieu.com/4/10508127')">Install App 5</button>
+<button onclick="openOffer('https://trianglerockers.com/1869976')">Install App 6</button>
+<button onclick="openOffer('https://trianglerockers.com/1870187')">Install App 7</button>
 
-<p class="small">Amount wallet me install ke baad add hota hai</p>
-</div>
-</section>
-
-<!-- WALLET -->
-<section id="wallet">
-<div class="card">
-<h3>Balance</h3>
-<h2>₹ <span id="bal2">0</span></h2>
+<small>Install verify hone ke baad wallet credit hota hai</small>
 </div>
 
 <div class="card">
-<h3>History</h3>
-<ul id="history"></ul>
+<h3>Withdraw</h3>
+<p>Minimum Withdrawal: ₹499</p>
+<button onclick="withdraw()">Request Withdrawal</button>
 </div>
-</section>
 
-<!-- PROFILE -->
-<section id="profile">
 <div class="card">
-<h3>User Profile</h3>
-<p><b>UID:</b> <span id="uid"></span></p>
-<p><b>Support:</b> xdevilearning@gmail.com</p>
+<h3>Help</h3>
+<p>Email: xdevilearning@gmail.com</p>
 </div>
-</section>
 
-<!-- MONETAG SCRIPT -->
-<script src="https://alwingulla.com/88/tag.min.js"
-data-zone="10511608"
-data-cfasync="false"></script>
+</section>
 
 <script>
-/* ===== BASIC STORAGE ===== */
-let balance = parseInt(localStorage.getItem("bal") || 0);
-let history = JSON.parse(localStorage.getItem("hist") || "[]");
-
-function save(){
-localStorage.setItem("bal",balance);
-localStorage.setItem("hist",JSON.stringify(history));
-document.getElementById("bal").innerText=balance;
-document.getElementById("bal2").innerText=balance;
-document.getElementById("history").innerHTML =
-history.map(x=>"<li>"+x+"</li>").join("");
+// ================= INSTALL BUTTON =================
+function openOffer(link){
+  window.open(link,'_blank');
+  alert("Install complete hone ke baad wallet me paisa add hoga");
 }
 
-/* ===== NAVIGATION ===== */
-function openTab(id,btn){
-document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-btn.classList.add("active");
-autoInAppAd();
+// ================= WITHDRAW =================
+function withdraw(){
+  alert("Withdrawal request submit hogi aur email admin ko jayega");
 }
 
-/* ===== INSTALL EARNING ===== */
-function installEarn(amount){
-autoRewardedPopup();
-balance+=amount;
-history.unshift("Install Earned +₹"+amount);
-save();
+// ================= MONETAG AUTO ADS =================
+let adStep = 0;
+
+function showAds(){
+  try{
+    if(adStep === 0){
+      // In-App Interstitial
+      show_10511608({
+        type: 'inApp',
+        inAppSettings: {
+          frequency: 1,
+          capping: 0.2,
+          interval: 30,
+          timeout: 5,
+          everyPage: false
+        }
+      });
+    }
+
+    if(adStep === 1){
+      // Rewarded Interstitial (NO reward)
+      show_10511608().catch(()=>{});
+    }
+
+    if(adStep === 2){
+      // Rewarded Popup (NO reward)
+      show_10511608('pop').catch(()=>{});
+    }
+
+    adStep = (adStep + 1) % 3;
+  }catch(e){}
 }
 
-/* ===== MONETAG AUTO ADS ===== */
+// Start ads after 5 sec
+setTimeout(()=>{
+  showAds();
+  setInterval(showAds,20000); // every 20 sec
+},5000);
 
-// 1️⃣ Rewarded Interstitial (time based)
-function autoRewarded(){
-if(typeof show_10511608==="function"){
-show_10511608().catch(()=>{});
-}
-}
-
-// 2️⃣ Rewarded Popup (on activity)
-function autoRewardedPopup(){
-if(typeof show_10511608==="function"){
-show_10511608('pop').catch(()=>{});
-}
-}
-
-// 3️⃣ In-App Interstitial (auto loop safe)
-function autoInAppAd(){
-if(typeof show_10511608==="function"){
-show_10511608({
-type:'inApp',
-inAppSettings:{
-frequency:1,
-capping:0.2,
-interval:20,
-timeout:5,
-everyPage:false
-}
-});
-}
-}
-
-/* ===== AUTO AD LOOP ===== */
-setInterval(()=>{
-autoRewarded();
-}, 60000); // every 60 sec
-
-setInterval(()=>{
-autoInAppAd();
-}, 90000); // every 90 sec
-
-document.addEventListener("scroll",()=>{
-autoRewardedPopup();
-},{once:true});
-
-/* ===== INIT ===== */
-function init(){
-if(!localStorage.getItem("uid")){
-localStorage.setItem("uid","UID_"+Math.random().toString(36).slice(2));
-}
-document.getElementById("uid").innerText=localStorage.getItem("uid");
-save();
-setTimeout(autoInAppAd,5000);
-}
-
-window.onload=init;
 </script>
 
 </body>
