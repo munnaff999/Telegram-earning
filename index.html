@@ -6,63 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#f5f7fb;
-}
-header{
-  background:#2563eb;
-  color:#fff;
-  padding:15px;
-  text-align:center;
-  font-size:20px;
-}
-nav{
-  display:flex;
-  justify-content:space-around;
-  background:#fff;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
-}
-nav button{
-  flex:1;
-  padding:12px;
-  border:none;
-  background:none;
-  font-size:14px;
-}
-nav button.active{
-  color:#2563eb;
-  font-weight:bold;
-}
-section{
-  display:none;
-  padding:15px;
-}
-section.active{
-  display:block;
-}
-.card{
-  background:#fff;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:15px;
-  box-shadow:0 4px 10px rgba(0,0,0,.1);
-}
-.btn{
-  width:100%;
-  padding:14px;
-  margin-top:10px;
-  border:none;
-  border-radius:12px;
-  background:#2563eb;
-  color:#fff;
-  font-size:16px;
-}
-.small{
-  font-size:13px;
-  color:#555;
-}
+body{margin:0;font-family:Arial;background:#f4f6fb}
+header{background:#2563eb;color:#fff;padding:15px;text-align:center;font-size:20px}
+nav{display:flex;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+nav button{flex:1;padding:12px;border:none;background:none;font-size:14px}
+nav button.active{color:#2563eb;font-weight:bold}
+section{display:none;padding:15px}
+section.active{display:block}
+.card{background:#fff;padding:15px;border-radius:14px;margin-bottom:15px;box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.btn{width:100%;padding:14px;margin-top:10px;border:none;border-radius:14px;background:#2563eb;color:#fff;font-size:16px}
+.small{font-size:13px;color:#555}
 </style>
 </head>
 
@@ -81,14 +34,13 @@ section.active{
 <section id="home" class="active">
 <div class="card">
 <h3>Wallet Balance</h3>
-<h2>₹ <span id="balance">0</span></h2>
+<h2>₹ <span id="bal">0</span></h2>
 <p class="small">1 Coin = ₹1</p>
 </div>
 
 <div class="card">
-<h3>Monetag Ads</h3>
-<p class="small">Ads auto-trigger on click / scroll</p>
-<button class="btn" onclick="showInterstitial()">Show Ad</button>
+<h3>Ads</h3>
+<button class="btn" onclick="showRewarded()">Watch Ad</button>
 </div>
 </section>
 
@@ -97,15 +49,15 @@ section.active{
 <div class="card">
 <h3>Install & Earn</h3>
 
-<button class="btn" onclick="installApp(5)">Install App 1 (+₹5)</button>
-<button class="btn" onclick="installApp(5)">Install App 2 (+₹5)</button>
-<button class="btn" onclick="installApp(5)">Install App 3 (+₹5)</button>
-<button class="btn" onclick="installApp(5)">Install App 4 (+₹5)</button>
-<button class="btn" onclick="installApp(5)">Install App 5 (+₹5)</button>
-<button class="btn" onclick="installApp(5)">Install App 6 (+₹5)</button>
-<button class="btn" onclick="installApp(5)">Install App 7 (+₹5)</button>
+<button class="btn" onclick="install(5)">Install App 1 (+₹5)</button>
+<button class="btn" onclick="install(5)">Install App 2 (+₹5)</button>
+<button class="btn" onclick="install(5)">Install App 3 (+₹5)</button>
+<button class="btn" onclick="install(5)">Install App 4 (+₹5)</button>
+<button class="btn" onclick="install(5)">Install App 5 (+₹5)</button>
+<button class="btn" onclick="install(5)">Install App 6 (+₹5)</button>
+<button class="btn" onclick="install(5)">Install App 7 (+₹5)</button>
 
-<p class="small">* Demo credit. Real earning needs CPA postback.</p>
+<p class="small">Install ke baad hi wallet credit hota hai</p>
 </div>
 </section>
 
@@ -113,40 +65,40 @@ section.active{
 <section id="wallet">
 <div class="card">
 <h3>Balance</h3>
-<h2>₹ <span id="balance2">0</span></h2>
+<h2>₹ <span id="bal2">0</span></h2>
 </div>
 
 <div class="card">
 <h3>History</h3>
-<ul id="history"></ul>
+<ul id="hist"></ul>
 </div>
 </section>
 
 <!-- PROFILE -->
 <section id="profile">
 <div class="card">
-<h3>User Info</h3>
+<h3>Profile</h3>
 <p><b>UID:</b> <span id="uid"></span></p>
-<p><b>Email:</b> xdevilearning@gmail.com</p>
+<p><b>Help:</b> xdevilearning@gmail.com</p>
 </div>
 </section>
 
-<!-- MONETAG POP / ONCLICK -->
+<!-- MONETAG LOADER -->
 <script src="https://alwingulla.com/88/tag.min.js"
-        data-zone="REPLACE_WITH_YOUR_ZONE_ID"></script>
+data-zone="10511608"
+data-cfasync="false"></script>
 
-<!-- MONETAG INTERSTITIAL -->
 <script>
-var balance = localStorage.getItem("balance") || 0;
-var history = JSON.parse(localStorage.getItem("history") || "[]");
+let balance = parseInt(localStorage.getItem("bal")||0);
+let history = JSON.parse(localStorage.getItem("hist")||"[]");
 
 function save(){
-  localStorage.setItem("balance", balance);
-  localStorage.setItem("history", JSON.stringify(history));
-  document.getElementById("balance").innerText = balance;
-  document.getElementById("balance2").innerText = balance;
-  document.getElementById("history").innerHTML =
-    history.map(h=>"<li>"+h+"</li>").join("");
+  localStorage.setItem("bal",balance);
+  localStorage.setItem("hist",JSON.stringify(history));
+  document.getElementById("bal").innerText=balance;
+  document.getElementById("bal2").innerText=balance;
+  document.getElementById("hist").innerHTML=
+    history.map(x=>"<li>"+x+"</li>").join("");
 }
 
 function openTab(id){
@@ -154,31 +106,61 @@ function openTab(id){
   document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
   document.getElementById(id).classList.add("active");
   event.target.classList.add("active");
+  showInApp(); // auto ad on navigation
 }
 
-function installApp(amount){
-  showInterstitial();
-  balance = parseInt(balance) + amount;
-  history.unshift("Install App +₹"+amount);
+function install(amount){
+  showRewardedPopup();
+  balance+=amount;
+  history.unshift("App Install +₹"+amount);
   save();
-  alert("Install recorded (demo)");
+  alert("Install recorded");
 }
 
-function showInterstitial(){
-  if(typeof show_8888888 === "function"){
-    show_8888888();
-  }
+/* ===== MONETAG ADS ===== */
+
+// Rewarded Interstitial
+function showRewarded(){
+if(typeof show_10511608==="function"){
+show_10511608().then(()=>{
+alert("Ad watched");
+});
+}
+}
+
+// Rewarded Popup
+function showRewardedPopup(){
+if(typeof show_10511608==="function"){
+show_10511608('pop').catch(()=>{});
+}
+}
+
+// In-App Interstitial (AUTO)
+function showInApp(){
+if(typeof show_10511608==="function"){
+show_10511608({
+type:'inApp',
+inAppSettings:{
+frequency:2,
+capping:0.1,
+interval:30,
+timeout:5,
+everyPage:false
+}
+});
+}
 }
 
 function init(){
-  if(!localStorage.getItem("uid")){
-    localStorage.setItem("uid","UID_"+Math.random().toString(36).slice(2));
-  }
-  document.getElementById("uid").innerText = localStorage.getItem("uid");
-  save();
+if(!localStorage.getItem("uid")){
+localStorage.setItem("uid","UID_"+Math.random().toString(36).slice(2));
+}
+document.getElementById("uid").innerText=localStorage.getItem("uid");
+save();
+setTimeout(showInApp,3000);
 }
 
-window.onload = init;
+window.onload=init;
 </script>
 
 </body>
