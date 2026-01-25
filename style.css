@@ -1,0 +1,258 @@
+/* ===============================
+   RESET & BASE
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue",
+               Arial, sans-serif;
+  background: #f3f6fb;
+  color: #1f2937;
+  min-height: 100vh;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.balance-box {
+  background: rgba(255,255,255,0.15);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* ===============================
+   MAIN LAYOUT
+================================ */
+#app {
+  padding-top: 70px;
+  padding-bottom: 80px;
+}
+
+.page {
+  display: none;
+  padding: 14px;
+}
+
+.page.active {
+  display: block;
+}
+
+/* ===============================
+   CARDS
+================================ */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.card h1 {
+  font-size: 32px;
+  margin-top: 6px;
+}
+
+.card h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.muted {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #ef4444;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #fff;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.primary-btn:active {
+  transform: scale(0.97);
+}
+
+.earn-btn {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 10px;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.earn-btn:active {
+  transform: scale(0.97);
+  background: #1d4ed8;
+}
+
+/* ===============================
+   INPUTS
+================================ */
+input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+input:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+/* ===============================
+   ADS BOX
+================================ */
+.ad-box {
+  height: 90px;
+  background: #eef2ff;
+  border: 2px dashed #c7d2fe;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #4338ca;
+  font-weight: 600;
+}
+
+/* ===============================
+   TRANSACTION LIST
+================================ */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tx {
+  display: flex;
+  justify-content: space-between;
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.tx.credit {
+  border-left: 4px solid #22c55e;
+}
+
+.tx.debit {
+  border-left: 4px solid #ef4444;
+}
+
+.tx small {
+  color: #6b7280;
+}
+
+/* ===============================
+   PROFILE
+================================ */
+.uid {
+  word-break: break-all;
+  font-size: 13px;
+  color: #374151;
+  background: #f3f4f6;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+/* ===============================
+   BOTTOM NAV
+================================ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 65px;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -4px 14px rgba(0,0,0,0.08);
+  z-index: 1000;
+}
+
+.bottom-nav button {
+  background: none;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.bottom-nav button:active {
+  color: #2563eb;
+}
+
+/* ===============================
+   RESPONSIVE SAFETY
+================================ */
+@media (min-width: 768px) {
+  body {
+    max-width: 420px;
+    margin: 0 auto;
+    background: #e5e7eb;
+  }
+}

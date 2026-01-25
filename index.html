@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>XDEVIL EARNING</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- =========================
+       FIREBASE CDN (COMPAT)
+  ========================== -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- =========================
+       CSS
+  ========================== -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+<header class="app-header">
+  <div class="logo">XDEVIL EARNING</div>
+  <div class="balance-box">
+    ₹ <span id="topBalance">0</span>
+  </div>
+</header>
+
+<!-- =========================
+     MAIN CONTAINER
+========================= -->
+<main id="app">
+
+  <!-- HOME -->
+  <section id="page-home" class="page active">
+    <div class="card">
+      <h2>Wallet Balance</h2>
+      <h1>₹ <span id="homeBalance">0</span></h1>
+      <p class="muted">Updated in real-time</p>
+    </div>
+
+    <div class="card">
+      <h3>Sponsored Ads</h3>
+
+      <!-- Monetag AUTO ADS (NO USER REWARD) -->
+      <div class="ad-box" id="monetag-interstitial">
+        Monetag Interstitial
+      </div>
+
+      <div class="ad-box" id="monetag-rewarded">
+        Monetag Rewarded
+      </div>
+
+      <div class="ad-box" id="monetag-popup">
+        Monetag Popup
+      </div>
+    </div>
+  </section>
+
+  <!-- EARN -->
+  <section id="page-earn" class="page">
+    <div class="card">
+      <h2>Install Apps & Earn</h2>
+
+      <button class="earn-btn" onclick="completeOffer('offer1',5)">
+        Install App 1 – ₹5
+      </button>
+
+      <button class="earn-btn" onclick="completeOffer('offer2',5)">
+        Install App 2 – ₹5
+      </button>
+
+      <button class="earn-btn" onclick="completeOffer('offer3',10)">
+        Install App 3 – ₹10
+      </button>
+
+      <button class="earn-btn" onclick="completeOffer('offer4',10)">
+        Install App 4 – ₹10
+      </button>
+
+      <button class="earn-btn" onclick="completeOffer('offer5',15)">
+        Install App 5 – ₹15
+      </button>
+
+      <button class="earn-btn" onclick="completeOffer('offer6',15)">
+        Install App 6 – ₹15
+      </button>
+
+      <button class="earn-btn" onclick="completeOffer('offer7',20)">
+        Install App 7 – ₹20
+      </button>
+
+      <p class="note">
+        ⚠ Coins are credited only after successful install verification.
+      </p>
+    </div>
+  </section>
+
+  <!-- WALLET -->
+  <section id="page-wallet" class="page">
+    <div class="card">
+      <h2>Transaction History</h2>
+      <div id="transactionList" class="list">
+        <!-- JS fills -->
+      </div>
+    </div>
+  </section>
+
+  <!-- WITHDRAW -->
+  <section id="page-withdraw" class="page">
+    <div class="card">
+      <h2>Withdraw Funds</h2>
+      <p class="muted">Minimum withdrawal ₹499</p>
+
+      <input id="w_upi" placeholder="UPI ID">
+      <input id="w_bank" placeholder="Bank Name">
+      <input id="w_acc" placeholder="Account Number">
+      <input id="w_ifsc" placeholder="IFSC Code">
+      <input id="w_email" placeholder="Email">
+      <input id="w_mobile" placeholder="Mobile Number">
+
+      <button class="primary-btn" onclick="requestWithdrawal()">
+        Submit Withdrawal
+      </button>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="page-profile" class="page">
+    <div class="card">
+      <h2>Profile</h2>
+      <p><b>User ID:</b></p>
+      <p id="userUid" class="uid"></p>
+
+      <hr>
+
+      <p><b>Support Email:</b></p>
+      <p>xdevilearning@gmail.com</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+<nav class="bottom-nav">
+  <button onclick="openPage('home')">Home</button>
+  <button onclick="openPage('earn')">Earn</button>
+  <button onclick="openPage('wallet')">Wallet</button>
+  <button onclick="openPage('withdraw')">Withdraw</button>
+  <button onclick="openPage('profile')">Profile</button>
+</nav>
+
+<!-- =========================
+     APP LOGIC
+========================= -->
+<script src="app.js"></script>
+
+</body>
+</html>
