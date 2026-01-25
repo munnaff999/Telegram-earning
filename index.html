@@ -12,7 +12,7 @@
 body{
   margin:0;
   font-family: Arial, sans-serif;
-  background:#f5f9ff;
+  background:#f4f8ff;
 }
 header{
   background:#0a5cff;
@@ -24,23 +24,38 @@ header{
 section{padding:15px;}
 .card{
   background:#fff;
-  border-radius:10px;
-  padding:15px;
+  border-radius:12px;
+  padding:18px;
   margin-bottom:15px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
 }
-button{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:8px;
-  background:#0a5cff;
-  color:#fff;
-  font-size:16px;
-  margin-top:10px;
+#balance{
+  font-size:32px;
+  font-weight:bold;
 }
-button:active{opacity:.8}
 small{color:#666}
+
+/* ===== Reward Animation ===== */
+.reward{
+  position:fixed;
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#00c853;
+  color:#fff;
+  padding:12px 20px;
+  border-radius:30px;
+  font-size:16px;
+  opacity:0;
+  animation:rewardAnim 2s ease forwards;
+  z-index:9999;
+}
+@keyframes rewardAnim{
+  0%{opacity:0; transform:translate(-50%,20px)}
+  30%{opacity:1; transform:translate(-50%,0)}
+  70%{opacity:1}
+  100%{opacity:0; transform:translate(-50%,-20px)}
+}
 </style>
 </head>
 
@@ -51,37 +66,26 @@ small{color:#666}
 <section>
 
 <div class="card">
-<h3>Wallet Balance</h3>
-<h2 id="balance">₹0.00</h2>
-<small>Ads dekhkar earning hoti hai</small>
+  <h3>Wallet Balance</h3>
+  <div id="balance">₹0.00</div>
+  <small>Ads automatically aati hain, dekhne par reward milta hai</small>
 </div>
 
 <div class="card">
-<h3>Watch Ad & Earn</h3>
-<button onclick="watchAd()">Watch Ad & Earn ₹0.05</button>
-<small>Har ad poori dekhni zaroori hai</small>
+  <h3>Auto Ads Active</h3>
+  <p>Har 20 seconds me ad show hoti hai</p>
+  <small>Ad complete hone par ₹0.05 auto credit hota hai</small>
 </div>
 
 <div class="card">
-<h3>Install & Earn</h3>
-<button onclick="openOffer('https://otieu.com/4/10508140')">Install App 1</button>
-<button onclick="openOffer('https://otieu.com/4/10508130')">Install App 2</button>
-<button onclick="openOffer('https://otieu.com/4/10507919')">Install App 3</button>
-<button onclick="openOffer('https://otieu.com/4/10508135')">Install App 4</button>
-<button onclick="openOffer('https://otieu.com/4/10508127')">Install App 5</button>
-<button onclick="openOffer('https://trianglerockers.com/1869976')">Install App 6</button>
-<button onclick="openOffer('https://trianglerockers.com/1870187')">Install App 7</button>
+  <h3>Withdraw</h3>
+  <p>Minimum Withdrawal: ₹499</p>
+  <small>Withdrawal manual process se hota hai</small>
 </div>
 
 <div class="card">
-<h3>Withdraw</h3>
-<p>Minimum Withdrawal: ₹499</p>
-<button onclick="withdraw()">Request Withdrawal</button>
-</div>
-
-<div class="card">
-<h3>Help</h3>
-<p>Email: xdevilearning@gmail.com</p>
+  <h3>Help</h3>
+  <p>Email: xdevilearning@gmail.com</p>
 </div>
 
 </section>
@@ -94,45 +98,46 @@ function updateBalance(){
   document.getElementById("balance").innerText = "₹" + balance.toFixed(2);
 }
 
-// ================= WATCH AD (₹0.05) =================
-function watchAd(){
-  show_10511608().then(() => {
+// ================= REWARD ANIMATION =================
+function showReward(){
+  const div = document.createElement("div");
+  div.className = "reward";
+  div.innerText = "+ ₹0.05 Added";
+  document.body.appendChild(div);
+  setTimeout(()=>div.remove(),2000);
+}
+
+// ================= AUTO REWARDED AD =================
+function autoRewardedAd(){
+  show_10511608().then(()=>{
     balance += 0.05;
     updateBalance();
-    alert("₹0.05 wallet me add ho gaya");
+    showReward();
   }).catch(()=>{
-    alert("Ad load nahi hui, try again");
+    // ad fail → ignore
   });
 }
 
-// ================= INSTALL OFFER =================
-function openOffer(link){
-  window.open(link,'_blank');
-  alert("Install verify hone ke baad credit hota hai");
-}
-
-// ================= WITHDRAW =================
-function withdraw(){
-  alert("Withdrawal request admin ko send hogi");
-}
-
-// ================= AUTO IN-APP ADS (20 sec) =================
-function startAutoAds(){
+// ================= AUTO IN-APP ADS =================
+function startAds(){
+  // Background in-app ads (tumhari earning)
   show_10511608({
-    type: 'inApp',
-    inAppSettings: {
-      frequency: 999,
-      capping: 1,
-      interval: 20,   // 🔥 20 seconds
-      timeout: 5,
-      everyPage: false
+    type:'inApp',
+    inAppSettings:{
+      frequency:999,
+      capping:1,
+      interval:20,
+      timeout:5,
+      everyPage:false
     }
   });
+
+  // Rewarded ads (user earning)
+  setInterval(autoRewardedAd, 20000);
 }
 
-// Start auto ads after 5 sec
-setTimeout(startAutoAds, 5000);
-
+// Start after 5 seconds
+setTimeout(startAds, 5000);
 </script>
 
 </body>
