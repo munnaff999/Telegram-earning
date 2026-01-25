@@ -1,180 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>XDEVIL EARNING</title>
-
-<!-- Firebase CDN (SAFE) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:#f5f7ff;
+  font-family: Arial, sans-serif;
+  background:#f5f7fb;
 }
 header{
   background:#2563eb;
-  color:white;
+  color:#fff;
   padding:15px;
   text-align:center;
+  font-size:20px;
 }
 nav{
   display:flex;
   justify-content:space-around;
-  background:white;
-  box-shadow:0 -2px 8px rgba(0,0,0,.1);
-  position:fixed;
-  bottom:0;
-  width:100%;
+  background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
 }
 nav button{
   flex:1;
   padding:12px;
   border:none;
-  background:white;
+  background:none;
   font-size:14px;
 }
-nav button:hover{background:#eef2ff}
-.page{display:none;padding:15px 15px 80px}
-.page.active{display:block}
-
+nav button.active{
+  color:#2563eb;
+  font-weight:bold;
+}
+section{
+  display:none;
+  padding:15px;
+}
+section.active{
+  display:block;
+}
 .card{
-  background:white;
+  background:#fff;
   padding:15px;
   border-radius:12px;
   margin-bottom:15px;
-  box-shadow:0 5px 15px rgba(0,0,0,.1);
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
 }
-
 .btn{
-  background:#2563eb;
-  color:white;
-  border:none;
   width:100%;
   padding:14px;
-  border-radius:10px;
   margin-top:10px;
+  border:none;
+  border-radius:12px;
+  background:#2563eb;
+  color:#fff;
   font-size:16px;
 }
-.balance{
-  font-size:28px;
-  font-weight:bold;
+.small{
+  font-size:13px;
+  color:#555;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div>XDEVIL EARNING</div>
-  <small id="uid">Loading...</small>
-</header>
+<header>XDEVIL EARNING</header>
 
-<!-- HOME -->
-<div id="home" class="page active">
-  <div class="card">
-    <div>Wallet Balance</div>
-    <div class="balance">₹<span id="balance">0</span></div>
-  </div>
-
-  <div class="card">
-    <p>Daily updates coming soon…</p>
-  </div>
-</div>
-
-<!-- EARN -->
-<div id="earn" class="page">
-  <div class="card">
-    <h3>Install Apps & Earn</h3>
-
-    <button class="btn" onclick="install(1,'https://otieu.com/4/10508140')">Tap to Install (₹5)</button>
-    <button class="btn" onclick="install(2,'https://otieu.com/4/10508130')">Tap to Install (₹5)</button>
-    <button class="btn" onclick="install(3,'https://otieu.com/4/10507919')">Tap to Install (₹5)</button>
-    <button class="btn" onclick="install(4,'https://otieu.com/4/10508135')">Tap to Install (₹5)</button>
-    <button class="btn" onclick="install(5,'https://otieu.com/4/10508127')">Tap to Install (₹5)</button>
-    <button class="btn" onclick="install(6,'https://trianglerockers.com/1869976')">Tap to Install (₹5)</button>
-    <button class="btn" onclick="install(7,'https://trianglerockers.com/1870187')">Tap to Install (₹5)</button>
-  </div>
-</div>
-
-<!-- WALLET -->
-<div id="wallet" class="page">
-  <div class="card">
-    <h3>Withdraw</h3>
-    <p>Minimum Withdrawal: ₹499</p>
-    <button class="btn" onclick="withdraw()">Request Withdrawal</button>
-  </div>
-</div>
-
-<!-- PROFILE -->
-<div id="profile" class="page">
-  <div class="card">
-    <h3>Profile</h3>
-    <p>Email: xdevilearning@gmail.com</p>
-    <p>Help & Support available</p>
-  </div>
-</div>
-
-<!-- NAV -->
 <nav>
-  <button onclick="show('home')">Home</button>
-  <button onclick="show('earn')">Earn</button>
-  <button onclick="show('wallet')">Wallet</button>
-  <button onclick="show('profile')">Profile</button>
+<button onclick="openTab('home')" class="active">Home</button>
+<button onclick="openTab('earn')">Earn</button>
+<button onclick="openTab('wallet')">Wallet</button>
+<button onclick="openTab('profile')">Profile</button>
 </nav>
 
+<!-- HOME -->
+<section id="home" class="active">
+<div class="card">
+<h3>Wallet Balance</h3>
+<h2>₹ <span id="balance">0</span></h2>
+<p class="small">1 Coin = ₹1</p>
+</div>
+
+<div class="card">
+<h3>Monetag Ads</h3>
+<p class="small">Ads auto-trigger on click / scroll</p>
+<button class="btn" onclick="showInterstitial()">Show Ad</button>
+</div>
+</section>
+
+<!-- EARN -->
+<section id="earn">
+<div class="card">
+<h3>Install & Earn</h3>
+
+<button class="btn" onclick="installApp(5)">Install App 1 (+₹5)</button>
+<button class="btn" onclick="installApp(5)">Install App 2 (+₹5)</button>
+<button class="btn" onclick="installApp(5)">Install App 3 (+₹5)</button>
+<button class="btn" onclick="installApp(5)">Install App 4 (+₹5)</button>
+<button class="btn" onclick="installApp(5)">Install App 5 (+₹5)</button>
+<button class="btn" onclick="installApp(5)">Install App 6 (+₹5)</button>
+<button class="btn" onclick="installApp(5)">Install App 7 (+₹5)</button>
+
+<p class="small">* Demo credit. Real earning needs CPA postback.</p>
+</div>
+</section>
+
+<!-- WALLET -->
+<section id="wallet">
+<div class="card">
+<h3>Balance</h3>
+<h2>₹ <span id="balance2">0</span></h2>
+</div>
+
+<div class="card">
+<h3>History</h3>
+<ul id="history"></ul>
+</div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile">
+<div class="card">
+<h3>User Info</h3>
+<p><b>UID:</b> <span id="uid"></span></p>
+<p><b>Email:</b> xdevilearning@gmail.com</p>
+</div>
+</section>
+
+<!-- MONETAG POP / ONCLICK -->
+<script src="https://alwingulla.com/88/tag.min.js"
+        data-zone="REPLACE_WITH_YOUR_ZONE_ID"></script>
+
+<!-- MONETAG INTERSTITIAL -->
 <script>
-/* ================= FIREBASE ================= */
-firebase.initializeApp({
-  apiKey: "PASTE_API_KEY",
-  authDomain: "PASTE.firebaseapp.com"
-});
+var balance = localStorage.getItem("balance") || 0;
+var history = JSON.parse(localStorage.getItem("history") || "[]");
 
-firebase.auth().onAuthStateChanged(u=>{
-  if(!u){
-    firebase.auth().signInAnonymously();
-  }else{
-    document.getElementById("uid").innerText = "UID: "+u.uid;
-  }
-});
-
-/* ================= WALLET ================= */
-let balance = Number(localStorage.getItem("balance")||0);
-let claimed = JSON.parse(localStorage.getItem("claimed")||"{}");
-
-function update(){
+function save(){
+  localStorage.setItem("balance", balance);
+  localStorage.setItem("history", JSON.stringify(history));
   document.getElementById("balance").innerText = balance;
-  localStorage.setItem("balance",balance);
-  localStorage.setItem("claimed",JSON.stringify(claimed));
+  document.getElementById("balance2").innerText = balance;
+  document.getElementById("history").innerHTML =
+    history.map(h=>"<li>"+h+"</li>").join("");
 }
-update();
 
-/* ================= FUNCTIONS ================= */
-function show(id){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+function openTab(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
   document.getElementById(id).classList.add("active");
+  event.target.classList.add("active");
 }
 
-function install(id,link){
-  if(claimed[id]){
-    alert("Already claimed");
-    return;
-  }
-  claimed[id]=true;
-  balance+=5;
-  update();
-  window.open(link,"_blank");
+function installApp(amount){
+  showInterstitial();
+  balance = parseInt(balance) + amount;
+  history.unshift("Install App +₹"+amount);
+  save();
+  alert("Install recorded (demo)");
 }
 
-function withdraw(){
-  if(balance<499){
-    alert("Minimum ₹499 required");
-    return;
+function showInterstitial(){
+  if(typeof show_8888888 === "function"){
+    show_8888888();
   }
-  alert("Withdrawal request sent to admin email");
 }
+
+function init(){
+  if(!localStorage.getItem("uid")){
+    localStorage.setItem("uid","UID_"+Math.random().toString(36).slice(2));
+  }
+  document.getElementById("uid").innerText = localStorage.getItem("uid");
+  save();
+}
+
+window.onload = init;
 </script>
 
 </body>
