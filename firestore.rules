@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isLoggedIn() { return request.auth != null; }
+    function isOwner(userId) { return isLoggedIn() && request.auth.uid == userId; }
+    function isAdmin() {
+      return isLoggedIn() && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    match /users/{userId} {
+      allow list: if isAdmin();
+      allow get: if isLoggedIn(); 
+      allow create: if isOwner(userId);
+      allow update: if isAdmin() || (isOwner(userId) && 
+                    !request.resource.data.diff(resource.data).affectedKeys()
+                    .hasAny(['balance', 'isAdmin', 'deviceId']));
+    }
+
+    match /device_bindings/{deviceId} {
+      allow get: if isLoggedIn();
+      allow create: if isLoggedIn();
+      allow list, update, delete: if isAdmin();
+    }
+    
+    match /completedOffers/{docId} {
+      // allow read for both 'get' and 'list' if it's the owner's data
+      allow read: if isLoggedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isLoggedIn() 
+                    && request.resource.data.userId == request.auth.uid
+                    && docId == request.auth.uid + "_" + request.resource.data.offerId;
+    }
+    
+    match /wallet_transactions/{txId} {
+      allow read: if isLoggedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isLoggedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    match /withdrawals/{wId} {
+      allow read: if isLoggedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isLoggedIn() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAdmin();
+      allow delete: if false; 
+    }
+  }
+}

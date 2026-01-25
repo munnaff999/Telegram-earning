@@ -1,0 +1,8 @@
+{
+  "name": "XDEVIL EARNING",
+  "description": "A professional fintech-grade earning platform with app install offers, surveys, and secure withdrawals.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
