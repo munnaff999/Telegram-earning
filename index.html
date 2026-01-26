@@ -5,100 +5,92 @@
 <title>XDEVIL EARNING</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Monetag SDK -->
+<!-- ================= MONETAG SDK ================= -->
 <script src="//libtl.com/sdk.js"
         data-zone="10511608"
         data-sdk="show_10511608"></script>
 
+<!-- ================= EZMOB POP ================= -->
+<script>
+window.adk_pdisp = {
+  'h' : 'xml.qualiclicks.com',
+  'f' : 1058477,
+  'a' : 'PmH4',
+  'ps' : [1,5],
+  'cin' : 4,
+  's' : '',
+  'q' : [],
+  't' : 24
+};
+</script>
+<script src='//static.qualiclicks.com/tabu/display.js'></script>
+
+<!-- ================= EZMOB INPAGE ================= -->
+<script>
+(function(i,n){
+  i.inpagepush = i.inpagepush || function(){
+    (i.inpagepush.q=(i.inpagepush.q||[])).push(arguments)
+  };
+  var s=n.getElementsByTagName('head')[0];
+  var q=n.createElement('script'); q.async=1;
+  q.src='//static.qualiclicks.com/inpage/inpage.js';
+  s.appendChild(q);
+  i.inpagepush('init', {
+    host: 'xml.qualiclicks.com',
+    feed: 1058473,
+    auth : 'c7e1',
+    subid: '',
+    refresh: 120,
+    position: 'top',
+    slots: 2,
+    query : '',
+    nodesrc : true
+  });
+})(window, document);
+</script>
+
+<!-- ================= EZMOB INTERSTITIAL ================= -->
+<script>
+(function(i,n){
+  i.intstl = i.intstl || function(){
+    (i.intstl.q=(i.intstl.q||[])).push(arguments)
+  };
+  var s=n.getElementsByTagName('head')[0];
+  var q=n.createElement('script'); q.async=1;
+  q.src='https://static.qualiclicks.com/intstl/intstl.js';
+  s.appendChild(q);
+  i.intstl('init', {
+    host: 'xml.qualiclicks.com',
+    feed: 1058470,
+    auth : 'c6es',
+    logo: 'https://adk.ezmob.com/images/icoLogo.png',
+    color1: '#3c8dbc',
+    color2: '#307196',
+    textColor: 'white',
+    background: '#f7f7f6',
+    engagementPeriod: 15,
+    interval: 30,
+    defer: 2
+  });
+})(window, document);
+</script>
+
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#eef3ff;
-}
-header{
-  background:linear-gradient(135deg,#0a5cff,#003cbf);
-  color:#fff;
-  padding:16px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-}
-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:#fff;
-  display:flex;
-  border-top:1px solid #ddd;
-}
-nav button{
-  flex:1;
-  padding:12px 5px;
-  border:none;
-  background:none;
-  font-size:14px;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#eef3ff}
+header{background:linear-gradient(135deg,#0a5cff,#003cbf);color:#fff;padding:16px;text-align:center;font-size:22px;font-weight:bold}
+nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;border-top:1px solid #ddd}
+nav button{flex:1;padding:12px 5px;border:none;background:none;font-size:14px}
 nav button.active{color:#0a5cff;font-weight:bold}
-
-section{
-  padding:15px;
-  padding-bottom:80px;
-  display:none;
-}
+section{padding:15px;padding-bottom:80px;display:none}
 section.active{display:block}
-
-.card{
-  background:#fff;
-  border-radius:14px;
-  padding:16px;
-  margin-bottom:16px;
-  box-shadow:0 6px 20px rgba(0,0,0,.08);
-}
-
-.balance{
-  font-size:34px;
-  font-weight:bold;
-  color:#0a5cff;
-}
-
-.anim{
-  margin-top:6px;
-  font-size:15px;
-  color:#1aa31a;
-  font-weight:bold;
-  display:none;
-  animation:pop .6s ease;
-}
-@keyframes pop{
-  from{transform:scale(.6);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-
-a.btn,button.btn{
-  display:block;
-  width:100%;
-  padding:13px;
-  margin-top:10px;
-  text-align:center;
-  border-radius:10px;
-  background:#0a5cff;
-  color:#fff;
-  border:none;
-  text-decoration:none;
-  font-size:15px;
-}
-
+.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.balance{font-size:34px;font-weight:bold;color:#0a5cff}
+.anim{margin-top:6px;font-size:15px;color:#1aa31a;font-weight:bold;display:none;animation:pop .6s ease}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+a.btn,button.btn{display:block;width:100%;padding:13px;margin-top:10px;text-align:center;border-radius:10px;background:#0a5cff;color:#fff;border:none;text-decoration:none;font-size:15px}
 .note{font-size:13px;color:#666}
-input,select{
-  width:100%;
-  padding:10px;
-  margin-top:8px;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
+input,select{width:100%;padding:10px;margin-top:8px;border-radius:8px;border:1px solid #ccc}
 </style>
 </head>
 
@@ -112,76 +104,25 @@ input,select{
     <h3>Wallet Balance</h3>
     <div class="balance" id="balance">₹0.00</div>
     <div class="anim" id="anim">+₹0.05 Added</div>
-    <p class="note">Every 1 minute ads se ₹0.15 tak earn ho sakta hai</p>
+    <p class="note">Ads se earning hoti hai (test mode)</p>
   </div>
 
+  <!-- ================= EZMOB BANNER ================= -->
   <div class="card">
-    <h3>Earning Information</h3>
-    <ul class="note">
-      <li>Install + Signup = ₹10</li>
-      <li>Install + Signup + KYC = ₹20</li>
-      <li>Only ads se daily ₹20–₹40 possible</li>
-      <li>All earnings wallet me credit hoti hai</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ================= EARNING ================= -->
-<section id="earning">
-  <div class="card">
-    <h3>Install & Earn</h3>
-
-    <a class="btn" href="https://otieu.com/4/10508140" target="_blank">Install App 1</a>
-    <a class="btn" href="https://otieu.com/4/10508130" target="_blank">Install App 2</a>
-    <a class="btn" href="https://otieu.com/4/10507919" target="_blank">Install App 3</a>
-    <a class="btn" href="https://otieu.com/4/10508135" target="_blank">Install App 4</a>
-    <a class="btn" href="https://otieu.com/4/10508127" target="_blank">Install App 5</a>
-    <a class="btn" href="https://trianglerockers.com/1869976/" target="_blank">Install App 6</a>
-    <a class="btn" href="https://playabledownloads.com/1869976/XDEVILEARNING" target="_blank">Install App 7</a>
-
-    <p class="note">Install verify hone ke baad wallet credit hota hai</p>
-  </div>
-
-  <div class="card">
-    <h3>Survey</h3>
-    <p class="note">Coming Soon 🚧</p>
-  </div>
-</section>
-
-<!-- ================= PROFILE ================= -->
-<section id="profile">
-  <div class="card">
-    <h3>User Profile</h3>
-    <p class="note">User ID: <b id="uid">XDEVIL12345</b></p>
-
-    <input placeholder="Name">
-    <input placeholder="Age">
-    <select>
-      <option>Boy</option>
-      <option>Girl</option>
-    </select>
-    <input type="file">
-
-    <h4 style="margin-top:15px">Referral</h4>
-    <p class="note">Refer & Earn ₹5</p>
-    <p class="note">5×1 = ₹5 | 5×10 = ₹10</p>
-  </div>
-</section>
-
-<!-- ================= WITHDRAW ================= -->
-<section id="withdraw">
-  <div class="card">
-    <h3>Withdrawal</h3>
-    <p class="note">Minimum Withdrawal: ₹399</p>
-
-    <input placeholder="UPI / Bank / GPay / PhonePe">
-    <input placeholder="Account / UPI ID">
-    <input type="file">
-    <button class="btn" onclick="withdraw()">Submit Withdrawal</button>
-
-    <p class="note">Details email par jayengi:  
-      <b>xdevilearning@gmail.com</b>
-    </p>
+    <h3>Sponsored</h3>
+    <script type="text/javascript">
+    var __jscp=function(){
+      for(var b=0,a=window;a!=a.parent;)++b,a=a.parent;
+      if(a=window.parent==window?document.URL:document.referrer){
+        var c=a.indexOf("://");0<=c&&(a=a.substring(c+3));
+        c=a.indexOf("/");0<=c&&(a=a.substring(0,c))
+      }
+      var b={pu:a,"if":b,rn:new Number(Math.floor(99999999*Math.random())+1)},a=[],d;
+      for(d in b)a.push(d+"="+encodeURIComponent(b[d]));
+      return encodeURIComponent(a.join("&"))
+    };
+    document.write('<script src="//cpm.ezmob.com/tag?zone_id=324954&size=300x250&subid=&j='+__jscp()+'"></'+'script>');
+    </script>
   </div>
 </section>
 
@@ -194,14 +135,10 @@ input,select{
 </nav>
 
 <script>
-// ===== BALANCE (local test) =====
 let balance = parseFloat(localStorage.getItem("xdevil_balance")) || 0;
-let adStep = 0;
-updateBalance();
-
 function updateBalance(){
-  document.getElementById("balance").innerText = "₹" + balance.toFixed(2);
-  localStorage.setItem("xdevil_balance", balance.toFixed(2));
+  document.getElementById("balance").innerText="₹"+balance.toFixed(2);
+  localStorage.setItem("xdevil_balance",balance.toFixed(2));
 }
 function anim(){
   let a=document.getElementById("anim");
@@ -209,15 +146,22 @@ function anim(){
   setTimeout(()=>a.style.display="none",1200);
 }
 
-// ===== AUTO ADS EVERY 20s =====
+// ===== MONETAG AUTO =====
 setInterval(()=>{
   try{
     show_10511608();
-    balance += 0.05;
+    balance+=0.05;
     updateBalance();
     anim();
   }catch(e){}
 },20000);
+
+// ===== EZMOB INTERSTITIAL DELAY =====
+setTimeout(()=>{
+  try{
+    if(window.intstl){ intstl('show'); }
+  }catch(e){}
+},15000);
 
 // ===== NAV =====
 function showTab(id){
@@ -225,11 +169,6 @@ function showTab(id){
   document.getElementById(id).classList.add("active");
   document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
   event.target.classList.add("active");
-}
-
-// ===== WITHDRAW =====
-function withdraw(){
-  alert("Withdrawal request submitted.\nAdmin email par details jayengi.");
 }
 </script>
 
