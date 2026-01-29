@@ -1,44 +1,60 @@
-/* ================================
-   INSTALL & EARN (MAIN EARNING)
-   ================================ */
+/* ===============================
+   MONETAG – FULL AD HANDLER
+   =============================== */
 
-function showInstallOffer() {
-  if (typeof show_10511608 === "undefined") {
-    alert("Ads loading... thoda wait karo");
-    return;
+// safety check
+if (typeof show_10511608 !== "function") {
+  console.error("Monetag SDK not loaded");
+}
+
+/* ---------- 1️⃣ BANNER AD (AUTO) ---------- */
+window.addEventListener("load", () => {
+  try {
+    show_10511608({
+      type: "banner",
+      container: "monetag-banner"
+    });
+  } catch (e) {
+    console.log("Banner error", e);
   }
+});
 
+
+/* ---------- 2️⃣ INSTALL & EARN (BUTTON) ---------- */
+function installOffer() {
   show_10511608('pop')
     .then(() => {
-      alert(
-        "Offer opened!\n\n" +
-        "Steps:\n" +
-        "1️⃣ App install karo\n" +
-        "2️⃣ Open karo\n" +
-        "3️⃣ Sign-up complete karo\n\n" +
-        "Reward Monetag verify ke baad milega"
-      );
+      alert("Install + Open + Sign-up complete karo. Reward verification Monetag karega.");
+      // ❌ yahan reward mat do
+      // ✅ reward sirf postback se aayega
     })
     .catch(() => {
-      alert("Ad open nahi hua, dubara try karo");
+      alert("Offer abhi available nahi hai");
     });
 }
 
-/* ================================
-   EXTRA ADS (OPTIONAL – AUTO)
-   ================================ */
 
-function showInAppAd() {
-  if (typeof show_10511608 === "undefined") return;
-
-  show_10511608({
-    type: 'inApp',
-    inAppSettings: {
-      frequency: 2,
-      capping: 0.1,
-      interval: 30,
-      timeout: 5,
-      everyPage: false
-    }
-  });
+/* ---------- 3️⃣ REWARDED INTERSTITIAL (AUTO) ---------- */
+function autoRewardedAd() {
+  show_10511608()
+    .then(() => {
+      console.log("Rewarded ad shown (no instant reward)");
+    })
+    .catch(() => {});
 }
+
+// har 10 minute me max 1 rewarded
+setInterval(autoRewardedAd, 10 * 60 * 1000);
+
+
+/* ---------- 4️⃣ IN-APP INTERSTITIAL (AUTO BACKGROUND) ---------- */
+show_10511608({
+  type: "inApp",
+  inAppSettings: {
+    frequency: 2,
+    capping: 0.2,     // 12 min
+    interval: 30,
+    timeout: 5,
+    everyPage: false
+  }
+});
