@@ -28,3 +28,11 @@ function loadPage(page) {
 document.addEventListener("DOMContentLoaded", () => {
   loadPage("home");
 });
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    if (typeof showInAppAd === "function") {
+      showInAppAd();
+    }
+  }, 30000); // 30 sec baad
+});
