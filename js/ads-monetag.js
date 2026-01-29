@@ -1,34 +1,36 @@
-function watchAd(){
-  // Monetag rewarded callback aane par
-  completeOffer(25)
-}
+/* ================================
+   INSTALL & EARN (MAIN EARNING)
+   ================================ */
 
-function installAd(){
-  completeOffer(25)
-}
-// INSTALL & EARN (Rewarded Popup)
 function showInstallOffer() {
+  if (typeof show_10511608 === "undefined") {
+    alert("Ads loading... thoda wait karo");
+    return;
+  }
+
   show_10511608('pop')
     .then(() => {
-      alert('Offer opened! Install & complete to earn.');
-      // yahan future me reward logic aayega
+      alert(
+        "Offer opened!\n\n" +
+        "Steps:\n" +
+        "1️⃣ App install karo\n" +
+        "2️⃣ Open karo\n" +
+        "3️⃣ Sign-up complete karo\n\n" +
+        "Reward Monetag verify ke baad milega"
+      );
     })
     .catch(() => {
-      console.log('Monetag popup failed');
+      alert("Ad open nahi hua, dubara try karo");
     });
 }
 
-// UNLOCK REWARD (Rewarded Interstitial)
-function showRewardedAd() {
-  show_10511608()
-    .then(() => {
-      alert('Ad watched! Reward unlocked.');
-      // yahan coins / unlock ka code aayega
-    });
-}
+/* ================================
+   EXTRA ADS (OPTIONAL – AUTO)
+   ================================ */
 
-// IN-APP INTERSTITIAL (LIMITED AUTO)
 function showInAppAd() {
+  if (typeof show_10511608 === "undefined") return;
+
   show_10511608({
     type: 'inApp',
     inAppSettings: {
