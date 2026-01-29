@@ -1,38 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>XDEVIL EARNING</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>XDEVIL EARNING</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Telegram WebApp -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<link rel="stylesheet" href="css/style.css">
-
-<script src="config/app.config.js"></script>
-<script src="config/ads.config.js"></script>
-
-<script src="js/state.js"></script>
-<script src="js/telegram.js"></script>
-<script src="js/app.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<header>XDEVIL EARNING</header>
+  <!-- HEADER -->
+  <header class="header">
+    <h2>XDEVIL EARNING</h2>
+  </header>
 
-<div id="content"></div>
+  <!-- MAIN CONTENT -->
+  <main id="app">
+    <!-- Pages yaha load honge -->
+  </main>
 
-<nav>
-  <button onclick="loadPage('home')">Home</button>
-  <button onclick="loadPage('earning')">Earning</button>
-  <button onclick="loadPage('profile')">Profile</button>
-  <button onclick="loadPage('withdraw')">Withdraw</button>
-</nav>
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button onclick="loadPage('home')">🏠 Home</button>
+    <button onclick="loadPage('earning')">💰 Earning</button>
+    <button onclick="loadPage('profile')">👤 Profile</button>
+    <button onclick="loadPage('withdraw')">🏦 Withdraw</button>
+  </nav>
 
-<script>
-loadPage('home')
-</script>
+  <!-- JS -->
+  <script src="js/app.js"></script>
 
 </body>
 </html>
