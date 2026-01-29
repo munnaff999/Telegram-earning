@@ -1,20 +1,11 @@
-
-<div class="card">
-  <h3>Wallet Balance</h3>
-  <div class="balance">₹<span id="balance">0.00</span></div>
-  <p class="note">Balance updates after offer completion</p>
-</div>
-
-<script src="js/balance.js"></script>
 <div class="page">
-  <h3>Welcome 👋</h3>
-  <p>Earn money by watching ads</p>
+  <h2>Wallet Balance</h2>
+  <h1>₹<span id="balance">0</span></h1>
+  <p>Balance updates after offer completion</p>
+
+  <button onclick="loadPage('earning')">📲 Install & Earn</button>
 </div>
 
-<button onclick="showInstallOffer()">
-  📲 Install & Earn
-</button>
-
-<button onclick="showRewardedAd()">
-  🔓 Watch Ad & Earn
-</button>
+<script>
+  updateBalanceUI();
+</script>
