@@ -13,7 +13,6 @@ function loadPage(page) {
     })
     .then(data => {
       document.getElementById("app").innerHTML = data;
-    })
     .catch(error => {
       document.getElementById("app").innerHTML = `
         <div style="padding:20px;color:red;">
