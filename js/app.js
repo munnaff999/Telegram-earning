@@ -36,3 +36,12 @@ window.addEventListener("load", () => {
     }
   }, 30000); // 30 sec baad
 });
+
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "../config/app.config.js";
+
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+window.supabaseClient = supabase;
