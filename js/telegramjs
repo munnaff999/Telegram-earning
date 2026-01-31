@@ -1,5 +1,0 @@
-const tg = window.Telegram?.WebApp;
-
-if (!tg) {
-  console.warn("Telegram WebApp not detected");
-}
