@@ -1,25 +1,36 @@
-// Telegram WebApp Init
-const tg = window.Telegram.WebApp;
-tg.expand();
+// MUST be on top
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "../config/app.config.js";
 
-// Page loader function
+// Supabase init
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+window.supabaseClient = supabase;
+
+// Telegram WebApp init (safe)
+const tg = window.Telegram?.WebApp;
+if (tg) {
+  tg.expand();
+}
+
+// Page loader
 function loadPage(page) {
   fetch(`pages/${page}.html`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Page not found");
-      }
-      return response.text();
+    .then(res => {
+      if (!res.ok) throw new Error("Page not found");
+      return res.text();
     })
-    .then(data => {
-      document.getElementById("app").innerHTML = data;
-    .catch(error => {
+    .then(html => {
+      document.getElementById("app").innerHTML = html;
+    })
+    .catch(err => {
       document.getElementById("app").innerHTML = `
         <div style="padding:20px;color:red;">
           Page load error ❌
         </div>
       `;
-      console.error(error);
+      console.error(err);
     });
 }
 
@@ -28,19 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
   loadPage("home");
 });
 
+// Ad trigger
 window.addEventListener("load", () => {
   setTimeout(() => {
     if (typeof showInAppAd === "function") {
       showInAppAd();
     }
-  }, 30000); // 30 sec baad
+  }, 30000);
 });
-
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from "../config/app.config.js";
-
-const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-
-window.supabaseClient = supabase;
