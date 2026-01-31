@@ -1,0 +1,17 @@
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+<button onclick="signup()">Signup</button>
+
+<script type="module">
+import { signIn, signUp } from "../js/core/auth.js";
+
+window.login = () => {
+  signIn(email.value, password.value);
+};
+
+window.signup = () => {
+  signUp(email.value, password.value);
+};
+</script>
