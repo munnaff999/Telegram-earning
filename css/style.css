@@ -1,8 +1,0 @@
-body{margin:0;font-family:Arial;background:#f2f5ff}
-header{background:#0a5cff;color:#fff;padding:14px;text-align:center}
-nav{position:fixed;bottom:0;width:100%;display:flex;background:#fff}
-nav button{flex:1;padding:12px;border:none;background:none}
-.card{background:#fff;margin:15px;padding:15px;border-radius:12px}
-.balance{font-size:32px;color:#0a5cff}
-.note{font-size:13px;color:#666}
-button{background:#0a5cff;color:#fff;border:none;padding:10px;border-radius:8px}
