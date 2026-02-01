@@ -14,3 +14,17 @@ function login() {
 
   window.location.href = "index.html";
 }
+function loginTelegram() {
+  // Dummy Telegram user (abhi)
+  const telegramUser = {
+    id: "tg_" + Date.now(),
+    name: "Telegram User",
+    balance: 0,
+    joined: new Date().toISOString()
+  };
+
+  localStorage.setItem("user", JSON.stringify(telegramUser));
+  localStorage.setItem("balance", 0);
+
+  window.location.href = "pages/home.html";
+}
