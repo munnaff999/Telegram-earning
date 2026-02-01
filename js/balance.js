@@ -1,12 +1,13 @@
 async function loadBalance() {
+  const telegram_id = localStorage.getItem("telegram_id");
+
   const { data } = await supabase
     .from("users")
     .select("balance")
-    .eq("id", USER_ID)
+    .eq("telegram_id", telegram_id)
     .single();
 
-  document.getElementById("balance").innerText =
-    data?.balance || 0;
+  document.getElementById("balance").innerText = data.balance;
 }
 
 loadBalance();
