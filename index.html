@@ -36,9 +36,12 @@
     </nav>
 
   </div>
-<script src="js/session.js"></script>
-
+<script src="../js/session.js"></script>
+<script src="../js/balance.js"></script>
 <script>
+  requireLogin();
+  loadBalance();
+</script>
   // Agar login hai to home, warna login
   checkSessionAndRedirect();
 </script>
