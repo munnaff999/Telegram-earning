@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Earn</title>
+  <title>Offers</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h2>Earn Money</h2>
+<div class="header">Install & Earn</div>
 
-<button onclick="earn()">Watch Ad (+₹2)</button>
+<div class="container">
+  <div class="offer">
+    <div class="offer-left">
+      <h4>Install App</h4>
+      <p>1 Install = 1 Coin</p>
+    </div>
+    <button class="btn btn-primary" onclick="completeOffer()">Install</button>
+  </div>
+</div>
 
-<a href="index.html">⬅ Back</a>
+<div class="nav">
+  <a href="index.html">Home</a>
+  <a class="active">Offers</a>
+  <a href="withdraw.html">Withdraw</a>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="js/init.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/offers.js"></script>
 </body>
 </html>
