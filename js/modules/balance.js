@@ -19,3 +19,9 @@ export async function initBalance() {
 
   balanceEl.innerText = data.balance;
 }
+export function init() {
+  document.getElementById('watch-ad')
+    ?.addEventListener('click', () => {
+      alert('Ad watched (demo)');
+    });
+}
