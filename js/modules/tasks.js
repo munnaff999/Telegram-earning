@@ -10,3 +10,9 @@ export function init() {
     });
   });
 }
+export async function loadTasks() {
+  document.getElementById("tasks-list").innerHTML = `
+    <div class="task">Install App – ₹5</div>
+    <div class="task">Watch Ad – ₹1</div>
+  `;
+}
