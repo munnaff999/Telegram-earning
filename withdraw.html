@@ -6,13 +6,19 @@
 </head>
 <body>
 
-<h2>Withdraw</h2>
+<div class="header">Withdraw</div>
 
-<input id="amount" placeholder="Amount ₹">
-<button onclick="withdraw()">Request</button>
+<div class="container card">
+  <input class="input" id="amount" placeholder="Amount (Min 100)">
+  <input class="input" id="bank" placeholder="Bank Name">
+  <input class="input" id="account" placeholder="Account Number">
+  <input class="input" id="ifsc" placeholder="IFSC Code">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <button class="btn btn-primary" onclick="withdraw()">Submit</button>
+</div>
+
 <script src="js/init.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/withdraw.js"></script>
 </body>
 </html>
