@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Bonus</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="content">
+  <h2>Daily Bonus</h2>
+  <button class="btn" onclick="daily()">Claim ₹10</button>
+</div>
+
+<script>
+function daily() {
+  if (localStorage.getItem("daily_claimed")) {
+    alert("Already claimed today");
+    return;
+  }
+  let bal = parseInt(localStorage.getItem("balance") || "0");
+  bal += 10;
+  localStorage.setItem("balance", bal);
+  localStorage.setItem("daily_claimed", "1");
+  alert("₹10 added");
+}
+</script>
+
+</body>
+</html>
