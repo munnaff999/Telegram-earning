@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>XDEVIL EARN</title>
+  <title>Home</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h2>Welcome 👋</h2>
-<h3>Balance: ₹<span id="balance">0</span></h3>
+<div class="header">Simple Earn</div>
 
-<a href="offers.html">💰 Earn</a><br><br>
-<a href="withdraw.html">🏦 Withdraw</a>
+<div class="container">
+  <div class="card balance-box">
+    <div class="balance-title">Your Balance</div>
+    <div class="balance-amount" id="balance">0</div>
+  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <a href="offers.html" class="btn btn-primary">Earn Coins</a>
+  <a href="withdraw.html" class="btn btn-secondary">Withdraw</a>
+</div>
+
+<div class="nav">
+  <a class="active">Home</a>
+  <a href="offers.html">Offers</a>
+  <a href="withdraw.html">Withdraw</a>
+</div>
+
 <script src="js/init.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/balance.js"></script>
 </body>
 </html>
