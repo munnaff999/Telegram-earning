@@ -9,3 +9,5 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+<button data-page="tasks">📝 Tasks</button>
+<button data-page="offers">🔥 Offers</button>
