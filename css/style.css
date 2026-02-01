@@ -1,0 +1,245 @@
+/* ===============================
+   SIMPLE EARN APP – PREMIUM UI
+   Author: You
+   =============================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #0f172a;
+  --card: #111827;
+  --primary: #22c55e;
+  --secondary: #38bdf8;
+  --danger: #ef4444;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --border: #1f2933;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: linear-gradient(180deg, #020617, #0f172a);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ===============================
+   HEADER
+   =============================== */
+.header {
+  padding: 18px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  background: rgba(15, 23, 42, 0.9);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* ===============================
+   CONTAINER
+   =============================== */
+.container {
+  padding: 16px;
+  max-width: 420px;
+  margin: auto;
+}
+
+/* ===============================
+   CARD
+   =============================== */
+.card {
+  background: linear-gradient(145deg, #0b1220, #111827);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   BALANCE BOX
+   =============================== */
+.balance-box {
+  text-align: center;
+}
+
+.balance-title {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.balance-amount {
+  font-size: 36px;
+  font-weight: 800;
+  margin-top: 6px;
+  color: var(--primary);
+}
+
+/* ===============================
+   BUTTONS
+   =============================== */
+.btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #022c22;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #022c22;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+}
+
+/* ===============================
+   OFFER ITEM
+   =============================== */
+.offer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  border-radius: 14px;
+  background: #0b1220;
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.offer-left h4 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.offer-left p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.offer-right span {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* ===============================
+   INPUT
+   =============================== */
+.input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border-radius: 12px;
+  background: #020617;
+  border: 1px solid var(--border);
+  color: var(--text);
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--secondary);
+}
+
+/* ===============================
+   NAV BAR
+   =============================== */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(2,6,23,0.95);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 12px;
+  text-align: center;
+}
+
+.nav a.active {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ===============================
+   STATUS TAG
+   =============================== */
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 11px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.tag-success {
+  background: rgba(34,197,94,0.15);
+  color: var(--primary);
+}
+
+.tag-pending {
+  background: rgba(251,191,36,0.15);
+  color: #facc15;
+}
+
+/* ===============================
+   FOOTER SPACE
+   =============================== */
+.spacer {
+  height: 70px;
+}
+
+/* ===============================
+   ANIMATION
+   =============================== */
+.fade-in {
+  animation: fade 0.4s ease-in;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
