@@ -1,9 +1,7 @@
-import { initRouter } from "./router.js";
-import { initTelegram } from "./telegram.js";
+import { loadPage } from './router.js';
 
-document.addEventListener("DOMContentLoaded", () => {
-  initTelegram();
-  initRouter();
+document.addEventListener('DOMContentLoaded', () => {
+  loadPage('home');
 });
 
 import { loadUserBalance } from '../modules/balance.js';
