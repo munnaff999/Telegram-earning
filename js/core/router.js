@@ -11,3 +11,8 @@ export async function loadPage(page) {
     console.log(`No JS for ${page}`);
   }
 }
+{
+  path: "/tasks",
+  page: "/pages/tasks.html",
+  auth: true
+}
