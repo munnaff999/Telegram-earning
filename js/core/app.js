@@ -5,3 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initTelegram();
   initRouter();
 });
+
+import { loadUserBalance } from '../modules/balance.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadUserBalance();
+});
