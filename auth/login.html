@@ -8,262 +8,208 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+    body{
+      min-height:100vh;
+      background:linear-gradient(135deg,#312e81,#7c3aed);
+      display:flex;
+      justify-content:center;
+      align-items:center;
     }
 
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #312e81, #7c3aed);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      animation: fade 0.8s ease;
+    .card{
+      width:100%;
+      max-width:360px;
+      background:#fff;
+      border-radius:18px;
+      padding:26px;
+      box-shadow:0 25px 45px rgba(0,0,0,.25);
     }
 
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:18px;
     }
 
-    .card {
-      width: 100%;
-      max-width: 360px;
-      background: #fff;
-      border-radius: 18px;
-      padding: 26px;
-      box-shadow: 0 25px 45px rgba(0,0,0,0.25);
+    .top h2{font-size:22px;font-weight:600}
+
+    .lang select{
+      background:#f3f4f6;
+      border:none;
+      padding:6px 10px;
+      border-radius:8px;
+      font-size:12px;
     }
 
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
+    .group{margin-bottom:14px}
+
+    .group label{font-size:12px;color:#444}
+
+    .group input{
+      width:100%;
+      margin-top:4px;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      outline:none;
     }
 
-    .top h2 {
-      font-size: 22px;
-      font-weight: 600;
+    .group input:focus{border-color:#6366f1}
+
+    .options{
+      display:flex;
+      justify-content:space-between;
+      font-size:12px;
+      margin-bottom:14px;
     }
 
-    .lang select {
-      background: #f3f4f6;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 12px;
+    .btn{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:14px;
+      background:#6366f1;
+      color:#fff;
+      font-size:15px;
+      cursor:pointer;
     }
 
-    .group {
-      margin-bottom: 14px;
+    .btn.loading{pointer-events:none;opacity:.8}
+
+    .spinner{
+      width:18px;height:18px;
+      border:3px solid #fff;
+      border-top:3px solid transparent;
+      border-radius:50%;
+      animation:spin .8s linear infinite;
+      display:inline-block;
+      margin-right:6px;
     }
 
-    .group label {
-      font-size: 12px;
-      color: #444;
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .error{
+      color:red;
+      font-size:12px;
+      text-align:center;
+      margin-top:10px;
+      display:none;
     }
 
-    .group input {
-      width: 100%;
-      margin-top: 4px;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      outline: none;
-      transition: 0.3s;
+    .footer{
+      margin-top:16px;
+      text-align:center;
+      font-size:12px;
     }
 
-    .group input:focus {
-      border-color: #6366f1;
-    }
-
-    .options {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      margin-bottom: 14px;
-    }
-
-    .options a {
-      color: #6366f1;
-      text-decoration: none;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 14px;
-      background: #6366f1;
-      color: #fff;
-      font-size: 15px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #4f46e5;
-      transform: translateY(-1px);
-    }
-
-    .btn.loading {
-      pointer-events: none;
-      opacity: 0.8;
-    }
-
-    .spinner {
-      width: 18px;
-      height: 18px;
-      border: 3px solid #fff;
-      border-top: 3px solid transparent;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 6px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .error {
-      margin-top: 10px;
-      font-size: 12px;
-      color: red;
-      text-align: center;
-      display: none;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 12px;
-    }
-
-    .footer a {
-      color: #6366f1;
-      text-decoration: none;
-      font-weight: 500;
+    .footer a{
+      color:#6366f1;
+      text-decoration:none;
+      font-weight:500;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
+<div class="card">
 
-    <div class="top">
-      <h2 id="title">Login</h2>
-      <div class="lang">
-        <select id="language" onchange="changeLanguage()">
-          <option value="en">EN</option>
-          <option value="hi">HI</option>
-        </select>
-      </div>
+  <div class="top">
+    <h2 id="title">Login</h2>
+    <div class="lang">
+      <select id="language" onchange="changeLanguage()">
+        <option value="en">EN</option>
+        <option value="hi">HI</option>
+      </select>
     </div>
-
-    <form id="loginForm">
-      <div class="group">
-        <label id="emailLabel">Email</label>
-        <input type="email" id="email" required>
-      </div>
-
-      <div class="group">
-        <label id="passwordLabel">Password</label>
-        <input type="password" id="password" required>
-      </div>
-
-      <div class="options">
-        <label>
-          <input type="checkbox" id="remember"> Remember me
-        </label>
-        <a href="#" id="forgot">Forgot?</a>
-      </div>
-
-      <button class="btn" id="loginBtn">
-        <span id="btnText">Login</span>
-      </button>
-
-      <div class="error" id="errorBox">Invalid email or password</div>
-    </form>
-
-    <div class="footer">
-      Don’t have an account?
-      <a href="signup.html">Sign Up</a>
-    </div>
-
   </div>
 
-  <script>
-    const text = {
-      en: {
-        title: "Login",
-        email: "Email",
-        password: "Password",
-        login: "Login",
-        error: "Invalid email or password"
-      },
-      hi: {
-        title: "लॉगिन",
-        email: "ईमेल",
-        password: "पासवर्ड",
-        login: "लॉगिन",
-        error: "गलत ईमेल या पासवर्ड"
-      }
-    };
+  <form id="loginForm">
 
-    function changeLanguage() {
-      const l = language.value;
-      title.innerText = text[l].title;
-      emailLabel.innerText = text[l].email;
-      passwordLabel.innerText = text[l].password;
-      btnText.innerText = text[l].login;
-      errorBox.innerText = text[l].error;
-    }
+    <div class="group">
+      <label id="emailLabel">Email</label>
+      <input type="email" id="email" required>
+    </div>
 
-    
-loginForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    <div class="group">
+      <label id="passwordLabel">Password</label>
+      <input type="password" id="password" required>
+    </div>
 
-  errorBox.style.display = "none";
+    <button class="btn" id="loginBtn">
+      <span id="btnText">Login</span>
+    </button>
 
-  loginBtn.classList.add("loading");
-  btnText.innerHTML = `<span class="spinner"></span>Logging in...`;
+    <div class="error" id="errorBox"></div>
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  </form>
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
+  <div class="footer">
+    Don’t have an account?
+    <a href="signup.html">Sign Up</a>
+  </div>
 
-  loginBtn.classList.remove("loading");
-  btnText.innerText = "Login";
+</div>
 
-  if (error) {
-    errorBox.innerText = error.message;
-    errorBox.style.display = "block";
-    return;
-  }
-
-  // ✅ SUCCESS
-  window.location.href = "dashboard.html";
-});
-</script>
-  
+<!-- ✅ SUPABASE FIRST -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./Auth/supabase.js"></script>
+
+<!-- ✅ LOGIN LOGIC -->
 <script>
-  // login code yahin
+  const text = {
+    en:{
+      title:"Login",
+      email:"Email",
+      password:"Password",
+      btn:"Login"
+    },
+    hi:{
+      title:"लॉगिन",
+      email:"ईमेल",
+      password:"पासवर्ड",
+      btn:"लॉगिन"
+    }
+  };
+
+  function changeLanguage(){
+    const l = language.value;
+    title.innerText = text[l].title;
+    emailLabel.innerText = text[l].email;
+    passwordLabel.innerText = text[l].password;
+    btnText.innerText = text[l].btn;
+  }
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    errorBox.style.display = "none";
+    loginBtn.classList.add("loading");
+    btnText.innerHTML = `<span class="spinner"></span>Logging in...`;
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    loginBtn.classList.remove("loading");
+    btnText.innerText = "Login";
+
+    if (error) {
+      errorBox.innerText = error.message;
+      errorBox.style.display = "block";
+      return;
+    }
+
+    // ✅ SUCCESS
+    window.location.href = "dashboard.html";
+  });
 </script>
-  
+
 </body>
 </html>
