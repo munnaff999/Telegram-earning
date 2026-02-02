@@ -1,31 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Offers</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Earn Coins</title>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Telegram SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 </head>
 <body>
 
-<div class="header">Install & Earn</div>
+<h2>Install Offers</h2>
 
-<div class="container">
-  <div class="offer">
-    <div class="offer-left">
-      <h4>Install App</h4>
-      <p>1 Install = 1 Coin</p>
-    </div>
-    <button class="btn btn-primary" onclick="completeOffer()">Install</button>
-  </div>
-</div>
+<button onclick="completeOffer(101)">
+  Install App → Earn 1 Coin
+</button>
 
-<div class="nav">
-  <a href="index.html">Home</a>
-  <a class="active">Offers</a>
-  <a href="withdraw.html">Withdraw</a>
-</div>
+<!-- 🔽 YAHAN PASTE KARO -->
+<script>
+/* SUPABASE INIT (already hona chahiye) */
+const supabase = window.supabase.createClient(
+  "https://YOUR_PROJECT_ID.supabase.co",
+  "YOUR_PUBLIC_ANON_KEY"
+);
 
-<script src="js/init.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/offers.js"></script>
+async function completeOffer(offer_id) {
+  const telegram_id = localStorage.getItem("telegram_id");
+
+  if (!telegram_id) {
+    alert("Telegram login required");
+    return;
+  }
+
+  window.open("https://otieu.com/4/10508140", "_blank");
+
+  const { data: alreadyDone } = await supabase
+    .from("offer_completions")
+    .select("id")
+    .eq("telegram_id", telegram_id)
+    .eq("offer_id", offer_id)
+    .maybeSingle();
+
+  if (alreadyDone) {
+    alert("❌ Offer already completed");
+    return;
+  }
+
+  const { data: user } = await supabase
+    .from("users")
+    .select("id, balance")
+    .eq("telegram_id", telegram_id)
+    .single();
+
+  if (!user) {
+    alert("User not found");
+    return;
+  }
+
+  await supabase.from("offer_completions").insert({
+    user_id: user.id,
+    telegram_id,
+    offer_id,
+    reward: 1,
+    status: "approved"
+  });
+
+  await supabase
+    .from("users")
+    .update({ balance: user.balance + 1 })
+    .eq("id", user.id);
+
+  await supabase.from("balance_logs").insert({
+    user_id: user.id,
+    telegram_id,
+    amount: 1,
+    type: "credit",
+    reason: "offer_install"
+  });
+
+  alert("✅ 1 Coin Added Successfully");
+}
+</script>
+<!-- 🔼 YAHAN TAK -->
+
 </body>
 </html>
