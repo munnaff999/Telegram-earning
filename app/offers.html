@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Offers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    body {
+      margin: 0;
+      background: #0f1220;
+      color: #fff;
+      font-family: system-ui, sans-serif;
+    }
+
+    .container {
+      padding: 16px;
+      padding-bottom: 90px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tab {
+      padding: 8px 14px;
+      border-radius: 20px;
+      background: #1b1f3b;
+      font-size: 13px;
+      cursor: pointer;
+      opacity: .7;
+    }
+
+    .tab.active {
+      background: #6a5cff;
+      opacity: 1;
+    }
+
+    .search {
+      margin-bottom: 12px;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      background: #1b1f3b;
+      color: #fff;
+    }
+
+    .offer {
+      background: #1b1f3b;
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      animation: fadeUp .4s ease;
+    }
+
+    .offer img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #333;
+    }
+
+    .offer-content {
+      flex: 1;
+    }
+
+    .offer-title {
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .offer-reward {
+      margin-top: 4px;
+      font-size: 14px;
+      color: #6a5cff;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-left: 6px;
+      background: #ff9800;
+      color: #000;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 11px;
+    }
+
+    .cta {
+      margin-top: 8px;
+      background: #6a5cff;
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .featured {
+      border: 2px solid #ff9800;
+    }
+
+    .empty {
+      text-align: center;
+      opacity: .7;
+      margin-top: 40px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      background: #1b1f3b;
+      border-radius: 30px;
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+    }
+
+    .bottom-nav a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .bottom-nav a.active {
+      color: #6a5cff;
+      font-weight: bold;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="search">
+    <input type="text" id="search" placeholder="Search offers...">
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-type="all">All</div>
+    <div class="tab" data-type="install">Install</div>
+    <div class="tab" data-type="survey">Survey</div>
+  </div>
+
+  <div id="offers"></div>
+  <div class="empty" id="empty" style="display:none;">
+    No offers available right now.
+  </div>
+
+</div>
+
+<div class="bottom-nav">
+  <a href="home.html">Home</a>
+  <a href="offers.html" class="active">Offers</a>
+  <a href="profile.html">Profile</a>
+</div>
+
+<script>
+  let offersData = [];
+  let clickLock = false;
+
+  async function initOffers() {
+    await protectPage();
+
+    // TEMP: sample offers (API / Supabase later)
+    offersData = [
+      {
+        id: 1,
+        title: "Install & Earn",
+        reward: 25,
+        bonus: true,
+        type: "install",
+        featured: true,
+        url: "https://example.com"
+      },
+      {
+        id: 2,
+        title: "Quick Survey",
+        reward: 15,
+        bonus: false,
+        type: "survey",
+        featured: false,
+        url: "https://example.com"
+      }
+    ];
+
+    renderOffers(offersData);
+  }
+
+  function renderOffers(data) {
+    const wrap = document.getElementById("offers");
+    wrap.innerHTML = "";
+
+    if (!data.length) {
+      document.getElementById("empty").style.display = "block";
+      return;
+    }
+
+    document.getElementById("empty").style.display = "none";
+
+    data.forEach(o => {
+      const div = document.createElement("div");
+      div.className = "offer" + (o.featured ? " featured" : "");
+
+      div.innerHTML = `
+        <img src="https://via.placeholder.com/48">
+        <div class="offer-content">
+          <div class="offer-title">${o.title}</div>
+          <div class="offer-reward">
+            ₹${o.reward}
+            ${o.bonus ? '<span class="badge">BONUS</span>' : ''}
+            ${o.featured ? '<span class="badge">HIGH</span>' : ''}
+          </div>
+          <div class="cta">Start</div>
+        </div>
+      `;
+
+      div.querySelector(".cta").onclick = () => startOffer(o);
+      wrap.appendChild(div);
+    });
+  }
+
+  function startOffer(offer) {
+    if (clickLock) return alert("Please wait...");
+    clickLock = true;
+
+    window.open(offer.url, "_blank");
+
+    setTimeout(() => {
+      clickLock = false;
+    }, 5000); // click cooldown
+  }
+
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      const type = tab.dataset.type;
+      if (type === "all") renderOffers(offersData);
+      else renderOffers(offersData.filter(o => o.type === type));
+    };
+  });
+
+  document.getElementById("search").oninput = e => {
+    const v = e.target.value.toLowerCase();
+    renderOffers(offersData.filter(o => o.title.toLowerCase().includes(v)));
+  };
+
+  initOffers();
+</script>
+
+</body>
+</html>
