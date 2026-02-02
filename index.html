@@ -3,31 +3,111 @@
   Install App → Earn 1 Coin
 </button>
 
+<!-- Telegram SDK -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-/* 🔹 SUPABASE INIT */
+/* ================================
+   🔹 SUPABASE INIT (REAL)
+================================ */
 const supabase = window.supabase.createClient(
-  "https://YOUR_PROJECT_ID.supabase.co",
-  "YOUR_PUBLIC_ANON_KEY"
+  "https://sqgmfbjllqdbzyfozufy.supabase.co",
+  "PASTE_YOUR_PUBLIC_ANON_KEY_HERE"
 );
 
-/* 🔹 TELEGRAM LOGIN (PERMANENT) */
+/* ================================
+   🔹 TELEGRAM LOGIN (PERMANENT)
+================================ */
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-const tgUser = tg.initDataUnsafe.user;
+const tgUser = tg.initDataUnsafe?.user;
 
-if (tgUser) {
-  localStorage.setItem("telegram_id", tgUser.id);
-  localStorage.setItem("username", tgUser.username || "");
+async function initUser() {
+  if (!tgUser) {
+    alert("❌ Please open from Telegram");
+    return;
+  }
 
-  // create user if not exists
-  supabase.from("users").upsert({
-    telegram_id: tgUser.id,
-    username: tgUser.username || "",
-    balance: 0
+  const telegram_id = tgUser.id;
+  const username = tgUser.username || "";
+
+  // Save locally (permanent)
+  localStorage.setItem("telegram_id", telegram_id);
+  localStorage.setItem("username", username);
+
+  /* 🔹 Create user ONLY if not exists */
+  const { data: existingUser } = await supabase
+    .from("users")
+    .select("id")
+    .eq("telegram_id", telegram_id)
+    .maybeSingle();
+
+  if (!existingUser) {
+    await supabase.from("users").insert({
+      telegram_id: telegram_id,
+      username: username,
+      balance: 0
+    });
+  }
+}
+
+initUser();
+
+/* ================================
+   🔹 COMPLETE OFFER (1 COIN)
+================================ */
+async function completeOffer(offer_id) {
+  const telegram_id = localStorage.getItem("telegram_id");
+  if (!telegram_id) {
+    alert("Telegram login required");
+    return;
+  }
+
+  // 🔗 Redirect to offer
+  window.open("https://otieu.com/4/10508140", "_blank");
+
+  /* 🔹 Check duplicate */
+  const { data: alreadyDone } = await supabase
+    .from("offer_completions")
+    .select("id")
+    .eq("telegram_id", telegram_id)
+    .eq("offer_id", offer_id)
+    .maybeSingle();
+
+  if (alreadyDone) {
+    alert("❌ Offer already completed");
+    return;
+  }
+
+  /* 🔹 Get user */
+  const { data: user } = await supabase
+    .from("users")
+    .select("id, balance")
+    .eq("telegram_id", telegram_id)
+    .single();
+
+  if (!user) {
+    alert("User not found");
+    return;
+  }
+
+  /* 🔹 Save completion */
+  await supabase.from("offer_completions").insert({
+    telegram_id: telegram_id,
+    offer_id: offer_id,
+    reward: 1
   });
+
+  /* 🔹 Update balance */
+  await supabase
+    .from("users")
+    .update({ balance: user.balance + 1 })
+    .eq("id", user.id);
+
+  alert("✅ 1 Coin Added Successfully");
 }
 </script>
