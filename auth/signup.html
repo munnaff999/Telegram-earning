@@ -271,7 +271,7 @@
   signupForm.addEventListener("submit",e=>{
     e.preventDefault();
 
-    if(password.value!==confirm.value){
+    if (password.value !== confirmPassword.value) {
       errorBox.innerText="Passwords do not match";
       errorBox.style.display="block";
       return;
