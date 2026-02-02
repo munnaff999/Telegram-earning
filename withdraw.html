@@ -1,24 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Withdraw</title>
+  <title>Withdraw Money</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      background: #0f172a;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .header {
+      background: linear-gradient(135deg,#4f46e5,#9333ea);
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    .card {
+      background: #111827;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin-bottom: 15px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: none;
+      background: #020617;
+      color: white;
+      font-size: 14px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg,#22c55e,#16a34a);
+      color: black;
+    }
+
+    .balance-box {
+      background: #020617;
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      border: 1px solid #1e293b;
+    }
+
+    .note {
+      font-size: 12px;
+      opacity: 0.7;
+      text-align: center;
+      margin-top: 5px;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="header">Withdraw</div>
+<div class="header">💸 Withdraw Money</div>
 
-<div class="container card">
-  <input class="input" id="amount" placeholder="Amount (Min 100)">
-  <input class="input" id="bank" placeholder="Bank Name">
-  <input class="input" id="account" placeholder="Account Number">
-  <input class="input" id="ifsc" placeholder="IFSC Code">
+<div class="container">
 
-  <button class="btn btn-primary" onclick="withdraw()">Submit</button>
+  <!-- Balance Display -->
+  <div class="card balance-box">
+    Balance: <span id="balance">0</span> Coins  
+    <div class="note">Minimum Withdraw = 100 Coins</div>
+  </div>
+
+  <!-- Withdraw Form -->
+  <div class="card">
+    <input class="input" id="amount" placeholder="Withdraw Amount (Min 100)">
+    <input class="input" id="bank" placeholder="Bank Name">
+    <input class="input" id="account" placeholder="Account Number">
+    <input class="input" id="ifsc" placeholder="IFSC Code">
+
+    <button class="btn btn-primary" onclick="withdraw()">Submit Withdraw Request</button>
+  </div>
+
 </div>
 
+<!-- Scripts -->
 <script src="js/init.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/withdraw.js"></script>
+
+<script>
+/* Show Live Balance */
+async function loadBalance() {
+  const telegram_id = localStorage.getItem("telegram_id");
+
+  const { data } = await supabase
+    .from("users")
+    .select("balance")
+    .eq("telegram_id", telegram_id)
+    .single();
+
+  if (data) {
+    document.getElementById("balance").innerText = data.balance;
+  }
+}
+loadBalance();
+</script>
+
 </body>
 </html>
