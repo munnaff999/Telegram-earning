@@ -228,24 +228,36 @@
       errorBox.innerText = text[l].error;
     }
 
-    loginForm.addEventListener("submit", e => {
-      e.preventDefault();
+    loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-      loginBtn.classList.add("loading");
-      btnText.innerHTML = `<span class="spinner"></span>Logging in...`;
-      errorBox.style.display = "none";
+  errorBox.style.display = "none";
 
-      setTimeout(() => {
-        loginBtn.classList.remove("loading");
-        btnText.innerText = "Login";
-        errorBox.style.display = "block";
-      }, 1500);
-    });
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-    document.getElementById("forgot").onclick = () => {
-      alert("Password reset (Supabase) will be added soon.");
-    };
+  loginBtn.classList.add("loading");
+  btnText.innerHTML = `<span class="spinner"></span>Logging in...`;
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  loginBtn.classList.remove("loading");
+  btnText.innerText = "Login";
+
+  if (error) {
+    errorBox.innerText = error.message;
+    errorBox.style.display = "block";
+  } else {
+    window.location.href = "../dashboard.html"; // ya home page
+  }
+});
   </script>
-
+  
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./supabase.js"></script>
+  
 </body>
 </html>
