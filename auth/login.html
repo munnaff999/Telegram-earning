@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login – Earning App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #312e81, #7c3aed);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fade 0.8s ease;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      width: 100%;
+      max-width: 360px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 26px;
+      box-shadow: 0 25px 45px rgba(0,0,0,0.25);
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .top h2 {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .lang select {
+      background: #f3f4f6;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+
+    .group {
+      margin-bottom: 14px;
+    }
+
+    .group label {
+      font-size: 12px;
+      color: #444;
+    }
+
+    .group input {
+      width: 100%;
+      margin-top: 4px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .group input:focus {
+      border-color: #6366f1;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .options a {
+      color: #6366f1;
+      text-decoration: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 14px;
+      background: #6366f1;
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #4f46e5;
+      transform: translateY(-1px);
+    }
+
+    .btn.loading {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 3px solid #fff;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .error {
+      margin-top: 10px;
+      font-size: 12px;
+      color: red;
+      text-align: center;
+      display: none;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 12px;
+    }
+
+    .footer a {
+      color: #6366f1;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <div class="top">
+      <h2 id="title">Login</h2>
+      <div class="lang">
+        <select id="language" onchange="changeLanguage()">
+          <option value="en">EN</option>
+          <option value="hi">HI</option>
+        </select>
+      </div>
+    </div>
+
+    <form id="loginForm">
+      <div class="group">
+        <label id="emailLabel">Email</label>
+        <input type="email" id="email" required>
+      </div>
+
+      <div class="group">
+        <label id="passwordLabel">Password</label>
+        <input type="password" id="password" required>
+      </div>
+
+      <div class="options">
+        <label>
+          <input type="checkbox" id="remember"> Remember me
+        </label>
+        <a href="#" id="forgot">Forgot?</a>
+      </div>
+
+      <button class="btn" id="loginBtn">
+        <span id="btnText">Login</span>
+      </button>
+
+      <div class="error" id="errorBox">Invalid email or password</div>
+    </form>
+
+    <div class="footer">
+      Don’t have an account?
+      <a href="signup.html">Sign Up</a>
+    </div>
+
+  </div>
+
+  <script>
+    const text = {
+      en: {
+        title: "Login",
+        email: "Email",
+        password: "Password",
+        login: "Login",
+        error: "Invalid email or password"
+      },
+      hi: {
+        title: "लॉगिन",
+        email: "ईमेल",
+        password: "पासवर्ड",
+        login: "लॉगिन",
+        error: "गलत ईमेल या पासवर्ड"
+      }
+    };
+
+    function changeLanguage() {
+      const l = language.value;
+      title.innerText = text[l].title;
+      emailLabel.innerText = text[l].email;
+      passwordLabel.innerText = text[l].password;
+      btnText.innerText = text[l].login;
+      errorBox.innerText = text[l].error;
+    }
+
+    loginForm.addEventListener("submit", e => {
+      e.preventDefault();
+
+      loginBtn.classList.add("loading");
+      btnText.innerHTML = `<span class="spinner"></span>Logging in...`;
+      errorBox.style.display = "none";
+
+      setTimeout(() => {
+        loginBtn.classList.remove("loading");
+        btnText.innerText = "Login";
+        errorBox.style.display = "block";
+      }, 1500);
+    });
+
+    document.getElementById("forgot").onclick = () => {
+      alert("Password reset (Supabase) will be added soon.");
+    };
+  </script>
+
+</body>
+</html>
