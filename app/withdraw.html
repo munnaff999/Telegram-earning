@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Withdraw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    body{margin:0;background:#0f1220;color:#fff;font-family:system-ui}
+    .container{padding:16px;padding-bottom:90px}
+    .card{background:#1b1f3b;border-radius:18px;padding:16px;margin-bottom:12px}
+    .title{font-weight:700;margin-bottom:8px}
+    .input{width:100%;padding:12px;border-radius:12px;border:none;background:#0f1220;color:#fff}
+    .row{display:flex;gap:8px}
+    .btn{background:#6a5cff;border-radius:14px;padding:12px;text-align:center;font-weight:700;cursor:pointer}
+    .muted{opacity:.7;font-size:13px}
+    .err{color:#ff6b6b;font-size:13px;margin-top:6px}
+    .methods button{flex:1;background:#2a2f5a;border:none;color:#fff;padding:10px;border-radius:12px}
+    .methods .active{background:#6a5cff}
+    .badge{padding:4px 8px;border-radius:999px;font-size:11px}
+    .pending{background:#ff980022;color:#ff9800}
+    .approved{background:#00e67622;color:#00e676}
+    .rejected{background:#ff525222;color:#ff5252}
+    .timeline .item{margin-top:8px}
+    .success{display:none;text-align:center;animation:pop .4s ease}
+    .success h2{color:#00e676}
+    @keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+    .cool{background:#ff980022;border:1px dashed #ff9800;border-radius:14px;padding:10px}
+    .bottom-nav{position:fixed;bottom:12px;left:12px;right:12px;background:#1b1f3b;border-radius:30px;display:flex;justify-content:space-around;padding:12px 0}
+    .bottom-nav a{color:#aaa;text-decoration:none}
+    .bottom-nav a.active{color:#6a5cff;font-weight:700}
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="card">
+    <div class="title">Withdraw Amount</div>
+    <input id="amount" class="input" type="number" placeholder="Enter amount (₹)">
+    <div class="muted">Min ₹100 • Fee 18%</div>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Withdraw Method</div>
+    <div class="row methods">
+      <button class="active" data-m="upi">UPI</button>
+      <button data-m="paytm">Paytm</button>
+      <button data-m="bank">Bank</button>
+    </div>
+    <input id="account" class="input" placeholder="Enter details (saved allowed)">
+  </div>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <div>
+        <div class="muted">You’ll receive</div>
+        <div id="net" style="font-size:22px;font-weight:700">₹0</div>
+        <div class="muted">Processing: 24–48 hrs</div>
+      </div>
+      <div class="btn" id="submit">Submit</div>
+    </div>
+  </div>
+
+  <div class="card cool">
+    ⚠️ Fraud attempts may lead to warning or ban.
+  </div>
+
+  <div class="card">
+    <div class="title">Withdraw History</div>
+    <div class="timeline" id="history"></div>
+  </div>
+
+  <div class="card success" id="success">
+    <h2>🎉 Request Submitted</h2>
+    <div class="muted">Your withdraw is pending approval</div>
+  </div>
+
+</div>
+
+<div class="bottom-nav">
+  <a href="home.html">Home</a>
+  <a href="offers.html">Offers</a>
+  <a href="profile.html">Profile</a>
+</div>
+
+<script>
+  let method='upi', balance=0;
+
+  document.querySelectorAll('.methods button').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('.methods button').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active'); method=b.dataset.m;
+    }
+  });
+
+  function calcNet(){
+    const a=+amount.value||0;
+    net.innerText='₹'+Math.max(0,Math.floor(a*0.82));
+  }
+  amount.oninput=calcNet;
+
+  async function init(){
+    await protectPage();
+    const p=await getProfile();
+    balance=p.balance||0;
+
+    // demo history (replace with DB)
+    history.innerHTML=`
+      <div class="item">₹200 <span class="badge pending">Pending</span></div>
+      <div class="item">₹500 <span class="badge approved">Approved</span></div>
+    `;
+  }
+
+  submit.onclick=()=>{
+    err.innerText='';
+    const a=+amount.value||0;
+    if(a<100) return err.innerText='Minimum withdraw is ₹100';
+    if(a>balance) return err.innerText='Insufficient balance';
+    if(!account.value) return err.innerText='Enter account details';
+
+    if(!confirm('Confirm withdraw request?')) return;
+
+    // submit to DB later
+    document.getElementById('success').style.display='block';
+  }
+
+  init();
+</script>
+</body>
+</html>
