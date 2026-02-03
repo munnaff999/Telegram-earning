@@ -25,6 +25,12 @@
       border-radius:18px;
       padding:26px;
       box-shadow:0 25px 45px rgba(0,0,0,.25);
+      animation:fade .6s ease;
+    }
+
+    @keyframes fade{
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:none}
     }
 
     .top{
@@ -36,16 +42,7 @@
 
     .top h2{font-size:22px;font-weight:600}
 
-    .lang select{
-      background:#f3f4f6;
-      border:none;
-      padding:6px 10px;
-      border-radius:8px;
-      font-size:12px;
-    }
-
     .group{margin-bottom:14px}
-
     .group label{font-size:12px;color:#444}
 
     .group input{
@@ -59,13 +56,6 @@
 
     .group input:focus{border-color:#6366f1}
 
-    .options{
-      display:flex;
-      justify-content:space-between;
-      font-size:12px;
-      margin-bottom:14px;
-    }
-
     .btn{
       width:100%;
       padding:12px;
@@ -75,9 +65,11 @@
       color:#fff;
       font-size:15px;
       cursor:pointer;
+      transition:.3s;
     }
 
-    .btn.loading{pointer-events:none;opacity:.8}
+    .btn:hover{background:#4f46e5}
+    .btn.loading{pointer-events:none;opacity:.85}
 
     .spinner{
       width:18px;height:18px;
@@ -86,13 +78,14 @@
       border-radius:50%;
       animation:spin .8s linear infinite;
       display:inline-block;
+      vertical-align:middle;
       margin-right:6px;
     }
 
     @keyframes spin{to{transform:rotate(360deg)}}
 
     .error{
-      color:red;
+      color:#dc2626;
       font-size:12px;
       text-align:center;
       margin-top:10px;
@@ -117,24 +110,18 @@
 <div class="card">
 
   <div class="top">
-    <h2 id="title">Login</h2>
-    <div class="lang">
-      <select id="language" onchange="changeLanguage()">
-        <option value="en">EN</option>
-        <option value="hi">HI</option>
-      </select>
-    </div>
+    <h2>Login</h2>
   </div>
 
   <form id="loginForm">
 
     <div class="group">
-      <label id="emailLabel">Email</label>
+      <label>Email</label>
       <input type="email" id="email" required>
     </div>
 
     <div class="group">
-      <label id="passwordLabel">Password</label>
+      <label>Password</label>
       <input type="password" id="password" required>
     </div>
 
@@ -148,39 +135,25 @@
 
   <div class="footer">
     Don’t have an account?
-    <a href="signup.html">Sign Up</a>
+    <a href="../auth/signup.html">Sign Up</a>
   </div>
 
 </div>
 
-<!-- ✅ SUPABASE FIRST -->
+<!-- ✅ SUPABASE CDN (ONCE) -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./auth/supabase.js"></script>
+
+<!-- ✅ CORRECT PATH -->
+<script src="../js/supabase.js"></script>
 
 <!-- ✅ LOGIN LOGIC -->
 <script>
-  const text = {
-    en:{
-      title:"Login",
-      email:"Email",
-      password:"Password",
-      btn:"Login"
-    },
-    hi:{
-      title:"लॉगिन",
-      email:"ईमेल",
-      password:"पासवर्ड",
-      btn:"लॉगिन"
-    }
-  };
+  console.log("Supabase loaded:", supabase);
 
-  function changeLanguage(){
-    const l = language.value;
-    title.innerText = text[l].title;
-    emailLabel.innerText = text[l].email;
-    passwordLabel.innerText = text[l].password;
-    btnText.innerText = text[l].btn;
-  }
+  const loginForm = document.getElementById("loginForm");
+  const loginBtn = document.getElementById("loginBtn");
+  const btnText = document.getElementById("btnText");
+  const errorBox = document.getElementById("errorBox");
 
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -189,10 +162,10 @@
     loginBtn.classList.add("loading");
     btnText.innerHTML = `<span class="spinner"></span>Logging in...`;
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password
     });
@@ -207,38 +180,9 @@
     }
 
     // ✅ SUCCESS
-    window.location.href = "dashboard.html";
+    window.location.href = "../index.html";
   });
 </script>
-<!-- 1️⃣ Supabase CDN -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- 2️⃣ Correct path to supabase.js -->
-<script src="../js/supabase.js"></script>
-
-<!-- 3️⃣ Login JS -->
-<script>
-  console.log("Supabase:", supabase);
-
-  const loginForm = document.getElementById("loginForm");
-
-  loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-
-    if (error) {
-      alert(error.message);
-    } else {
-      window.location.href = "../index.html";
-    }
-  });
-</script>
 </body>
 </html>
