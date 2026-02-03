@@ -210,15 +210,35 @@
     window.location.href = "dashboard.html";
   });
 </script>
-<!-- 1️⃣ Supabase CDN FIRST -->
+<!-- 1️⃣ Supabase CDN -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- 2️⃣ Your supabase config -->
-<script src="./supabase.js"></script>
+<!-- 2️⃣ Correct path to supabase.js -->
+<script src="../js/supabase.js"></script>
 
-<!-- 3️⃣ Login logic -->
+<!-- 3️⃣ Login JS -->
 <script>
-  // login code here
+  console.log("Supabase:", supabase);
+
+  const loginForm = document.getElementById("loginForm");
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      window.location.href = "../index.html";
+    }
+  });
 </script>
 </body>
 </html>
