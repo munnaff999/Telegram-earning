@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Withdraw | XDEVILEARNING</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="withdraw-page">
+
+<header class="top-bar">
+  <h2>Withdraw</h2>
+</header>
+
+<section class="withdraw-box">
+  <p>Available Balance: ₹<span id="balance">0</span></p>
+
+  <select id="method">
+    <option value="upi">UPI</option>
+    <option value="bank">Bank</option>
+  </select>
+
+  <input type="text" id="details" placeholder="Enter UPI ID or Bank Details">
+  <input type="number" id="amount" placeholder="Enter amount (min ₹50)">
+
+  <button onclick="requestWithdraw()">Request Withdraw</button>
+</section>
+
+<section class="history">
+  <h3>Withdraw History</h3>
+  <div id="historyList"></div>
+</section>
+
+<nav class="bottom-nav">
+  <a href="home.html">🏠</a>
+  <a href="offers.html">🎯</a>
+  <a class="active">💸</a>
+  <a href="profile.html">👤</a>
+</nav>
+
+<script src="../js/supabase.js"></script>
+<script src="../js/withdraw.js"></script>
+</body>
+</html>
