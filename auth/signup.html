@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account • XDEVILEARNING</title>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;font-family:Poppins}
+body{
+  margin:0;min-height:100vh;
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  display:flex;align-items:center;justify-content:center;color:#fff
+}
+.card{
+  width:100%;max-width:440px;
+  background:rgba(255,255,255,0.14);
+  backdrop-filter:blur(20px);
+  border-radius:22px;
+  padding:32px;
+  animation:hero 1s ease;
+}
+@keyframes hero{
+  0%{opacity:0;transform:scale(.9) rotateX(20deg)}
+  100%{opacity:1;transform:none}
+}
+h1{text-align:center;margin-bottom:6px}
+p{text-align:center;font-size:14px;opacity:.9;margin-bottom:24px}
+
+input{
+  width:100%;padding:14px;border-radius:14px;
+  border:none;font-size:15px;margin-bottom:14px
+}
+
+label{font-size:13px;display:flex;gap:8px;align-items:flex-start;margin-bottom:16px}
+label input{width:auto;margin-top:4px}
+
+button{
+  width:100%;padding:14px;border-radius:14px;
+  border:none;font-size:16px;font-weight:600;
+  cursor:pointer;transition:.3s
+}
+.primary{background:#00ffcc;color:#000}
+.google{margin-top:12px;background:#fff;color:#000}
+
+button:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.25)}
+
+.links{text-align:center;margin-top:18px;font-size:13px}
+.links a{color:#fff;font-weight:600;text-decoration:none}
+
+/* loader */
+.loader{
+  position:fixed;inset:0;background:#000;
+  display:none;align-items:center;justify-content:center;
+  z-index:999;font-size:18px
+}
+
+/* toast */
+.toast{
+  position:fixed;bottom:30px;left:50%;
+  transform:translateX(-50%) scale(.9);
+  background:#000;padding:14px 22px;
+  border-radius:30px;opacity:0;
+  transition:.4s
+}
+.toast.show{opacity:1;transform:translateX(-50%) scale(1)}
+.toast.error{animation:shake .4s}
+@keyframes shake{
+  0%,100%{transform:translateX(-50%)}
+  25%{transform:translateX(-45%)}
+  75%{transform:translateX(-55%)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="loader" id="loader">Creating account…</div>
+<div class="toast" id="toast"></div>
+
+<div class="card">
+  <h1>Create Account</h1>
+  <p>Join XDEVILEARNING & start earning</p>
+
+  <input type="email" id="email" placeholder="Enter your email">
+
+  <label>
+    <input type="checkbox" id="terms">
+    <span>I agree to the Terms & Privacy Policy</span>
+  </label>
+
+  <button class="primary" onclick="signup()">Create account</button>
+  <button class="google" onclick="googleSignup()">Continue with Google</button>
+
+  <div class="links">
+    Already have an account? <a href="login.html">Login</a>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL="https://sqgmfbjllqdbzyfozufy.supabase.co";
+const SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNxZ21mYmpsbHFkYnp5Zm96dWZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkxMzc4MDgsImV4cCI6MjA4NDcxMzgwOH0.mLzb9BozHyXEG5un9zEfIHIOUhDf0x9iJq6xVh1lIQY";
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const loader=document.getElementById("loader");
+const toast=document.getElementById("toast");
+
+function showToast(msg,err=false){
+  toast.textContent=msg;
+  toast.className="toast show"+(err?" error":"");
+  setTimeout(()=>toast.className="toast",3000);
+}
+
+async function signup(){
+  const email=document.getElementById("email").value;
+  const terms=document.getElementById("terms").checked;
+  if(!email||!terms) return showToast("Complete all fields",true);
+
+  loader.style.display="flex";
+  const { error } = await sb.auth.signInWithOtp({ email });
+  loader.style.display="none";
+
+  error
+    ? showToast(error.message,true)
+    : showToast("You’re ready to earn ₹1/task");
+}
+
+async function googleSignup(){
+  await sb.auth.signInWithOAuth({
+    provider:"google",
+    options:{ redirectTo: window.location.origin }
+  });
+}
+
+sb.auth.getSession().then(({data})=>{
+  if(data.session){
+    location.href="../app/welcome.html";
+  }
+});
+</script>
+
+</body>
+</html>
