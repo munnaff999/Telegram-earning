@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile Setup | XDEVILEARNING</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="profile-page">
+
+  <div class="profile-container">
+    <h2 class="fade-in">Complete Your Profile</h2>
+
+    <div class="avatar-section">
+      <img id="avatarPreview" src="../images/avatar1.png" />
+      <div class="avatar-list">
+        <img src="../images/avatar1.png" onclick="selectAvatar(this.src)">
+        <img src="../images/avatar2.png" onclick="selectAvatar(this.src)">
+        <img src="../images/avatar3.png" onclick="selectAvatar(this.src)">
+      </div>
+    </div>
+
+    <input type="text" id="name" placeholder="Full Name" />
+    <input type="text" id="username" placeholder="Username" />
+    <textarea id="bio" placeholder="Tell us about yourself"></textarea>
+    <input type="text" id="referral" placeholder="Referral Code (optional)" />
+
+    <button onclick="saveProfile()">Save & Continue</button>
+  </div>
+
+  <script src="../js/supabase.js"></script>
+  <script src="../js/profile.js"></script>
+</body>
+</html>
