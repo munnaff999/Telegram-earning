@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome • XDEVILEARNING</title>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;font-family:Poppins}
+
+:root{
+  --bg1:#141e30;
+  --bg2:#243b55;
+  --accent:#00ffcc;
+}
+
+@media (prefers-contrast: more){
+  :root{--bg1:#000;--bg2:#111;--accent:#00ffff}
+}
+
+body{
+  margin:0;min-height:100vh;
+  background:radial-gradient(circle at top,var(--bg2),var(--bg1));
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;overflow:hidden
+}
+
+.hero{
+  text-align:center;
+  animation:fadeUp 1s ease;
+  position:relative;
+}
+
+.logo{
+  font-size:34px;
+  font-weight:700;
+  letter-spacing:1px;
+  margin-bottom:10px;
+}
+
+.msg{
+  font-size:16px;
+  opacity:.9;
+  margin-bottom:28px;
+}
+
+.loader{
+  width:64px;height:64px;
+  border-radius:50%;
+  border:4px solid rgba(255,255,255,.2);
+  border-top:4px solid var(--accent);
+  animation:spin 1s linear infinite;
+  margin:0 auto 20px;
+}
+
+.skip{
+  opacity:0;
+  font-size:13px;
+  cursor:pointer;
+  transition:.3s;
+}
+.skip.show{opacity:.8}
+.skip:hover{opacity:1}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:none}
+}
+
+/* particles */
+.particle{
+  position:absolute;
+  width:6px;height:6px;
+  background:var(--accent);
+  border-radius:50%;
+  opacity:.5;
+  animation:float 6s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(0)}
+  to{transform:translateY(-120vh)}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important}
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+  <div class="logo">XDEVILEARNING</div>
+  <div class="msg">Earn ₹1 per install — let’s begin</div>
+  <div class="loader"></div>
+  <div class="skip" id="skip">Skip</div>
+</div>
+
+<audio id="clickSound" preload="auto">
+  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=" type="audio/wav">
+</audio>
+
+<script>
+const SUPABASE_URL="https://sqgmfbjllqdbzyfozufy.supabase.co";
+const SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInNxZ21mYmpsbHFkYnp5Zm96dWZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkxMzc4MDgsImV4cCI6MjA4NDcxMzgwOH0.mLzb9BozHyXEG5un9zEfIHIOUhDf0x9iJq6xVh1lIQY";
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+// first-time only
+if(localStorage.getItem("welcome_seen")){
+  location.href="profile.html";
+}
+
+const skip=document.getElementById("skip");
+const sound=document.getElementById("clickSound");
+
+setTimeout(()=>skip.classList.add("show"),1000);
+
+skip.onclick=()=>{
+  sound.play().catch(()=>{});
+  proceed();
+};
+
+function proceed(){
+  localStorage.setItem("welcome_seen","1");
+  location.href="profile.html";
+}
+
+// auto redirect max 3s
+setTimeout(proceed,3000);
+
+// particles
+for(let i=0;i<18;i++){
+  const p=document.createElement("div");
+  p.className="particle";
+  p.style.left=Math.random()*100+"vw";
+  p.style.bottom="-10px";
+  p.style.animationDuration=4+Math.random()*4+"s";
+  document.body.appendChild(p);
+}
+</script>
+
+</body>
+</html>
