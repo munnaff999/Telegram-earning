@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XDEVILEARNING – Install & Earn</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(18px);
+      border-radius: 20px;
+      padding: 30px 25px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      animation: pop 1.2s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .tagline {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 25px;
+    }
+
+    .balance-box {
+      background: rgba(0,0,0,0.25);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 25px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    .balance-title {
+      font-size: 13px;
+      opacity: 0.85;
+    }
+
+    .balance-amount {
+      font-size: 34px;
+      font-weight: 700;
+      margin-top: 5px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-login {
+      background: #00ffcc;
+      color: #000;
+      margin-bottom: 12px;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    }
+
+    .btn-signup {
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+    }
+
+    .btn-signup:hover {
+      background: #fff;
+      color: #000;
+      transform: translateY(-2px);
+    }
+
+    .footer-text {
+      margin-top: 18px;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">XDEVILEARNING</div>
+    <div class="tagline">Install apps & complete tasks to earn ₹1 per offer</div>
+
+    <div class="balance-box">
+      <div class="balance-title">Your Balance</div>
+      <div class="balance-amount">₹0.00</div>
+    </div>
+
+    <button class="btn btn-login" onclick="goLogin()">Login</button>
+    <button class="btn btn-signup" onclick="goSignup()">Create Account</button>
+
+    <div class="footer-text">
+      Real tasks • Real tracking • No fake promises
+    </div>
+  </div>
+
+  <script>
+    // Redirect logic
+    function goLogin() {
+      window.location.href = "auth/login.html";
+    }
+
+    function goSignup() {
+      window.location.href = "auth/signup.html";
+    }
+
+    // Future: Supabase session check
+    // If user already logged in → redirect to home
+    /*
+    if (userLoggedIn) {
+      window.location.href = "app/home.html";
+    }
+    */
+  </script>
+
+</body>
+</html>
