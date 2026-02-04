@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin | XDEVILEARNING</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="admin-page">
+
+<header class="top-bar">
+  <h2>Admin Dashboard</h2>
+</header>
+
+<section class="admin-stats">
+  <div class="stat">Pending: <b id="pendingCount">0</b></div>
+  <div class="stat">Total Paid: ₹<b id="totalPaid">0</b></div>
+</section>
+
+<section class="admin-list" id="withdrawList"></section>
+
+<script src="../js/supabase.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>
