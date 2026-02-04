@@ -1,0 +1,337 @@
+.profile-page {
+  background: linear-gradient(135deg, #1e1e2f, #2b2b45);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-container {
+  background: #111;
+  padding: 25px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 380px;
+  color: #fff;
+  animation: slideUp 0.6s ease;
+}
+
+.profile-container input,
+.profile-container textarea {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+}
+
+.profile-container button {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  background: #00ffcc;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.avatar-section {
+  text-align: center;
+}
+
+.avatar-list img {
+  width: 50px;
+  margin: 6px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.home-page {
+  background: #0e0e1a;
+  color: #fff;
+  padding-bottom: 70px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.balance-card {
+  margin: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #00ffcc, #0077ff);
+  border-radius: 18px;
+  color: #000;
+  animation: fadeUp 0.6s ease;
+}
+
+.balance-card h2 {
+  font-size: 32px;
+}
+
+.earn-section {
+  padding: 16px;
+}
+
+.task-card {
+  background: #16162a;
+  padding: 14px;
+  border-radius: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.task-card.locked {
+  opacity: 0.4;
+}
+
+.task-card button {
+  background: #00ffcc;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #111;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+}
+
+.bottom-nav a {
+  color: #aaa;
+  font-size: 20px;
+}
+
+.bottom-nav .active {
+  color: #00ffcc;
+}
+
+.skeleton {
+  background: #222;
+  color: transparent;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: .4 }
+  50% { opacity: .8 }
+  100% { opacity: .4 }
+}
+
+.toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #00ffcc;
+  color: #000;
+  padding: 10px 16px;
+  border-radius: 20px;
+  animation: fadeUp .4s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.badge {
+  background: red;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+}
+
+.hidden {
+  display: none;
+}
+.offers-page {
+  background: #0e0e1a;
+  color: #fff;
+  padding-bottom: 70px;
+}
+
+.offers-list {
+  padding: 16px;
+}
+
+.offer-card {
+  background: #16162a;
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: fadeUp .4s ease;
+}
+
+.offer-card button {
+  background: #00ffcc;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.offer-card button:disabled {
+  opacity: .4;
+}
+.withdraw-box {
+  padding: 16px;
+}
+
+.withdraw-box input,
+.withdraw-box select {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+}
+
+.withdraw-box button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  background: #00ffcc;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.history {
+  padding: 16px;
+}
+
+.history-item {
+  background: #16162a;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+.admin-page { background:#0e0e1a; color:#fff; padding:16px; }
+.admin-stats { display:flex; gap:10px; }
+.stat { background:#16162a; padding:12px; border-radius:12px; }
+.admin-card {
+  background:#16162a; padding:14px; border-radius:14px;
+  margin-top:10px; display:flex; justify-content:space-between;
+}
+.actions button { margin-left:6px; padding:6px 10px; }
+.actions .danger { background:#ff4d4d; }
+.notify-page { background:#0e0e1a; color:#fff; padding-bottom:70px; }
+
+.notify-list { padding:16px; }
+
+.notify-item {
+  background:#16162a;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  animation: slideBounce .4s ease;
+}
+
+.notify-item.unread { border-left:4px solid #00ffcc; }
+
+.icon { font-size:18px; }
+
+.clear-btn {
+  background:#ff4d4d;
+  border:none;
+  color:#fff;
+  padding:6px 10px;
+  border-radius:8px;
+}
+
+.empty { opacity:.6; text-align:center; margin-top:40px; }
+
+@keyframes slideBounce {
+  from { transform:translateY(10px); opacity:0; }
+  to { transform:translateY(0); opacity:1; }
+}
+#languageSelector {
+  padding:6px 10px;
+  border-radius:8px;
+  border:none;
+  margin-right:12px;
+  background:#1e1e2f;
+  color:#fff;
+}
+
+#themeToggleBtn {
+  padding:6px 12px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  background:#00ffcc;
+  font-weight:bold;
+}
+
+/* Dark theme */
+body.dark-theme {
+  background:#0e0e1a;
+  color:#fff;
+}
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(50px);
+  background: #00ffcc;
+  color:#000;
+  padding:10px 20px;
+  border-radius:12px;
+  opacity:0;
+  transition: all 0.5s ease;
+  z-index:9999;
+  font-weight:bold;
+}
+
+.toast.show {
+  opacity:1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast-success { background:#00ffcc; color:#000; }
+.toast-error { background:#ff4d4d; color:#fff; }
+.toast-info { background:#00bfff; color:#fff; }
+.skeleton-wrapper {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin:12px 0;
+}
+
+.skeleton-card {
+  width:100%;
+  max-width:300px;
+  height:120px;
+  background: linear-gradient(90deg,#1e1e2f 25%, #2b2b45 50%, #1e1e2f 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius:12px;
+}
+
+@keyframes shimmer {
+  0% {background-position:-200% 0;}
+  100% {background-position:200% 0;}
+}
