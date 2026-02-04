@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>XDEVILEARNING | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="home-page">
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <h1>XDEVILEARNING</h1>
+<div class="bell" onclick="location.href='notifications.html'">
+  🔔
+  <span id="notifCount" class="badge hidden">0</span>
+</div>
+  </header>
+
+  <!-- Balance Card -->
+  <section class="balance-card skeleton" id="balanceCard">
+    <p>Total Balance</p>
+    <h2>₹<span id="balance">0</span></h2>
+    <small>Today: ₹<span id="today">0</span></small>
+  </section>
+
+  <!-- Earn Section -->
+  <section class="earn-section">
+    <h3>Earn ₹1 Per Install</h3>
+
+    <div class="task-card">
+      <div>
+        <h4>Install App A</h4>
+        <p>Install & Signup</p>
+      </div>
+      <button onclick="completeTask(1)">₹1</button>
+    </div>
+
+    <div class="task-card locked">
+      <div>
+        <h4>Install App B</h4>
+        <p>Locked</p>
+      </div>
+      <button disabled>₹1</button>
+    </div>
+  </section>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a class="active">🏠</a>
+    <a href="offers.html">🎯</a>
+    <a href="withdraw.html">💸</a>
+    <a href="profile.html">👤</a>
+  </nav>
+
+  <script src="../js/supabase.js"></script>
+  <script src="../js/home.js"></script>
+</body>
+</html>
